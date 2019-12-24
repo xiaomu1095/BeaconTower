@@ -2,6 +2,7 @@ package com.wjf.beacontower;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -32,7 +33,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_confirm_base_info:
                 String contactInfo = et_contact_info.getText().toString();
                 if (!TextUtils.isEmpty(contactInfo)) {
+                    Intent intent = new Intent();
+                    intent.setClass(this, InfoCollectionActivity.class);
                     Toast.makeText(this, contactInfo, Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
                 } else {
                     Toast.makeText(this, "empty!", Toast.LENGTH_SHORT).show();
                 }
