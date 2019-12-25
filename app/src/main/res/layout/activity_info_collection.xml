@@ -7,13 +7,141 @@
     android:fitsSystemWindows="true"
     tools:context=".InfoCollectionActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_vertical_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.35" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="供电所名称"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_first"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="虹口供电所"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_first"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="40dp" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="线路名称"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_second"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_first" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="鲁迅公园线路"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_second"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_first" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="80dp" />
+
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="线路专责"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_3"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_second" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="楼某"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_second" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="120dp" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="联系方式"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_4"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_3" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18819273619"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_3" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="160dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:title="信息登记"
-        app:popupTheme="@style/AppTheme.PopupOverlay" />
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:title="信息登记" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -22,7 +150,5 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
-
-    <include layout="@layout/content_info_collection" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
