@@ -1,10 +1,13 @@
 package com.wjf.beacontower;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,8 +16,13 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 
 public class InfoCollectionActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
+
+    private TextView tv_line_type_v, tv_tower_texture_v, tv_tower_use_v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +39,13 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        tv_line_type_v = findViewById(R.id.tv_line_type_v);
+        tv_line_type_v.setOnClickListener(this);
+        tv_tower_texture_v = findViewById(R.id.tv_tower_texture_v);
+        tv_tower_texture_v.setOnClickListener(this);
+        tv_tower_use_v = findViewById(R.id.tv_tower_use_v);
+        tv_tower_use_v.setOnClickListener(this);
     }
 
     @Override
@@ -72,7 +87,62 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
             case R.id.toolbar:
                 Toast.makeText(this, "back", Toast.LENGTH_SHORT).show();
                 break;
-
+            case R.id.tv_line_type_v:
+                selectLineTypeDialog();
+                break;
+            case R.id.tv_tower_texture_v:
+                selectTowerTextureDialog();
+                break;
+            case R.id.tv_tower_use_v:
+                selectTowerUseDialog();
+                break;
         }
+    }
+
+
+    private void selectLineTypeDialog() {
+        final String[] items = ConstantValues.ITEMS_LINE_TYPE;
+        new QMUIDialog.MenuDialogBuilder(this)
+                .addItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
+                        tv_line_type_v.setText(items[which]);
+                        dialog.dismiss();
+                    }
+                })
+                .create(mCurrentDialogStyle).show();
+    }
+
+    private void selectTowerTextureDialog() {
+        final String[] items = ConstantValues.ITEMS_TOWER_TEXTURE;
+        new QMUIDialog.MenuDialogBuilder(this)
+                .addItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
+                        tv_tower_texture_v.setText(items[which]);
+                        dialog.dismiss();
+                    }
+                })
+                .create(mCurrentDialogStyle).show();
+    }
+
+    private void selectTowerUseDialog() {
+        final String[] items = ConstantValues.ITEMS_TOWER_USE;
+        new QMUIDialog.MenuDialogBuilder(this)
+                .addItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
+                        tv_tower_use_v.setText(items[which]);
+                        dialog.dismiss();
+                    }
+                })
+                .create(mCurrentDialogStyle).show();
+    }
+
+    private Context getActivity() {
+        return this;
     }
 }

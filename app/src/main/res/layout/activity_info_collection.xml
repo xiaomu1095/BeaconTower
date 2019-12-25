@@ -131,6 +131,99 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_begin="160dp" />
+
+            <TextView
+                android:id="@+id/tv_line_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="线路类型"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_5"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_4" />
+
+            <TextView
+                android:id="@+id/tv_line_type_v"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="请选择线路类型"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_4" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="200dp" />
+
+            <TextView
+                android:id="@+id/tv_tower_texture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="杆塔材质"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_5"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_6" />
+
+            <TextView
+                android:id="@+id/tv_tower_texture_v"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="请选择杆塔材质"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_5" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="240dp" />
+
+            <TextView
+                android:id="@+id/tv_tower_use"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="杆塔用途"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_6"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_7" />
+
+            <TextView
+                android:id="@+id/tv_tower_use_v"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="请选择杆塔用途"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_6" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="280dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

@@ -13,4 +13,8 @@ public abstract class ConstantValues {
     public static final String MAP_KEY_LINE_NAME = "lineName";
     public static final String MAP_KEY_CONTACT = "contactInfo";
 
+    public static final String[] ITEMS_LINE_TYPE = new String[]{"干线", "支线"};
+    public static final String[] ITEMS_TOWER_TEXTURE = new String[]{"水泥杆", "钢杆"};
+    public static final String[] ITEMS_TOWER_USE = new String[]{"直线杆", "跨越杆", "耐张杆", "转角杆", "T接杆", "终端杆", "换位杆"};
+
 }
