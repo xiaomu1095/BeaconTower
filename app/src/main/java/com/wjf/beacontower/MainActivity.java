@@ -31,15 +31,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_confirm_base_info:
-                String contactInfo = et_contact_info.getText().toString();
-                if (!TextUtils.isEmpty(contactInfo)) {
-                    Intent intent = new Intent();
-                    intent.setClass(this, InfoCollectionActivity.class);
-                    Toast.makeText(this, contactInfo, Toast.LENGTH_SHORT).show();
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(this, "empty!", Toast.LENGTH_SHORT).show();
-                }
+                Intent intent = new Intent();
+                intent.setClass(this, InfoCollectionActivity.class);
+//                String contactInfo = et_contact_info.getText().toString();
+//                if (!TextUtils.isEmpty(contactInfo)) {
+//                    Toast.makeText(this, contactInfo, Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(this, "empty!", Toast.LENGTH_SHORT).show();
+//                }
+                startActivity(intent);
                 break;
             default:
                 return;
