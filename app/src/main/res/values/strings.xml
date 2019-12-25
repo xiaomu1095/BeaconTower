@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BeaconTower</string>
+    <string name="app_name">杆塔设备登记</string>
     <string name="title_activity_info_collection">InfoCollectionActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
