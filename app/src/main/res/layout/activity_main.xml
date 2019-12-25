@@ -17,12 +17,11 @@
         android:id="@+id/tv_power_supply_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:text="供电所名称"
         android:textColor="#0B0B0B"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/gd_second"
-        app:layout_constraintEnd_toStartOf="@+id/et_power_supply_name"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gd_first" />
 
@@ -30,13 +29,13 @@
         android:id="@+id/et_power_supply_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="输入供电所"
         android:inputType="textPersonName"
         android:singleLine="true"
         app:layout_constraintBottom_toTopOf="@+id/gd_second"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/gd_first" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -50,12 +49,11 @@
         android:id="@+id/tv_power_line_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:text="线路名称"
         android:textColor="#0B0B0B"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/gd_third"
-        app:layout_constraintEnd_toStartOf="@+id/et_line_name"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gd_second" />
 
@@ -83,13 +81,11 @@
         android:id="@+id/tv_power_line_duty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:text="线路专责"
         android:textColor="#0B0B0B"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/gd_fourth"
-        app:layout_constraintEnd_toStartOf="@+id/et_line_duty"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gd_third" />
 
@@ -102,6 +98,7 @@
         android:inputType="textPersonName"
         android:singleLine="true"
         app:layout_constraintBottom_toTopOf="@+id/gd_fourth"
+        app:layout_constraintEnd_toEndOf="@+id/et_line_name"
         app:layout_constraintStart_toStartOf="@+id/et_line_name"
         app:layout_constraintTop_toTopOf="@+id/gd_third" />
 
@@ -116,13 +113,11 @@
         android:id="@+id/tv_contact_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:text="联系方式"
         android:textColor="#0B0B0B"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/gd_fifth"
-        app:layout_constraintEnd_toStartOf="@+id/et_contact_info"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gd_fourth" />
 
@@ -158,5 +153,12 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gd_fifth" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.35" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
