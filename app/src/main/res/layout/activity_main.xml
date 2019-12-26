@@ -65,6 +65,7 @@
         android:id="@+id/tv_transformer_name_v"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:ems="10"
         android:hint="请选择变电站"
         android:paddingStart="16dp"
         android:paddingTop="8dp"
@@ -72,9 +73,9 @@
         android:paddingBottom="8dp"
         android:singleLine="true"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_power_supply_name_v"
-        app:layout_constraintStart_toStartOf="@+id/tv_power_supply_name_v"
         app:layout_constraintBottom_toTopOf="@+id/m_gd_horizontal_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/gd_second" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -102,15 +103,15 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="输入线路名称"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
         android:singleLine="true"
         android:textSize="18sp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/gd_third"
-        app:layout_constraintEnd_toEndOf="@+id/tv_power_supply_name_v"
-        app:layout_constraintStart_toStartOf="@+id/tv_power_supply_name_v"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/m_gd_horizontal_3" />
 
     <androidx.constraintlayout.widget.Guideline
