@@ -1,7 +1,5 @@
 package com.wjf.beacontower;
 
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -15,8 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -37,16 +35,8 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_collection);
         initToolbar();
+        initFAB();
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tv_line_type_v = findViewById(R.id.tv_line_type_v);
         tv_line_type_v.setOnClickListener(this);
@@ -98,14 +88,28 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
             }
         });
         toolbar.setTitle("信息登记");
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    // 初始化FloatingActionButton
+    private void initFAB() {
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+            }
+        });
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.toolbar:
-                Toast.makeText(this, "back", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.tv_line_type_v:
                 selectLineTypeDialog();
                 break;
@@ -130,7 +134,7 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
         }
     }
 
-
+    // 线路类型
     private void selectLineTypeDialog() {
         final String[] items = ConstantValues.ITEMS_LINE_TYPE;
         new QMUIDialog.MenuDialogBuilder(this)
@@ -145,6 +149,7 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
                 .create(mCurrentDialogStyle).show();
     }
 
+    // 杆塔材质
     private void selectTowerTextureDialog() {
         final String[] items = ConstantValues.ITEMS_TOWER_TEXTURE;
         new QMUIDialog.MenuDialogBuilder(this)
@@ -159,6 +164,7 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
                 .create(mCurrentDialogStyle).show();
     }
 
+    // 杆塔用途
     private void selectTowerUseDialog() {
         final String[] items = ConstantValues.ITEMS_TOWER_USE;
         new QMUIDialog.MenuDialogBuilder(this)
