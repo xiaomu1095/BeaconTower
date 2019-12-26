@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +23,9 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
 
     private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
 
-    private TextView tv_line_type_v, tv_tower_texture_v, tv_tower_use_v;
+    private TextView tv_line_type_v, tv_tower_texture_v, tv_tower_use_v, tv_tower_location_v,
+            tv_tower_setup_v;
+    private EditText et_tower_height_v, et_wire_type_v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,13 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
         tv_tower_texture_v.setOnClickListener(this);
         tv_tower_use_v = findViewById(R.id.tv_tower_use_v);
         tv_tower_use_v.setOnClickListener(this);
+        tv_tower_location_v = findViewById(R.id.tv_tower_location_v);
+        tv_tower_location_v.setOnClickListener(this);
+        et_tower_height_v = findViewById(R.id.et_tower_height_v);
+        tv_tower_setup_v = findViewById(R.id.tv_tower_setup_v);
+        tv_tower_setup_v.setOnClickListener(this);
+        et_wire_type_v = findViewById(R.id.et_wire_type_v);
+
     }
 
     @Override
@@ -96,6 +106,12 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
             case R.id.tv_tower_use_v:
                 selectTowerUseDialog();
                 break;
+            case R.id.tv_tower_location_v:
+                Toast.makeText(this, "location", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_tower_setup_v:
+                selectTowerSetupDialog();
+                break;
         }
     }
 
@@ -136,6 +152,21 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
                         tv_tower_use_v.setText(items[which]);
+                        dialog.dismiss();
+                    }
+                })
+                .create(mCurrentDialogStyle).show();
+    }
+
+    // 同杆架设
+    private void selectTowerSetupDialog() {
+        final String[] items = ConstantValues.ITEMS_TOWER_SETUP;
+        new QMUIDialog.MenuDialogBuilder(this)
+                .addItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
+                        tv_tower_setup_v.setText(items[which]);
                         dialog.dismiss();
                     }
                 })

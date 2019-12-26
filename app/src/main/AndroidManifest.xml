@@ -27,6 +27,7 @@
             android:label="@string/title_activity_info_collection"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
             android:configChanges="keyboardHidden|orientation"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

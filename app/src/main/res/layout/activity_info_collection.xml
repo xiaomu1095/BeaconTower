@@ -224,6 +224,126 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_begin="280dp" />
+
+            <TextView
+                android:id="@+id/tv_tower_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="杆塔位置"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_7"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_8" />
+
+            <TextView
+                android:id="@+id/tv_tower_location_v"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="请定位杆塔位置"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_7" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="320dp" />
+
+            <TextView
+                android:id="@+id/tv_tower_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="杆塔高度(米)"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_8"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_9" />
+
+            <EditText
+                android:id="@+id/et_tower_height_v"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="请输入杆塔高度"
+                android:inputType="numberSigned"
+                android:singleLine="true"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_8" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="360dp" />
+
+            <TextView
+                android:id="@+id/tv_tower_setup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="同杆架设"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_9"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_10" />
+
+            <TextView
+                android:id="@+id/tv_tower_setup_v"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="请选择同杆架设"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_9" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="400dp" />
+
+            <TextView
+                android:id="@+id/tv_wire_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="导线型号"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_10"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_11" />
+
+            <EditText
+                android:id="@+id/et_wire_type_v"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="请输入导线型号"
+                android:inputType="text"
+                android:singleLine="true"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_11"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_10" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="440dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
