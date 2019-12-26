@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <power name="安峪供电所">
+        <transformer name="110kV安峪变电站">
+            <line name="10kV554三晋线"/>
+            <line name="10kV556下柏线"/>
+            <line name="10kV515磨里线"/>
+        </transformer>
+    </power>
+    <power name="大交供电所">
+        <transformer name="35kV三涧变电站">
+            <line name="10kV866大交线"/>
+            <line name="10kV803贺水线"/>
+            <line name="10kV809续鲁线"/>
+        </transformer>
+    </power>
+    <power name="古绛供电所">
+        <transformer name="110kV绛城关变电站">
+            <line name="10kV501南城线"/>
+            <line name="10kV505陈村线"/>
+            <line name="10kV506乔也线"/>
+            <line name="10kV537吴村线"/>
+        </transformer>
+        <transformer name="110kV中杨变电站">
+            <line name="10kV5412李堡线"/>
+            <line name="10kV5416赵堡线"/>
+        </transformer>
+        <transformer name="35kV勃村变电站">
+            <line name="10kV823西荆线"/>
+            <line name="10kV824西乔线"/>
+            <line name="10kV828步康线"/>
+            <line name="10kV829勃村线"/>
+        </transformer>
+        <transformer name="35kV横水变电站">
+            <line name="10kV854西赵线"/>
+            <line name="10kV854西赵线"/>
+        </transformer>
+    </power>
+    <power name="郝庄供电所">
+        <transformer name="35kV横水变电站">
+            <line name="10kV859郝庄线"/>
+        </transformer>
+        <transformer name="35kV东山底变电站">
+            <line name="10kV836永青线"/>
+            <line name="10kV838刘家线"/>
+        </transformer>
+    </power>
+    <power name="横水供电所">
+        <transformer name="35kV东山底变电站">
+            <line name="10kV801山底线"/>
+            <line name="10kV835柳泉线"/>
+            <line name="10kV837灌底线"/>
+            <line name="10kV839工业线"/>
+        </transformer>
+        <transformer name="35kV横水变电站">
+            <line name="10kV858横水线"/>
+            <line name="10kV802冷口线"/>
+            <line name="10kV855乔寺线"/>
+        </transformer>
+        <transformer name="35kV冷口变电站">
+            <line name="10kV884西峪线"/>
+            <line name="10kV886烟庄线"/>
+            <line name="10kV887宋中线"/>
+        </transformer>
+    </power>
+    <power name="南樊供电所">
+        <transformer name="110kV安峪变电站">
+            <line name="10kV513槐泉线"/>
+        </transformer>
+        <transformer name="35kV三涧变电站">
+            <line name="10kV863南柳线"/>
+            <line name="10kV864南凡线"/>
+        </transformer>
+    </power>
+    <power name="卫庄供电所">
+        <transformer name="110kV东华山变电站">
+            <line name="10kV5106张上线"/>
+            <line name="10kV5107涧东线"/>
+            <line name="10kV5108里册线"/>
+            <line name="10kV5109任村线"/>
+            <line name="10kV5208华信线"/>
+            <line name="10kV818卫开线"/>
+        </transformer>
+        <transformer name="110kV绛城关变电站">
+            <line name="10kV505陈村线"/>
+        </transformer>
+        <transformer name="35kV卫庄变电站">
+            <line name="10kV814新三线"/>
+            <line name="10kV819园区线"/>
+        </transformer>
+    </power>
+</root>
