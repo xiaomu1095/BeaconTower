@@ -271,8 +271,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="请输入杆塔高度"
-                android:inputType="numberSigned"
+                android:inputType="numberDecimal"
+                android:textSize="14sp"
                 android:singleLine="true"
+                android:imeOptions="actionNext"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
@@ -333,6 +335,8 @@
                 android:hint="请输入导线型号"
                 android:inputType="text"
                 android:singleLine="true"
+                android:textSize="14sp"
+                android:imeOptions="actionDone"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_11"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
@@ -344,6 +348,102 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_begin="440dp" />
+
+            <TextView
+                android:id="@+id/tv_tower_equipment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="杆上设备"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_11"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_12" />
+
+            <TextView
+                android:id="@+id/tv_tower_equipment_v"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="请选择杆上设备"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_11" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="480dp" />
+
+            <TextView
+                android:id="@+id/tv_tower_terrain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="所处地形"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_12"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_13" />
+
+            <TextView
+                android:id="@+id/tv_tower_terrain_v"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="请选择所处地形"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_13"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_12" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="520dp" />
+
+            <TextView
+                android:id="@+id/tv_commissioning_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="投运时间"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_13"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_14" />
+
+            <TextView
+                android:id="@+id/tv_commissioning_date_v"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="请选择投运时间"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_13" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="560dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="680dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
@@ -362,6 +462,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@android:drawable/ic_menu_upload" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

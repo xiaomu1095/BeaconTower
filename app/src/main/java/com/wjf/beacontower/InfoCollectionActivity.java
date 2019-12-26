@@ -1,5 +1,7 @@
 package com.wjf.beacontower;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -7,24 +9,27 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 
 public class InfoCollectionActivity extends AppCompatActivity implements View.OnClickListener {
 
     private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
 
     private TextView tv_line_type_v, tv_tower_texture_v, tv_tower_use_v, tv_tower_location_v,
-            tv_tower_setup_v;
+            tv_tower_setup_v, tv_tower_terrain_v, tv_commissioning_date_v;
     private EditText et_tower_height_v, et_wire_type_v;
 
     @Override
@@ -56,6 +61,10 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
         tv_tower_setup_v.setOnClickListener(this);
         et_wire_type_v = findViewById(R.id.et_wire_type_v);
 
+        tv_tower_terrain_v = findViewById(R.id.tv_tower_terrain_v);
+        tv_tower_terrain_v.setOnClickListener(this);
+        tv_commissioning_date_v = findViewById(R.id.tv_commissioning_date_v);
+        tv_commissioning_date_v.setOnClickListener(this);
     }
 
     @Override
@@ -111,6 +120,12 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.tv_tower_setup_v:
                 selectTowerSetupDialog();
+                break;
+            case R.id.tv_tower_terrain_v:
+                selectTowerTerrainDialog();
+                break;
+            case R.id.tv_commissioning_date_v:
+                selectCommissioningDateDialog();
                 break;
         }
     }
@@ -171,6 +186,43 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
                     }
                 })
                 .create(mCurrentDialogStyle).show();
+    }
+
+    // 所处地形
+    private void selectTowerTerrainDialog() {
+        final String[] items = ConstantValues.ITEMS_TOWER_TERRAIN;
+        new QMUIDialog.MenuDialogBuilder(this)
+                .addItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
+                        tv_tower_terrain_v.setText(items[which]);
+                        dialog.dismiss();
+                    }
+                })
+                .create(mCurrentDialogStyle).show();
+    }
+
+    // 投运时间
+    private void selectCommissioningDateDialog() {
+        new QMUIDialog.CustomDialogBuilder(this)
+                .setLayout(R.layout.dialog_commissioning_date)
+                .addAction("确定", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        DatePicker datePicker = dialog.findViewById(R.id.date_picker_commissioning);
+                        if (datePicker != null) {
+                            int year = datePicker.getYear();
+                            int month = datePicker.getMonth() + 1;
+                            int day = datePicker.getDayOfMonth();
+                            StringBuilder sb = new StringBuilder();
+                            sb.append(year).append("年").append(month).append("月").append(day).append("日");
+                            tv_commissioning_date_v.setText(sb.toString());
+                        }
+                        dialog.dismiss();
+                    }
+                })
+                .create().show();
     }
 
     private Context getActivity() {
