@@ -8,9 +8,12 @@ package com.wjf.beacontower;
  */
 public abstract class ConstantValues {
 
+    public static final String POWER_SUPPLY_XML_NAME = "power_supply_data.xml";
+
     public static final String MAP_KEY_SUPPLY = "powerSupplyName";
-    public static final String MAP_KEY_LINE_DUTY = "lineDuty";
+    public static final String MAP_KEY_TRANSFORMER = "transformer";
     public static final String MAP_KEY_LINE_NAME = "lineName";
+    public static final String MAP_KEY_LINE_DUTY = "lineDuty";
     public static final String MAP_KEY_CONTACT = "contactInfo";
 
     public static final String[] ITEMS_LINE_TYPE = new String[]{"干线", "支线"};

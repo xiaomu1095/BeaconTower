@@ -25,15 +25,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gd_first" />
 
-    <EditText
-        android:id="@+id/et_power_supply_name"
+    <TextView
+        android:id="@+id/tv_power_supply_name_v"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="输入供电所"
-        android:imeOptions="actionNext"
-        android:inputType="textPersonName"
+        android:hint="请选择供电所"
         android:singleLine="true"
+        android:textSize="18sp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/gd_second"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -44,7 +47,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.16" />
+        app:layout_constraintGuide_percent="0.14" />
+
+    <TextView
+        android:id="@+id/tv_transformer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="变电站名称"
+        android:textColor="#0B0B0B"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/m_gd_horizontal_3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gd_second" />
+
+    <TextView
+        android:id="@+id/tv_transformer_name_v"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="请选择变电站"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:singleLine="true"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_power_supply_name_v"
+        app:layout_constraintStart_toStartOf="@+id/tv_power_supply_name_v"
+        app:layout_constraintBottom_toTopOf="@+id/m_gd_horizontal_3"
+        app:layout_constraintTop_toTopOf="@+id/gd_second" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/m_gd_horizontal_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.24" />
 
     <TextView
         android:id="@+id/tv_power_line_name"
@@ -56,28 +94,31 @@
         app:layout_constraintBottom_toTopOf="@+id/gd_third"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gd_second" />
+        app:layout_constraintTop_toTopOf="@+id/m_gd_horizontal_3" />
 
-    <EditText
-        android:id="@+id/et_line_name"
+    <TextView
+        android:id="@+id/tv_line_name_v"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="输入线路名称"
-        android:imeOptions="actionNext"
-        android:inputType="textPersonName"
         android:singleLine="true"
+        android:textSize="18sp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/gd_third"
-        app:layout_constraintEnd_toEndOf="@+id/et_power_supply_name"
-        app:layout_constraintStart_toStartOf="@+id/et_power_supply_name"
-        app:layout_constraintTop_toTopOf="@+id/gd_second" />
+        app:layout_constraintEnd_toEndOf="@+id/tv_power_supply_name_v"
+        app:layout_constraintStart_toStartOf="@+id/tv_power_supply_name_v"
+        app:layout_constraintTop_toTopOf="@+id/m_gd_horizontal_3" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gd_third"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.28" />
+        app:layout_constraintGuide_percent="0.34" />
 
     <TextView
         android:id="@+id/tv_power_line_duty"
@@ -101,8 +142,8 @@
         android:inputType="textPersonName"
         android:singleLine="true"
         app:layout_constraintBottom_toTopOf="@+id/gd_fourth"
-        app:layout_constraintEnd_toEndOf="@+id/et_line_name"
-        app:layout_constraintStart_toStartOf="@+id/et_line_name"
+        app:layout_constraintEnd_toEndOf="@+id/tv_line_name_v"
+        app:layout_constraintStart_toStartOf="@+id/tv_line_name_v"
         app:layout_constraintTop_toTopOf="@+id/gd_third" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -110,7 +151,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.40" />
+        app:layout_constraintGuide_percent="0.44" />
 
     <TextView
         android:id="@+id/tv_contact_info"
@@ -144,7 +185,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.52" />
+        app:layout_constraintGuide_percent="0.54" />
 
     <Button
         android:id="@+id/btn_confirm_base_info"
@@ -172,6 +213,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.72" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
