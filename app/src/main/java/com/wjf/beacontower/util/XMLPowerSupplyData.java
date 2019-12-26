@@ -49,7 +49,7 @@ public class XMLPowerSupplyData {
         return mLineDatasMap;
     }
 
-    public void initProvinceDatas(InputStream input) {
+    public void initAllPowerSupplyData(InputStream input) {
         /*
          * 当前供电所的名称
          */
