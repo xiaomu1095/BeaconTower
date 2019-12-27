@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="40dp" />
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_1" />
 
             <TextView
                 android:id="@+id/tv_line_name"
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="80dp" />
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_2" />
 
             <TextView
                 android:id="@+id/tv_line_duty"
@@ -96,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="120dp" />
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_3" />
 
             <TextView
                 android:id="@+id/tv_contact_info"
@@ -121,7 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="160dp" />
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_4" />
 
             <TextView
                 android:id="@+id/tv_line_type"
@@ -167,7 +167,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="200dp" />
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_5" />
 
             <TextView
                 android:id="@+id/tv_tower_texture"
@@ -193,7 +193,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="240dp" />
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_6" />
 
             <TextView
                 android:id="@+id/tv_tower_use"
@@ -219,7 +219,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="280dp" />
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_7" />
 
             <TextView
                 android:id="@+id/tv_tower_location"
@@ -245,7 +245,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="320dp" />
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_8" />
 
             <TextView
                 android:id="@+id/tv_tower_height"
@@ -276,7 +276,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="360dp" />
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_9" />
 
             <TextView
                 android:id="@+id/tv_tower_setup"
@@ -302,7 +302,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="400dp" />
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_10" />
 
             <TextView
                 android:id="@+id/tv_wire_type"
@@ -333,7 +333,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="440dp" />
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_11" />
 
             <TextView
                 android:id="@+id/tv_tower_equipment"
@@ -359,7 +359,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="480dp" />
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_12" />
 
             <TextView
                 android:id="@+id/tv_tower_terrain"
@@ -385,7 +385,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="520dp" />
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_13" />
 
             <TextView
                 android:id="@+id/tv_commissioning_date"
@@ -411,14 +411,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="560dp" />
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_14" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/gd_horizontal_15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="680dp" />
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_15" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
