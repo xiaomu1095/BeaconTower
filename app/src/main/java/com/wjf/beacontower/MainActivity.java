@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SpUtil.putString(this, map);
 
         Intent intent = new Intent();
-        intent.setClass(this, InfoCollectionActivity.class);
+        intent.setClass(this, LayoutActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString(ConstantValues.MAP_KEY_SUPPLY, powerSupplyName);
         bundle.putString(ConstantValues.MAP_KEY_TRANSFORMER, transformerName);
