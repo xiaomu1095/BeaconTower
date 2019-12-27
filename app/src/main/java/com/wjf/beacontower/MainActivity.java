@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.wjf.beacontower.model.TowerRegisterInfo;
 import com.wjf.beacontower.util.XMLPowerSupplyData;
 
 import java.io.IOException;
@@ -190,7 +191,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         String contactInfo = et_contact_info.getText().toString();
+        if (TextUtils.isEmpty(contactInfo)) {
+            Toast.makeText(this, "请输入联系方式！", Toast.LENGTH_SHORT).show();
+            return;
+        }
         String lineDuty = et_line_duty.getText().toString();
+        if (TextUtils.isEmpty(lineDuty)) {
+            Toast.makeText(this, "请输入线路专责！", Toast.LENGTH_SHORT).show();
+            return;
+        }
         String powerSupplyName = tv_power_supply_name_v.getText().toString();
         String transformerName = tv_transformer_name_v.getText().toString();
         String lineName = tv_line_name_v.getText().toString();
@@ -202,14 +211,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         map.put(ConstantValues.MAP_KEY_CONTACT, contactInfo);
         SpUtil.putString(this, map);
 
+        TowerRegisterInfo towerRegisterInfo = new TowerRegisterInfo();
+        towerRegisterInfo.setSupplyName(powerSupplyName);
+        towerRegisterInfo.setTransformerName(transformerName);
+        towerRegisterInfo.setLineName(lineName);
+        towerRegisterInfo.setLineDuty(lineDuty);
+        towerRegisterInfo.setContactInfo(contactInfo);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(ConstantValues.BUNDLE_KEY_BASE_INFO, towerRegisterInfo);
         Intent intent = new Intent();
         intent.setClass(this, InfoCollectionActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString(ConstantValues.MAP_KEY_SUPPLY, powerSupplyName);
-        bundle.putString(ConstantValues.MAP_KEY_TRANSFORMER, transformerName);
-        bundle.putString(ConstantValues.MAP_KEY_LINE_NAME, lineName);
-        bundle.putString(ConstantValues.MAP_KEY_LINE_DUTY, lineDuty);
-        bundle.putString(ConstantValues.MAP_KEY_CONTACT, contactInfo);
         intent.putExtras(bundle);
         startActivity(intent);
     }

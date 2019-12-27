@@ -22,11 +22,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
+import com.wjf.beacontower.model.TowerRegisterInfo;
 
 public class InfoCollectionActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private TowerRegisterInfo towerRegisterInfo;
     private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
 
+    private TextView tv_supply_name_v, tv_line_name_v, tv_line_duty_v, tv_contact_info_v;
     private TextView tv_line_type_v,tv_tower_num_v,tv_subline_name_v, tv_tower_texture_v, tv_tower_use_v,
             tv_tower_location_v, tv_tower_setup_v, tv_tower_terrain_v, tv_commissioning_date_v;
     private EditText et_tower_height_v, et_wire_type_v;
@@ -38,12 +41,38 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
         initToolbar();
         initFAB();
 
+        initView();
+        initData(savedInstanceState);
+    }
+
+    private void initData(Bundle savedInstanceState) {
+        if (getIntent() == null) {
+            return;
+        }
+        towerRegisterInfo = getIntent().getParcelableExtra(ConstantValues.BUNDLE_KEY_BASE_INFO);
+        if (towerRegisterInfo == null) {
+            return;
+        }
+        tv_supply_name_v.setText(towerRegisterInfo.getSupplyName());
+        tv_line_name_v.setText(towerRegisterInfo.getLineName());
+        tv_line_duty_v.setText(towerRegisterInfo.getLineDuty());
+        tv_contact_info_v.setText(towerRegisterInfo.getContactInfo());
+    }
+
+    private void initView() {
+        tv_supply_name_v = findViewById(R.id.tv_supply_name_v);
+        tv_line_name_v = findViewById(R.id.tv_line_name_v);
+        tv_line_duty_v = findViewById(R.id.tv_line_duty_v);
+        tv_contact_info_v = findViewById(R.id.tv_contact_info_v);
+
+
         tv_line_type_v = findViewById(R.id.tv_line_type_v);
         tv_line_type_v.setOnClickListener(this);
         tv_tower_num_v = findViewById(R.id.tv_tower_num_v);
         tv_tower_num_v.setOnClickListener(this);
         tv_subline_name_v = findViewById(R.id.tv_subline_name_v);
         tv_subline_name_v.setOnClickListener(this);
+
         tv_tower_texture_v = findViewById(R.id.tv_tower_texture_v);
         tv_tower_texture_v.setOnClickListener(this);
         tv_tower_use_v = findViewById(R.id.tv_tower_use_v);

@@ -24,7 +24,7 @@
                 app:layout_constraintGuide_percent="0.24" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tv_supply_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="供电所名称"
@@ -34,9 +34,8 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tv_supply_name_v"
                 style="@style/Collect_TextView_Value"
-                android:text="虹口供电所"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_first"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
@@ -50,7 +49,7 @@
                 app:layout_constraintGuide_begin="40dp" />
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/tv_line_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="线路名称"
@@ -60,9 +59,8 @@
                 app:layout_constraintTop_toTopOf="@+id/gd_horizontal_first" />
 
             <TextView
-                android:id="@+id/textView22"
+                android:id="@+id/tv_line_name_v"
                 style="@style/Collect_TextView_Value"
-                android:text="鲁迅公园线路"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_second"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
@@ -76,7 +74,7 @@
                 app:layout_constraintGuide_begin="80dp" />
 
             <TextView
-                android:id="@+id/textView24"
+                android:id="@+id/tv_line_duty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="线路专责"
@@ -86,9 +84,8 @@
                 app:layout_constraintTop_toTopOf="@+id/gd_horizontal_second" />
 
             <TextView
-                android:id="@+id/textView23"
+                android:id="@+id/tv_line_duty_v"
                 style="@style/Collect_TextView_Value"
-                android:text="楼某"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
@@ -102,7 +99,7 @@
                 app:layout_constraintGuide_begin="120dp" />
 
             <TextView
-                android:id="@+id/textView26"
+                android:id="@+id/tv_contact_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="联系方式"
@@ -112,9 +109,8 @@
                 app:layout_constraintTop_toTopOf="@+id/gd_horizontal_3" />
 
             <TextView
-                android:id="@+id/textView25"
+                android:id="@+id/tv_contact_info_v"
                 style="@style/Collect_TextView_Value"
-                android:text="18819273619"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
