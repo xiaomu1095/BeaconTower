@@ -3,6 +3,7 @@ package com.wjf.beacontower;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,8 +27,8 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
 
     private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
 
-    private TextView tv_line_type_v, tv_tower_texture_v, tv_tower_use_v, tv_tower_location_v,
-            tv_tower_setup_v, tv_tower_terrain_v, tv_commissioning_date_v;
+    private TextView tv_line_type_v,tv_tower_num_v,tv_subline_name_v, tv_tower_texture_v, tv_tower_use_v,
+            tv_tower_location_v, tv_tower_setup_v, tv_tower_terrain_v, tv_commissioning_date_v;
     private EditText et_tower_height_v, et_wire_type_v;
 
     @Override
@@ -37,9 +38,12 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
         initToolbar();
         initFAB();
 
-
         tv_line_type_v = findViewById(R.id.tv_line_type_v);
         tv_line_type_v.setOnClickListener(this);
+        tv_tower_num_v = findViewById(R.id.tv_tower_num_v);
+        tv_tower_num_v.setOnClickListener(this);
+        tv_subline_name_v = findViewById(R.id.tv_subline_name_v);
+        tv_subline_name_v.setOnClickListener(this);
         tv_tower_texture_v = findViewById(R.id.tv_tower_texture_v);
         tv_tower_texture_v.setOnClickListener(this);
         tv_tower_use_v = findViewById(R.id.tv_tower_use_v);
@@ -67,6 +71,9 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_clear:
+                Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
+                break;
             case R.id.menu_history:
                 Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
                 break;
@@ -113,6 +120,12 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
             case R.id.tv_line_type_v:
                 selectLineTypeDialog();
                 break;
+            case R.id.tv_tower_num_v:
+                inputTowerNumDialog();
+                break;
+            case R.id.tv_subline_name_v:
+                inputSubLineNameDialog();
+                break;
             case R.id.tv_tower_texture_v:
                 selectTowerTextureDialog();
                 break;
@@ -141,8 +154,49 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
                 .addItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
-                        tv_line_type_v.setText(items[which]);
+                        String item = items[which];
+                        tv_line_type_v.setText(item);
+                        if ("支线".equals(item)) {
+                            tv_subline_name_v.setVisibility(View.VISIBLE);
+                        } else {
+                            tv_subline_name_v.setVisibility(View.GONE);
+                        }
+                        dialog.dismiss();
+                    }
+                })
+                .create(mCurrentDialogStyle).show();
+    }
+
+    // 输入杆号
+    private void inputTowerNumDialog() {
+        final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
+        builder.setTitle("请输入杆号")
+                .setInputType(InputType.TYPE_CLASS_TEXT)
+                .addAction("确定", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        CharSequence text = builder.getEditText().getText();
+                        if (text != null && text.length() > 0) {
+                            tv_tower_num_v.setText(text);
+                        }
+                        dialog.dismiss();
+                    }
+                })
+                .create(mCurrentDialogStyle).show();
+    }
+
+    // 输入支线名称
+    private void inputSubLineNameDialog() {
+        final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
+        builder.setTitle("请输入支线名称")
+                .setInputType(InputType.TYPE_CLASS_TEXT)
+                .addAction("确定", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        CharSequence text = builder.getEditText().getText();
+                        if (text != null && text.length() > 0) {
+                            tv_subline_name_v.setText(text);
+                        }
                         dialog.dismiss();
                     }
                 })

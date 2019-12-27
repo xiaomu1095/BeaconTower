@@ -139,11 +139,31 @@
 
             <TextView
                 android:id="@+id/tv_line_type_v"
-                android:hint="请选择线路类型"
+                android:hint="线路类型"
+                android:layout_width="0dp"
+                style="@style/Collect_TextView_Value"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_5"
+                app:layout_constraintEnd_toStartOf="@+id/tv_tower_num_v"
+                app:layout_constraintStart_toEndOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_4" />
+            <TextView
+                android:id="@+id/tv_tower_num_v"
+                android:hint="杆塔编号"
+                android:layout_width="0dp"
+                style="@style/Collect_TextView_Value"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_5"
+                app:layout_constraintEnd_toStartOf="@+id/tv_subline_name_v"
+                app:layout_constraintStart_toEndOf="@+id/tv_line_type_v"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_4" />
+            <TextView
+                android:id="@+id/tv_subline_name_v"
+                android:hint="支线名称"
+                android:layout_width="0dp"
+                android:visibility="gone"
                 style="@style/Collect_TextView_Value"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_5"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toEndOf="@+id/tv_tower_num_v"
                 app:layout_constraintTop_toTopOf="@+id/gd_horizontal_4" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -249,7 +269,7 @@
                 android:inputType="numberDecimal"
                 android:textSize="14sp"
                 android:singleLine="true"
-                android:imeOptions="actionNext"
+                android:imeOptions="actionDone"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
