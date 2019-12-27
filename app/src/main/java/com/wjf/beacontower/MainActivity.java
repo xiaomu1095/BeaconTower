@@ -21,7 +21,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     /**
      * XML里面的供电所-变电站-线路信息解析类
