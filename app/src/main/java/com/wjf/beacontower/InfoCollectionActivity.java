@@ -1,7 +1,13 @@
 package com.wjf.beacontower;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Menu;
@@ -30,9 +36,13 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
     private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
 
     private TextView tv_supply_name_v, tv_line_name_v, tv_line_duty_v, tv_contact_info_v;
-    private TextView tv_line_type_v,tv_tower_num_v,tv_subline_name_v, tv_tower_texture_v, tv_tower_use_v,
+    private TextView tv_line_type_v, tv_tower_num_v, tv_subline_name_v, tv_tower_texture_v, tv_tower_use_v,
             tv_tower_location_v, tv_tower_setup_v, tv_tower_terrain_v, tv_commissioning_date_v;
     private EditText et_tower_height_v, et_wire_type_v;
+
+    private LocationManager locationManager;
+    private LocationListener locationListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +53,45 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
 
         initView();
         initData(savedInstanceState);
+
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                tv_tower_location_v.setText("onLocationChanged");
+                String loc = location.getLatitude() + "==" + location.getLongitude();
+                tv_tower_location_v.setText(loc);
+            }
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+                tv_tower_location_v.setText("onStatusChanged" + s);
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+                tv_tower_location_v.setText("onProviderEnabled");
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+                tv_tower_location_v.setText("onProviderDisabled");
+            }
+        };
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (locationManager != null && locationListener != null) {
+            tv_tower_location_v.setText("Remove Updates...");
+            locationManager.removeUpdates(locationListener);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void initData(Bundle savedInstanceState) {
@@ -162,7 +211,7 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
                 selectTowerUseDialog();
                 break;
             case R.id.tv_tower_location_v:
-                Toast.makeText(this, "location", Toast.LENGTH_SHORT).show();
+                getTowerLocation();
                 break;
             case R.id.tv_tower_setup_v:
                 selectTowerSetupDialog();
@@ -260,6 +309,20 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
                     }
                 })
                 .create(mCurrentDialogStyle).show();
+    }
+
+    // 获取位置信息
+    private void getTowerLocation() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION}, 23);
+                return;
+            }
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000,
+                1000, locationListener);
     }
 
     // 同杆架设
