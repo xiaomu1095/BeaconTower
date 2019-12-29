@@ -9,7 +9,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -37,8 +39,8 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
 
     private TextView tv_supply_name_v, tv_line_name_v, tv_line_duty_v, tv_contact_info_v;
     private TextView tv_line_type_v, tv_tower_num_v, tv_subline_name_v, tv_tower_texture_v, tv_tower_use_v,
-            tv_tower_location_v, tv_tower_setup_v, tv_tower_terrain_v, tv_commissioning_date_v;
-    private EditText et_tower_height_v, et_wire_type_v;
+            tv_tower_location_v, tv_tower_height_v, tv_tower_setup_v, tv_tower_terrain_v, tv_commissioning_date_v;
+    private EditText et_wire_type_v;
 
     private LocationManager locationManager;
     private LocationListener locationListener;
@@ -128,7 +130,8 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
         tv_tower_use_v.setOnClickListener(this);
         tv_tower_location_v = findViewById(R.id.tv_tower_location_v);
         tv_tower_location_v.setOnClickListener(this);
-        et_tower_height_v = findViewById(R.id.et_tower_height_v);
+        tv_tower_height_v = findViewById(R.id.tv_tower_height_v);
+        tv_tower_height_v.setOnClickListener(this);
         tv_tower_setup_v = findViewById(R.id.tv_tower_setup_v);
         tv_tower_setup_v.setOnClickListener(this);
         et_wire_type_v = findViewById(R.id.et_wire_type_v);
@@ -212,6 +215,9 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.tv_tower_location_v:
                 getTowerLocation();
+                break;
+            case R.id.tv_tower_height_v:
+                inputTowerHeight();
                 break;
             case R.id.tv_tower_setup_v:
                 selectTowerSetupDialog();
@@ -323,6 +329,25 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000,
                 1000, locationListener);
+    }
+
+    // 杆塔高度
+    private void inputTowerHeight(){
+        QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
+        builder.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        builder.setTitle("请输入杆塔高度");
+        builder.setPlaceholder("0");
+        builder.addAction("确定", new QMUIDialogAction.ActionListener() {
+            @Override
+            public void onClick(QMUIDialog dialog, int index) {
+                Editable text = builder.getEditText().getText();
+                if (!TextUtils.isEmpty(text)) {
+                    tv_tower_height_v.setText(text);
+                }
+                dialog.dismiss();
+            }
+        });
+        builder.create(mCurrentDialogStyle).show();
     }
 
     // 同杆架设
