@@ -41,6 +41,7 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
     private TextView tv_line_type_v, tv_tower_num_v, tv_subline_name_v, tv_tower_texture_v, tv_tower_use_v,
             tv_tower_location_v, tv_tower_height_v, tv_tower_setup_v, tv_wire_type_v, tv_tower_terrain_v,
             tv_commissioning_date_v;
+    private TextView tv_tower_equipment_v;
 
     private LocationManager locationManager;
     private LocationListener locationListener;
@@ -140,6 +141,9 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
         tv_tower_terrain_v.setOnClickListener(this);
         tv_commissioning_date_v = findViewById(R.id.tv_commissioning_date_v);
         tv_commissioning_date_v.setOnClickListener(this);
+
+        tv_tower_equipment_v = findViewById(R.id.tv_tower_equipment_v);
+        tv_tower_equipment_v.setOnClickListener(this);
     }
 
     @Override
@@ -230,6 +234,9 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.tv_commissioning_date_v:
                 selectCommissioningDateDialog();
+                break;
+            case R.id.tv_tower_equipment_v:
+
                 break;
         }
     }
