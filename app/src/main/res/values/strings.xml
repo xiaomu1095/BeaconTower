@@ -1,17 +1,30 @@
 <resources>
     <string name="app_name">杆塔设备登记</string>
     <string name="title_activity_info_collection">InfoCollectionActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
+    <string name="collect_tv_gdsmc">供电所名称</string>
+    <string name="collect_tv_xlmc">线路名称</string>
+    <string name="collect_tv_xlzz">线路专责</string>
+    <string name="collect_tv_lxfs">联系方式</string>
+    <string name="collect_tv_xllx">线路类型</string>
+    <string name="collect_tv_gtbh">杆塔编号</string>
+    <string name="collect_tv_zxmc">支线名称</string>
+    <string name="collect_tv_gtcz">杆塔材质</string>
+    <string name="collect_tv_hint_gtcz">请选择杆塔材质</string>
+    <string name="collect_tv_gtyt">杆塔用途</string>
+    <string name="collect_tv_hint_gtyt">请选择杆塔用途</string>
+    <string name="collect_tv_gtwz">杆塔位置</string>
+    <string name="collect_tv_hint_gtwz">请定位杆塔位置</string>
+    <string name="collect_tv_gtgd">杆塔高度(米)</string>
+    <string name="collect_tv_hint_gtgd">请输入杆塔高度</string>
+    <string name="collect_tv_tgjs">同杆架设</string>
+    <string name="collect_tv_hint_tgjs">请选择同杆架设</string>
+    <string name="collect_tv_dxlx">导线型号</string>
+    <string name="collect_tv_hint_dxlx">请输入导线型号</string>
+    <string name="collect_tv_tysj">投运时间</string>
+    <string name="collect_tv_hint_tysj">请选择投运时间</string>
+    <string name="collect_tv_scdx">所处地形</string>
+    <string name="collect_tv_hint_scdx">请选择所处地形</string>
+    <string name="collect_tv_gssb">杆上设备</string>
+    <string name="collect_tv_hint_gssb">请选择杆上设备</string>
 </resources>

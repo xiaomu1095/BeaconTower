@@ -27,7 +27,7 @@
                 android:id="@+id/tv_supply_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="供电所名称"
+                android:text="@string/collect_tv_gdsmc"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_first"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
                 android:id="@+id/tv_line_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="线路名称"
+                android:text="@string/collect_tv_xlmc"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_second"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
@@ -77,7 +77,7 @@
                 android:id="@+id/tv_line_duty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="线路专责"
+                android:text="@string/collect_tv_xlzz"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_3"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +102,7 @@
                 android:id="@+id/tv_contact_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="联系方式"
+                android:text="@string/collect_tv_lxfs"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_4"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
@@ -127,7 +127,7 @@
                 android:id="@+id/tv_line_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="线路类型"
+                android:text="@string/collect_tv_xllx"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_5"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
@@ -135,7 +135,7 @@
 
             <TextView
                 android:id="@+id/tv_line_type_v"
-                android:hint="线路类型"
+                android:hint="@string/collect_tv_xllx"
                 android:layout_width="0dp"
                 style="@style/Collect_TextView_Value"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_5"
@@ -144,7 +144,7 @@
                 app:layout_constraintTop_toTopOf="@+id/gd_horizontal_4" />
             <TextView
                 android:id="@+id/tv_tower_num_v"
-                android:hint="杆塔编号"
+                android:hint="@string/collect_tv_gtbh"
                 android:layout_width="0dp"
                 style="@style/Collect_TextView_Value"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_5"
@@ -153,7 +153,7 @@
                 app:layout_constraintTop_toTopOf="@+id/gd_horizontal_4" />
             <TextView
                 android:id="@+id/tv_subline_name_v"
-                android:hint="支线名称"
+                android:hint="@string/collect_tv_zxmc"
                 android:layout_width="0dp"
                 android:visibility="gone"
                 style="@style/Collect_TextView_Value"
@@ -173,7 +173,7 @@
                 android:id="@+id/tv_tower_texture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="杆塔材质"
+                android:text="@string/collect_tv_gtcz"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_5"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
@@ -181,7 +181,7 @@
 
             <TextView
                 android:id="@+id/tv_tower_texture_v"
-                android:hint="请选择杆塔材质"
+                android:hint="@string/collect_tv_hint_gtcz"
                 style="@style/Collect_TextView_Value"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_6"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -199,7 +199,7 @@
                 android:id="@+id/tv_tower_use"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="杆塔用途"
+                android:text="@string/collect_tv_gtyt"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_6"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
@@ -207,7 +207,7 @@
 
             <TextView
                 android:id="@+id/tv_tower_use_v"
-                android:hint="请选择杆塔用途"
+                android:hint="@string/collect_tv_hint_gtyt"
                 style="@style/Collect_TextView_Value"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_7"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -225,7 +225,7 @@
                 android:id="@+id/tv_tower_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="杆塔位置"
+                android:text="@string/collect_tv_gtwz"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_7"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
@@ -233,7 +233,7 @@
 
             <TextView
                 android:id="@+id/tv_tower_location_v"
-                android:hint="请定位杆塔位置"
+                android:hint="@string/collect_tv_hint_gtwz"
                 style="@style/Collect_TextView_Value"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_8"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -251,7 +251,7 @@
                 android:id="@+id/tv_tower_height"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="杆塔高度(米)"
+                android:text="@string/collect_tv_gtgd"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_8"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
@@ -259,7 +259,7 @@
 
             <TextView
                 android:id="@+id/tv_tower_height_v"
-                android:hint="请输入杆塔高度"
+                android:hint="@string/collect_tv_hint_gtgd"
                 style="@style/Collect_TextView_Value"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_9"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -277,7 +277,7 @@
                 android:id="@+id/tv_tower_setup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="同杆架设"
+                android:text="@string/collect_tv_tgjs"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_9"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
@@ -285,7 +285,7 @@
 
             <TextView
                 android:id="@+id/tv_tower_setup_v"
-                android:hint="请选择同杆架设"
+                android:hint="@string/collect_tv_hint_tgjs"
                 style="@style/Collect_TextView_Value"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_10"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -303,7 +303,7 @@
                 android:id="@+id/tv_wire_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="导线型号"
+                android:text="@string/collect_tv_dxlx"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_10"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
@@ -311,7 +311,7 @@
 
             <TextView
                 android:id="@+id/tv_wire_type_v"
-                android:hint="请输入导线型号"
+                android:hint="@string/collect_tv_hint_dxlx"
                 style="@style/Collect_TextView_Value"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_11"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -326,18 +326,18 @@
                 app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_11" />
 
             <TextView
-                android:id="@+id/tv_tower_equipment"
+                android:id="@+id/tv_commissioning_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="杆上设备"
+                android:text="@string/collect_tv_tysj"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_11"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/gd_horizontal_12" />
 
             <TextView
-                android:id="@+id/tv_tower_equipment_v"
-                android:hint="请选择杆上设备"
+                android:id="@+id/tv_commissioning_date_v"
+                android:hint="@string/collect_tv_hint_tysj"
                 style="@style/Collect_TextView_Value"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_12"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -355,7 +355,7 @@
                 android:id="@+id/tv_tower_terrain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="所处地形"
+                android:text="@string/collect_tv_scdx"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_12"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
@@ -363,7 +363,7 @@
 
             <TextView
                 android:id="@+id/tv_tower_terrain_v"
-                android:hint="请选择所处地形"
+                android:hint="@string/collect_tv_hint_scdx"
                 style="@style/Collect_TextView_Value"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_13"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -378,18 +378,18 @@
                 app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_13" />
 
             <TextView
-                android:id="@+id/tv_commissioning_date"
+                android:id="@+id/tv_tower_equipment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="投运时间"
+                android:text="@string/collect_tv_gssb"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_13"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/gd_horizontal_14" />
 
             <TextView
-                android:id="@+id/tv_commissioning_date_v"
-                android:hint="请选择投运时间"
+                android:id="@+id/tv_tower_equipment_v"
+                android:hint="@string/collect_tv_hint_gssb"
                 style="@style/Collect_TextView_Value"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_14"
                 app:layout_constraintEnd_toEndOf="parent"
