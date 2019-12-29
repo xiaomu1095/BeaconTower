@@ -39,8 +39,8 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
 
     private TextView tv_supply_name_v, tv_line_name_v, tv_line_duty_v, tv_contact_info_v;
     private TextView tv_line_type_v, tv_tower_num_v, tv_subline_name_v, tv_tower_texture_v, tv_tower_use_v,
-            tv_tower_location_v, tv_tower_height_v, tv_tower_setup_v, tv_tower_terrain_v, tv_commissioning_date_v;
-    private EditText et_wire_type_v;
+            tv_tower_location_v, tv_tower_height_v, tv_tower_setup_v, tv_wire_type_v, tv_tower_terrain_v,
+            tv_commissioning_date_v;
 
     private LocationManager locationManager;
     private LocationListener locationListener;
@@ -134,8 +134,8 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
         tv_tower_height_v.setOnClickListener(this);
         tv_tower_setup_v = findViewById(R.id.tv_tower_setup_v);
         tv_tower_setup_v.setOnClickListener(this);
-        et_wire_type_v = findViewById(R.id.et_wire_type_v);
-
+        tv_wire_type_v = findViewById(R.id.tv_wire_type_v);
+        tv_wire_type_v.setOnClickListener(this);
         tv_tower_terrain_v = findViewById(R.id.tv_tower_terrain_v);
         tv_tower_terrain_v.setOnClickListener(this);
         tv_commissioning_date_v = findViewById(R.id.tv_commissioning_date_v);
@@ -221,6 +221,9 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.tv_tower_setup_v:
                 selectTowerSetupDialog();
+                break;
+            case R.id.tv_wire_type_v:
+                inputWireType();
                 break;
             case R.id.tv_tower_terrain_v:
                 selectTowerTerrainDialog();
@@ -363,6 +366,24 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
                     }
                 })
                 .create(mCurrentDialogStyle).show();
+    }
+
+    // 导线类型
+    private void inputWireType(){
+        QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
+        builder.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        builder.setTitle("请输入导线类型");
+        builder.addAction("确定", new QMUIDialogAction.ActionListener() {
+            @Override
+            public void onClick(QMUIDialog dialog, int index) {
+                Editable text = builder.getEditText().getText();
+                if (!TextUtils.isEmpty(text)) {
+                    tv_wire_type_v.setText(text);
+                }
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
     }
 
     // 所处地形

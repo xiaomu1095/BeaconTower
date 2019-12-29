@@ -309,15 +309,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/gd_horizontal_11" />
 
-            <EditText
-                android:id="@+id/et_wire_type_v"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/tv_wire_type_v"
                 android:hint="请输入导线型号"
-                android:inputType="text"
-                android:singleLine="true"
-                android:textSize="14sp"
-                android:imeOptions="actionDone"
+                style="@style/Collect_TextView_Value"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_11"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
