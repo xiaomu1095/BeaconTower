@@ -233,5 +233,19 @@ public class TowerRegisterInfo implements Parcelable {
     }
 
 
+    public void clearData(){
+        setLineType("");
+        setTowerNum("");
+        setSubLineName("");
+        setTowerTexture("");
+        setTowerUse("");
+        setTowerLocation("");
+        setTowerHeight("");
+        setTowerSetup("");
+        setWireType("");
+        setTowerEquipment("");
+        setTowerTerrain("");
+        setCommissioningDate("");
+    }
 
 }

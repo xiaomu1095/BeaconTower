@@ -157,7 +157,7 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_clear:
-                Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
+                clearData();
                 break;
             case R.id.menu_history:
                 Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
@@ -166,6 +166,27 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // 清除用户填写的数据
+    private void clearData() {
+        tv_line_type_v.setText(null);
+        tv_tower_num_v.setText(null);
+        tv_subline_name_v.setText(null);
+        tv_subline_name_v.setVisibility(View.GONE);
+
+        tv_tower_texture_v.setText(null);
+        tv_tower_use_v.setText(null);
+        tv_tower_location_v.setText(null);
+        tv_tower_height_v.setText(null);
+        tv_tower_setup_v.setText(null);
+        tv_wire_type_v.setText(null);
+        tv_tower_terrain_v.setText(null);
+        tv_commissioning_date_v.setText(null);
+
+        if (towerRegisterInfo != null) {
+            towerRegisterInfo.clearData();
+        }
     }
 
     private void initToolbar() {
