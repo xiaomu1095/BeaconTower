@@ -10,10 +10,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.wjf.beacontower.model.TowerRegisterInfo;
+import com.wjf.beacontower.util.SpUtil;
 import com.wjf.beacontower.util.XMLPowerSupplyData;
 
 import java.io.IOException;
