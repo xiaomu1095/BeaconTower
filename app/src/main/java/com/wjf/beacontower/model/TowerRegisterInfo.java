@@ -248,4 +248,26 @@ public class TowerRegisterInfo implements Parcelable {
         setCommissioningDate("");
     }
 
+    @Override
+    public String toString() {
+        return "TowerRegisterInfo{" +
+                "supplyName='" + supplyName + '\'' +
+                ", transformerName='" + transformerName + '\'' +
+                ", lineName='" + lineName + '\'' +
+                ", lineDuty='" + lineDuty + '\'' +
+                ", contactInfo='" + contactInfo + '\'' +
+                ", lineType='" + lineType + '\'' +
+                ", towerNum='" + towerNum + '\'' +
+                ", subLineName='" + subLineName + '\'' +
+                ", towerTexture='" + towerTexture + '\'' +
+                ", towerUse='" + towerUse + '\'' +
+                ", towerLocation='" + towerLocation + '\'' +
+                ", towerHeight='" + towerHeight + '\'' +
+                ", towerSetup='" + towerSetup + '\'' +
+                ", wireType='" + wireType + '\'' +
+                ", towerEquipment='" + towerEquipment + '\'' +
+                ", towerTerrain='" + towerTerrain + '\'' +
+                ", commissioningDate='" + commissioningDate + '\'' +
+                '}';
+    }
 }

@@ -1,10 +1,10 @@
 package com.wjf.beacontower;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,9 +12,11 @@ import android.widget.Toast;
 
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.wjf.beacontower.model.TowerRegisterInfo;
+import com.wjf.beacontower.util.FileIOUtils;
 import com.wjf.beacontower.util.SpUtil;
 import com.wjf.beacontower.util.XMLPowerSupplyData;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -216,12 +218,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         towerRegisterInfo.setLineName(lineName);
         towerRegisterInfo.setLineDuty(lineDuty);
         towerRegisterInfo.setContactInfo(contactInfo);
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(ConstantValues.BUNDLE_KEY_BASE_INFO, towerRegisterInfo);
-        Intent intent = new Intent();
-        intent.setClass(this, InfoCollectionActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
+
+        File info = getExternalFilesDir(ConstantValues.COLLECTION_INFO_PATH_NAME);
+        if (info != null) {
+            String path = info.getAbsolutePath() + File.separatorChar + ConstantValues.COLLECTION_INFO_TXT_NAME;
+            Log.i("MainActivity", path);
+            FileIOUtils.writeFileFromStringWithTime(path,towerRegisterInfo.toString(),true);
+        }
+
+//        Bundle bundle = new Bundle();
+//        bundle.putParcelable(ConstantValues.BUNDLE_KEY_BASE_INFO, towerRegisterInfo);
+//        Intent intent = new Intent();
+//        intent.setClass(this, InfoCollectionActivity.class);
+//        intent.putExtras(bundle);
+//        startActivity(intent);
     }
 
 }

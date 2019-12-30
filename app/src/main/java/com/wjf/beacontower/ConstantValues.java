@@ -8,6 +8,9 @@ package com.wjf.beacontower;
  */
 public interface ConstantValues {
 
+    String COLLECTION_INFO_PATH_NAME = "info";
+    String COLLECTION_INFO_TXT_NAME = "data.txt";
+
     String POWER_SUPPLY_XML_NAME = "power_supply_data.xml";
 
     String MAP_KEY_SUPPLY = "powerSupplyName";

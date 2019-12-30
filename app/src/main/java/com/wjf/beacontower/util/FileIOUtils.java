@@ -1,23 +1,19 @@
 package com.wjf.beacontower.util;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.RandomAccessFile;
-import java.nio.ByteBuffer;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * @author xiaom
@@ -35,249 +31,7 @@ public final class FileIOUtils {
 
     private static int sBufferSize = 8192;
 
-    /**
-     * 将输入流写入文件
-     *
-     * @param filePath 路径
-     * @param is       输入流
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromIS(final String filePath, final InputStream is) {
-        return writeFileFromIS(getFileByPath(filePath), is, false);
-    }
 
-    /**
-     * 将输入流写入文件
-     *
-     * @param filePath 路径
-     * @param is       输入流
-     * @param append   是否追加在文件末
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromIS(final String filePath, final InputStream is, final boolean append) {
-        return writeFileFromIS(getFileByPath(filePath), is, append);
-    }
-
-    /**
-     * 将输入流写入文件
-     *
-     * @param file 文件
-     * @param is   输入流
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromIS(final File file, final InputStream is) {
-        return writeFileFromIS(file, is, false);
-    }
-
-    /**
-     * 将输入流写入文件
-     *
-     * @param file   文件
-     * @param is     输入流
-     * @param append 是否追加在文件末
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromIS(final File file, final InputStream is, final boolean append) {
-        if (!createOrExistsFile(file) || is == null) return false;
-        OutputStream os = null;
-        try {
-            os = new BufferedOutputStream(new FileOutputStream(file, append));
-            byte data[] = new byte[sBufferSize];
-            int len;
-            while ((len = is.read(data, 0, sBufferSize)) != -1) {
-                os.write(data, 0, len);
-            }
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            CloseUtils.closeIO(is, os);
-        }
-    }
-
-    /**
-     * 将字节数组写入文件
-     *
-     * @param filePath 文件路径
-     * @param bytes    字节数组
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromBytesByStream(final String filePath, final byte[] bytes) {
-        return writeFileFromBytesByStream(getFileByPath(filePath), bytes, false);
-    }
-
-    /**
-     * 将字节数组写入文件
-     *
-     * @param filePath 文件路径
-     * @param bytes    字节数组
-     * @param append   是否追加在文件末
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromBytesByStream(final String filePath, final byte[] bytes, final boolean append) {
-        return writeFileFromBytesByStream(getFileByPath(filePath), bytes, append);
-    }
-
-    /**
-     * 将字节数组写入文件
-     *
-     * @param file  文件
-     * @param bytes 字节数组
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromBytesByStream(final File file, final byte[] bytes) {
-        return writeFileFromBytesByStream(file, bytes, false);
-    }
-
-    /**
-     * 将字节数组写入文件
-     *
-     * @param file   文件
-     * @param bytes  字节数组
-     * @param append 是否追加在文件末
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromBytesByStream(final File file, final byte[] bytes, final boolean append) {
-        if (bytes == null || !createOrExistsFile(file)) return false;
-        BufferedOutputStream bos = null;
-        try {
-            bos = new BufferedOutputStream(new FileOutputStream(file, append));
-            bos.write(bytes);
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            CloseUtils.closeIO(bos);
-        }
-    }
-
-    /**
-     * 将字节数组写入文件
-     *
-     * @param filePath 文件路径
-     * @param bytes    字节数组
-     * @param isForce  是否写入文件
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromBytesByChannel(final String filePath, final byte[] bytes, final boolean isForce) {
-        return writeFileFromBytesByChannel(getFileByPath(filePath), bytes, false, isForce);
-    }
-
-    /**
-     * 将字节数组写入文件
-     *
-     * @param filePath 文件路径
-     * @param bytes    字节数组
-     * @param append   是否追加在文件末
-     * @param isForce  是否写入文件
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromBytesByChannel(final String filePath, final byte[] bytes, final boolean append, final boolean isForce) {
-        return writeFileFromBytesByChannel(getFileByPath(filePath), bytes, append, isForce);
-    }
-
-    /**
-     * 将字节数组写入文件
-     *
-     * @param file    文件
-     * @param bytes   字节数组
-     * @param isForce 是否写入文件
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromBytesByChannel(final File file, final byte[] bytes, final boolean isForce) {
-        return writeFileFromBytesByChannel(file, bytes, false, isForce);
-    }
-
-    /**
-     * 将字节数组写入文件
-     *
-     * @param file    文件
-     * @param bytes   字节数组
-     * @param append  是否追加在文件末
-     * @param isForce 是否写入文件
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromBytesByChannel(final File file, final byte[] bytes, final boolean append, final boolean isForce) {
-        if (bytes == null) return false;
-        FileChannel fc = null;
-        try {
-            fc = new FileOutputStream(file, append).getChannel();
-            fc.position(fc.size());
-            fc.write(ByteBuffer.wrap(bytes));
-            if (isForce) fc.force(true);
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            CloseUtils.closeIO(fc);
-        }
-    }
-
-    /**
-     * 将字节数组写入文件
-     *
-     * @param filePath 文件路径
-     * @param bytes    字节数组
-     * @param isForce  是否写入文件
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromBytesByMap(final String filePath, final byte[] bytes, final boolean isForce) {
-        return writeFileFromBytesByMap(filePath, bytes, false, isForce);
-    }
-
-    /**
-     * 将字节数组写入文件
-     *
-     * @param filePath 文件路径
-     * @param bytes    字节数组
-     * @param append   是否追加在文件末
-     * @param isForce  是否写入文件
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromBytesByMap(final String filePath, final byte[] bytes, final boolean append, final boolean isForce) {
-        return writeFileFromBytesByMap(getFileByPath(filePath), bytes, append, isForce);
-    }
-
-    /**
-     * 将字节数组写入文件
-     *
-     * @param file    文件
-     * @param bytes   字节数组
-     * @param isForce 是否写入文件
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromBytesByMap(final File file, final byte[] bytes, final boolean isForce) {
-        return writeFileFromBytesByMap(file, bytes, false, isForce);
-    }
-
-    /**
-     * 将字节数组写入文件
-     *
-     * @param file    文件
-     * @param bytes   字节数组
-     * @param append  是否追加在文件末
-     * @param isForce 是否写入文件
-     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
-     */
-    public static boolean writeFileFromBytesByMap(final File file, final byte[] bytes, final boolean append, final boolean isForce) {
-        if (bytes == null || !createOrExistsFile(file)) return false;
-        FileChannel fc = null;
-        try {
-            fc = new FileOutputStream(file, append).getChannel();
-            MappedByteBuffer mbb = fc.map(FileChannel.MapMode.READ_WRITE, fc.size(), bytes.length);
-            mbb.put(bytes);
-            if (isForce) mbb.force();
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            CloseUtils.closeIO(fc);
-        }
-    }
 
     /**
      * 将字符串写入文件
@@ -300,6 +54,14 @@ public final class FileIOUtils {
      */
     public static boolean writeFileFromString(final String filePath, final String content, final boolean append) {
         return writeFileFromString(getFileByPath(filePath), content, append);
+    }
+
+    public static boolean writeFileFromStringWithTime(final String filePath, final String content, final boolean append) {
+        String format = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.CHINESE);
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        String dateFormat = sdf.format(new Date());
+        return writeFileFromString(getFileByPath(filePath), dateFormat + " " + content, append);
     }
 
     /**
@@ -328,6 +90,7 @@ public final class FileIOUtils {
         try {
             bw = new BufferedWriter(new FileWriter(file, append));
             bw.write(content);
+            bw.newLine();
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -552,74 +315,6 @@ public final class FileIOUtils {
             return null;
         } finally {
             CloseUtils.closeIO(fis, os);
-        }
-    }
-
-    /**
-     * 读取文件到字节数组中
-     *
-     * @param filePath 文件路径
-     * @return 字符数组
-     */
-    public static byte[] readFile2BytesByChannel(final String filePath) {
-        return readFile2BytesByChannel(getFileByPath(filePath));
-    }
-
-    /**
-     * 读取文件到字节数组中
-     *
-     * @param file 文件
-     * @return 字符数组
-     */
-    public static byte[] readFile2BytesByChannel(final File file) {
-        if (!isFileExists(file)) return null;
-        FileChannel fc = null;
-        try {
-            fc = new RandomAccessFile(file, "r").getChannel();
-            ByteBuffer byteBuffer = ByteBuffer.allocate((int) fc.size());
-            while (true) {
-                if (!((fc.read(byteBuffer)) > 0)) break;
-            }
-            return byteBuffer.array();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            CloseUtils.closeIO(fc);
-        }
-    }
-
-    /**
-     * 读取文件到字节数组中
-     *
-     * @param filePath 文件路径
-     * @return 字符数组
-     */
-    public static byte[] readFile2BytesByMap(final String filePath) {
-        return readFile2BytesByMap(getFileByPath(filePath));
-    }
-
-    /**
-     * 读取文件到字节数组中
-     *
-     * @param file 文件
-     * @return 字符数组
-     */
-    public static byte[] readFile2BytesByMap(final File file) {
-        if (!isFileExists(file)) return null;
-        FileChannel fc = null;
-        try {
-            fc = new RandomAccessFile(file, "r").getChannel();
-            int size = (int) fc.size();
-            MappedByteBuffer mbb = fc.map(FileChannel.MapMode.READ_ONLY, 0, size).load();
-            byte[] result = new byte[size];
-            mbb.get(result, 0, size);
-            return result;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            CloseUtils.closeIO(fc);
         }
     }
 
