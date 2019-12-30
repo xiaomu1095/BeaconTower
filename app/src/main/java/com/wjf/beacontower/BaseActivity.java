@@ -1,12 +1,11 @@
 package com.wjf.beacontower;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -14,10 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
-import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -26,25 +22,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getNotGrantedPermissions()
-                .doOnNext(new Consumer<List<Permission>>() {
-                    @Override
-                    public void accept(List<Permission> permissions) throws Exception {
-                        // 权限是否通过
-                        if (permissions.size() > 0) {
-                            new QMUIDialog.MessageDialogBuilder(getApplicationContext())
-                                    .setMessage("")
-                                    .setTitle("")
-                                    .addAction("", new QMUIDialogAction.ActionListener() {
-                                        @Override
-                                        public void onClick(QMUIDialog dialog, int index) {
-
-                                        }
-                                    })
-                                    .create().show();
-                        }
-                    }
-                });
+        Observable<List<Permission>> observable =
+                getNotGrantedPermissions()
+                        .doOnNext(permissions -> {
+                            // 权限是否通过
+                            if (permissions.size() > 0) {
+                                new QMUIDialog.MessageDialogBuilder(getApplicationContext())
+                                        .setMessage("权限不足！请授权！")
+                                        .setTitle("授权提醒")
+                                        .addAction("确定", (dialog, index) -> dialog.dismiss())
+                                        .create().show();
+                            }
+                        });
     }
 
 
