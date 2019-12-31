@@ -20,6 +20,9 @@ import io.reactivex.functions.Function;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
+    final int TIPS_LENGTH_SHORT = 1000;
+    final int TIPS_LENGTH_LONG = 1800;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -17,19 +17,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.wjf.beacontower.model.TowerRegisterInfo;
 
 public class InfoCollectionActivity extends BaseActivity implements View.OnClickListener {
@@ -160,6 +159,9 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
             case R.id.menu_clear:
                 clearData();
                 break;
+            case R.id.menu_next:
+                nextTower();
+                break;
             case R.id.menu_history:
                 Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
                 break;
@@ -187,6 +189,41 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
 
         if (towerRegisterInfo != null) {
             towerRegisterInfo.clearData();
+        }
+    }
+
+    // 用户填写下一个杆塔数据
+    private void nextTower() {
+        String towerNum = tv_tower_num_v.getText().toString().trim();
+        int i;
+        try {
+            i = Integer.parseInt(towerNum);
+        } catch (Exception e) {
+            QMUITipDialog dialog = new QMUITipDialog.Builder(this)
+                    .setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL)
+                    .setTipWord("杆塔编号不是数字！")
+                    .create(false);
+            dialog.show();
+            tv_tower_num_v.postDelayed(dialog::dismiss, TIPS_LENGTH_SHORT);
+            return;
+        }
+        String nextTowerNum = String.valueOf(i + 1);
+        tv_tower_num_v.setText(nextTowerNum);
+        if (tv_subline_name_v.getVisibility() == View.VISIBLE) {
+            tv_subline_name_v.setText(null);
+        }
+
+        tv_tower_texture_v.setText(null);
+        tv_tower_use_v.setText(null);
+        tv_tower_location_v.setText(null);
+        tv_tower_height_v.setText(null);
+        tv_tower_setup_v.setText(null);
+        tv_wire_type_v.setText(null);
+        tv_tower_terrain_v.setText(null);
+        tv_commissioning_date_v.setText(null);
+
+        if (towerRegisterInfo != null) {
+            towerRegisterInfo.nextTower(nextTowerNum);
         }
     }
 
@@ -312,6 +349,15 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
 
     // 输入杆号
     private void inputTowerNumDialog() {
+        if (tv_line_type_v.getText().length() < 1) {
+            QMUITipDialog dialog = new QMUITipDialog.Builder(this)
+                    .setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL)
+                    .setTipWord("请先选择线路类型！")
+                    .create(false);
+            dialog.show();
+            tv_tower_num_v.postDelayed(dialog::dismiss, TIPS_LENGTH_SHORT);
+            return;
+        }
         final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
         builder.setTitle("请输入杆塔编号")
                 .setInputType(InputType.TYPE_CLASS_NUMBER)

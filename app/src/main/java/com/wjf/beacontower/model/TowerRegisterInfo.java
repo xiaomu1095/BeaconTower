@@ -248,6 +248,20 @@ public class TowerRegisterInfo implements Parcelable {
         setCommissioningDate("");
     }
 
+    public void nextTower(String towerNum){
+        setTowerNum(towerNum);
+        setSubLineName("");
+        setTowerTexture("");
+        setTowerUse("");
+        setTowerLocation("");
+        setTowerHeight("");
+        setTowerSetup("");
+        setWireType("");
+        setTowerEquipment("");
+        setTowerTerrain("");
+        setCommissioningDate("");
+    }
+
     @Override
     public String toString() {
         return "TowerRegisterInfo{" +
