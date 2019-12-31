@@ -62,7 +62,7 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
             @Override
             public void onLocationChanged(Location location) {
                 tv_tower_location_v.setText("onLocationChanged");
-                String loc = location.getLatitude() + "==" + location.getLongitude();
+                String loc = location.getLatitude() + "," + location.getLongitude();
                 tv_tower_location_v.setText(loc);
             }
 
@@ -95,6 +95,7 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     @Override
     protected void onResume() {
         super.onResume();
+        getTowerLocation();
     }
 
     private void initData(Bundle savedInstanceState) {
@@ -377,6 +378,7 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
 
     // 获取位置信息
     private void getTowerLocation() {
+        tv_tower_location_v.setText("start location");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -385,8 +387,8 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
                 return;
             }
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000,
-                1000, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
+                10000, locationListener);
     }
 
     // 杆塔高度
