@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.wjf.beacontower.util.FileIOUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,21 +23,29 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Observable<List<Permission>> observable =
-                getNotGrantedPermissions()
-                        .doOnNext(permissions -> {
-                            // 权限是否通过
-                            if (permissions.size() > 0) {
-                                new QMUIDialog.MessageDialogBuilder(getApplicationContext())
-                                        .setMessage("权限不足！请授权！")
-                                        .setTitle("授权提醒")
-                                        .addAction("确定", (dialog, index) -> dialog.dismiss())
-                                        .create().show();
-                            }
-                        });
     }
 
+    protected void writeStringToFile(String content) {
+        File info = getExternalFilesDir(ConstantValues.COLLECTION_INFO_PATH_NAME);
+        if (info != null) {
+            String path = info.getAbsolutePath() + File.separatorChar + ConstantValues.COLLECTION_INFO_TXT_NAME;
+            FileIOUtils.writeFileFromStringWithTime(path,content,true);
+        }
+    }
+
+    protected Observable<List<Permission>> grantPermissions() {
+        return getNotGrantedPermissions()
+                .doOnNext(permissions -> {
+                    // 权限是否通过
+                    if (permissions.size() > 0) {
+                        new QMUIDialog.MessageDialogBuilder(getApplicationContext())
+                                .setMessage("权限不足！请授权！")
+                                .setTitle("授权提醒")
+                                .addAction("确定", (dialog, index) -> dialog.dismiss())
+                                .create().show();
+                    }
+                });
+    }
 
     // 请求所有的权限
     protected Observable<List<Permission>> getNotGrantedPermissions() {

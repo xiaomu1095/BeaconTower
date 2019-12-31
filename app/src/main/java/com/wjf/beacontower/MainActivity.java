@@ -1,6 +1,7 @@
 package com.wjf.beacontower;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -218,20 +219,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         towerRegisterInfo.setLineName(lineName);
         towerRegisterInfo.setLineDuty(lineDuty);
         towerRegisterInfo.setContactInfo(contactInfo);
-
-        File info = getExternalFilesDir(ConstantValues.COLLECTION_INFO_PATH_NAME);
-        if (info != null) {
-            String path = info.getAbsolutePath() + File.separatorChar + ConstantValues.COLLECTION_INFO_TXT_NAME;
-            Log.i("MainActivity", path);
-            FileIOUtils.writeFileFromStringWithTime(path,towerRegisterInfo.toString(),true);
-        }
-
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelable(ConstantValues.BUNDLE_KEY_BASE_INFO, towerRegisterInfo);
-//        Intent intent = new Intent();
-//        intent.setClass(this, InfoCollectionActivity.class);
-//        intent.putExtras(bundle);
-//        startActivity(intent);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(ConstantValues.BUNDLE_KEY_BASE_INFO, towerRegisterInfo);
+        Intent intent = new Intent();
+        intent.setClass(this, InfoCollectionActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
 }

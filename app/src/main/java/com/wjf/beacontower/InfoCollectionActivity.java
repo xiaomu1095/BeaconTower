@@ -32,7 +32,7 @@ import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.wjf.beacontower.model.TowerRegisterInfo;
 
-public class InfoCollectionActivity extends AppCompatActivity implements View.OnClickListener {
+public class InfoCollectionActivity extends BaseActivity implements View.OnClickListener {
 
     private TowerRegisterInfo towerRegisterInfo;
     private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
@@ -214,8 +214,35 @@ public class InfoCollectionActivity extends AppCompatActivity implements View.On
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
+                if (towerRegisterInfo != null) {
+                    String lineType = tv_line_type_v.getText().toString();
+                    towerRegisterInfo.setLineType(lineType);
+                    String towerNum = tv_tower_num_v.getText().toString();
+                    towerRegisterInfo.setTowerNum(towerNum);
+                    String subLineName = tv_subline_name_v.getText().toString();
+                    towerRegisterInfo.setSubLineName(subLineName);
+                    String towerTexture = tv_tower_texture_v.getText().toString();
+                    towerRegisterInfo.setTowerTexture(towerTexture);
+                    String towerUse = tv_tower_use_v.getText().toString();
+                    towerRegisterInfo.setTowerUse(towerUse);
+                    String towerLocation = tv_tower_location_v.getText().toString();
+                    towerRegisterInfo.setTowerLocation(towerLocation);
+                    String towerHeight = tv_tower_height_v.getText().toString();
+                    towerRegisterInfo.setTowerHeight(towerHeight);
+                    String towerSetup = tv_tower_setup_v.getText().toString();
+                    towerRegisterInfo.setTowerSetup(towerSetup);
+                    String wireType = tv_wire_type_v.getText().toString();
+                    towerRegisterInfo.setWireType(wireType);
+                    String towerTerrain = tv_tower_terrain_v.getText().toString();
+                    towerRegisterInfo.setTowerTerrain(towerTerrain);
+                    String commissioningDate = tv_commissioning_date_v.getText().toString();
+                    towerRegisterInfo.setCommissioningDate(commissioningDate);
+
+                    writeStringToFile(towerRegisterInfo.toString());
+                }
+
+
+                Snackbar.make(view, "数据已经存储", Snackbar.LENGTH_SHORT).show();
             }
         });
     }
