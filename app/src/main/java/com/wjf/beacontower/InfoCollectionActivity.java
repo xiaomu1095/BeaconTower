@@ -313,17 +313,14 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     // 输入杆号
     private void inputTowerNumDialog() {
         final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
-        builder.setTitle("请输入杆号")
-                .setInputType(InputType.TYPE_CLASS_TEXT)
-                .addAction("确定", new QMUIDialogAction.ActionListener() {
-                    @Override
-                    public void onClick(QMUIDialog dialog, int index) {
-                        CharSequence text = builder.getEditText().getText();
-                        if (text != null && text.length() > 0) {
-                            tv_tower_num_v.setText(text);
-                        }
-                        dialog.dismiss();
+        builder.setTitle("请输入杆塔编号")
+                .setInputType(InputType.TYPE_CLASS_NUMBER)
+                .addAction("确定", (dialog, index) -> {
+                    CharSequence text = builder.getEditText().getText();
+                    if (text != null && text.length() > 0) {
+                        tv_tower_num_v.setText(text);
                     }
+                    dialog.dismiss();
                 })
                 .create(mCurrentDialogStyle).show();
     }
