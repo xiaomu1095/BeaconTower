@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.location.GpsSatellite;
+import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -23,6 +25,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -30,6 +33,8 @@ import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.wjf.beacontower.model.TowerRegisterInfo;
+
+import java.util.Iterator;
 
 public class InfoCollectionActivity extends BaseActivity implements View.OnClickListener {
 
@@ -432,6 +437,35 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
                 10000, locationListener);
+        locationManager.addGpsStatusListener(event -> {
+            switch (event) {
+                case GpsStatus.GPS_EVENT_STARTED:
+                    tv_tower_location_v.setText("GPS_EVENT_STARTED");
+                    break;
+                case GpsStatus.GPS_EVENT_STOPPED:
+                    tv_tower_location_v.setText("GPS_EVENT_STOPPED");
+                    break;
+                case GpsStatus.GPS_EVENT_FIRST_FIX:
+                    tv_tower_location_v.setText("GPS_EVENT_FIRST_FIX");
+                    break;
+                case GpsStatus.GPS_EVENT_SATELLITE_STATUS:
+                    tv_tower_location_v.setText("GPS_EVENT_SATELLITE_STATUS");
+                    if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    GpsStatus gpsStatus = locationManager.getGpsStatus(null);
+                    Iterable<GpsSatellite> gpsSatellites = gpsStatus.getSatellites();
+                    int count = 0;
+                    Iterator iterator = gpsSatellites.iterator();
+                    while (iterator.hasNext()) {
+                        count++;
+                        iterator.next();
+                    }
+                    tv_tower_location_v.setText(count + "");
+                    break;
+            }
+        });
     }
 
     // 杆塔高度
