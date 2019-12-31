@@ -8,8 +8,9 @@
 
         <item name="android:fitsSystemWindows">true</item>
         <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="QMUI.Compat.NoActionBar">
@@ -18,7 +19,8 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 </resources>
