@@ -471,7 +471,8 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     // 杆塔高度
     private void inputTowerHeight(){
         QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
-        builder.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        builder.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED |
+                InputType.TYPE_NUMBER_FLAG_DECIMAL);
         builder.setTitle("请输入杆塔高度");
         builder.setPlaceholder("0");
         builder.addAction("确定", new QMUIDialogAction.ActionListener() {
