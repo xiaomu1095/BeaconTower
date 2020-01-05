@@ -8,6 +8,15 @@ package com.wjf.beacontower;
  */
 public interface ConstantValues {
 
+    /**
+     * 位置更新请求间隔最小时间，单位：毫秒
+     */
+    long LOCATION_UPDATE_MIN_TIME = 10000;
+    /**
+     * 位置更新请求间隔最小距离，单位：米
+     */
+    float LOCATION_UPDATE_MIN_DISTANCE = 10000;
+
     String COLLECTION_INFO_PATH_NAME = "info";
     String COLLECTION_INFO_TXT_NAME = "data.txt";
 

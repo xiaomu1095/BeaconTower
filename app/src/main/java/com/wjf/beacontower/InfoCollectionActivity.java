@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.GpsSatellite;
 import android.location.GpsStatus;
 import android.location.Location;
@@ -426,7 +427,7 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
 
     // 获取位置信息
     private void getTowerLocation() {
-        tv_tower_location_v.setText("start location");
+        tv_tower_location_v.setText("开始定位");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -435,37 +436,15 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
                 return;
             }
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
-                10000, locationListener);
-        locationManager.addGpsStatusListener(event -> {
-            switch (event) {
-                case GpsStatus.GPS_EVENT_STARTED:
-                    tv_tower_location_v.setText("GPS_EVENT_STARTED");
-                    break;
-                case GpsStatus.GPS_EVENT_STOPPED:
-                    tv_tower_location_v.setText("GPS_EVENT_STOPPED");
-                    break;
-                case GpsStatus.GPS_EVENT_FIRST_FIX:
-                    tv_tower_location_v.setText("GPS_EVENT_FIRST_FIX");
-                    break;
-                case GpsStatus.GPS_EVENT_SATELLITE_STATUS:
-                    tv_tower_location_v.setText("GPS_EVENT_SATELLITE_STATUS");
-                    if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        return;
-                    }
-                    GpsStatus gpsStatus = locationManager.getGpsStatus(null);
-                    Iterable<GpsSatellite> gpsSatellites = gpsStatus.getSatellites();
-                    int count = 0;
-                    Iterator iterator = gpsSatellites.iterator();
-                    while (iterator.hasNext()) {
-                        count++;
-                        iterator.next();
-                    }
-                    tv_tower_location_v.setText(count + "");
-                    break;
-            }
-        });
+        Criteria criteria = new Criteria();
+        String bestProvider = locationManager.getBestProvider(criteria, true);
+        if (bestProvider != null) {
+            locationManager.requestLocationUpdates(bestProvider, ConstantValues.LOCATION_UPDATE_MIN_TIME,
+                    ConstantValues.LOCATION_UPDATE_MIN_DISTANCE, locationListener);
+        } else {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, ConstantValues.LOCATION_UPDATE_MIN_TIME,
+                    ConstantValues.LOCATION_UPDATE_MIN_DISTANCE, locationListener);
+        }
     }
 
     // 杆塔高度
