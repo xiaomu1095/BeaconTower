@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
-import android.location.GpsSatellite;
-import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -26,7 +24,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -34,8 +31,6 @@ import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.wjf.beacontower.model.TowerRegisterInfo;
-
-import java.util.Iterator;
 
 public class InfoCollectionActivity extends BaseActivity implements View.OnClickListener {
 
@@ -92,7 +87,7 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     protected void onPause() {
         super.onPause();
         if (locationManager != null && locationListener != null) {
-            tv_tower_location_v.setText("Remove Updates...");
+            tv_tower_location_v.setText("暂停定位");
             locationManager.removeUpdates(locationListener);
         }
     }
