@@ -26,5 +26,14 @@
     <string name="collect_tv_scdx">所处地形</string>
     <string name="collect_tv_hint_scdx">请选择所处地形</string>
     <string name="collect_tv_gssb">杆上设备</string>
-    <string name="collect_tv_hint_gssb">请选择杆上设备</string>
+    <string name="collect_tv_hint_gssb">点击添加杆上设备</string>
+    
+    <string-array name="tower_gssb_spinner">
+        <item>断路器</item>
+        <item>避雷器</item>
+        <item>隔离开关</item>
+        <item>熔断器</item>
+        <item>变压器</item>
+        <item>无功补偿器</item>
+    </string-array>
 </resources>

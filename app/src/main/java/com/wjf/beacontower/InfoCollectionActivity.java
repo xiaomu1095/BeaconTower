@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,14 +25,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.wjf.beacontower.model.TowerRegisterInfo;
+
+import java.util.Random;
 
 public class InfoCollectionActivity extends BaseActivity implements View.OnClickListener {
 
@@ -42,6 +49,7 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
             tv_tower_location_v, tv_tower_height_v, tv_tower_setup_v, tv_wire_type_v, tv_tower_terrain_v,
             tv_commissioning_date_v;
     private TextView tv_tower_equipment_v;
+    private LinearLayoutCompat llc_equipment;
 
     private LocationManager locationManager;
     private LocationListener locationListener;
@@ -143,6 +151,7 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         tv_commissioning_date_v = findViewById(R.id.tv_commissioning_date_v);
         tv_commissioning_date_v.setOnClickListener(this);
 
+        llc_equipment = findViewById(R.id.llc_equipment);
         tv_tower_equipment_v = findViewById(R.id.tv_tower_equipment_v);
         tv_tower_equipment_v.setOnClickListener(this);
     }
@@ -323,9 +332,34 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
                 selectCommissioningDateDialog();
                 break;
             case R.id.tv_tower_equipment_v:
-
+                addGSSB();
                 break;
         }
+    }
+
+    // 添加杆上设备
+    private void addGSSB() {
+//        int dpToPx = QMUIDisplayHelper.dpToPx(24);
+//        LinearLayoutCompat.LayoutParams layoutParams =
+//                new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.MATCH_PARENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
+//        layoutParams.setMargins(dpToPx,24, 0, 24);
+//        TextView textView = new TextView(getActivity());
+//        textView.setLayoutParams(layoutParams);
+//        textView.setGravity(Gravity.CENTER_VERTICAL);
+//        textView.setMaxLines(1);
+//        textView.setTextSize(14);
+//        textView.setText("测试文字添加");
+//        llc_equipment.addView(textView);
+
+        new QMUIDialog.CustomDialogBuilder(this)
+                .setLayout(R.layout.dialog_add_gssb)
+                .addAction("确定", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                    }
+                })
+                .create(mCurrentDialogStyle).show();
     }
 
     // 线路类型

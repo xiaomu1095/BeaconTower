@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:text="选择杆上设备"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="6dp"
+        android:gravity="center_vertical"
+        android:minHeight="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/dia_tv_sb"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="设备"
+            android:textColor="@android:color/black" />
+
+        <Spinner
+            android:id="@+id/dia_spinner_sb"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@drawable/shape_spinner_background"
+            android:dropDownWidth="wrap_content"
+            android:entries="@array/tower_gssb_spinner"
+            android:padding="6dp"
+            android:spinnerMode="dropdown"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="6dp"
+        android:minHeight="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/dia_tv_xh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="型号"
+            android:textColor="@android:color/black" />
+
+        <EditText
+            android:id="@+id/dia_et_xh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:ems="10"
+            android:hint="请输入设备型号"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/qmui_config_color_gray_6" />
+    </LinearLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
