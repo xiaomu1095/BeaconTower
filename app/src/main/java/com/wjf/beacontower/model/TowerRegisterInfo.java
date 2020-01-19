@@ -3,7 +3,14 @@ package com.wjf.beacontower.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author xiaom
@@ -33,6 +40,8 @@ public class TowerRegisterInfo implements Parcelable {
     private String towerEquipment;
     private String towerTerrain;
     private String commissioningDate;
+
+    private List<TowerEquipmentDTO> towerEquipmentDTOList;
 
     public TowerRegisterInfo(){
 
@@ -206,6 +215,14 @@ public class TowerRegisterInfo implements Parcelable {
         this.commissioningDate = commissioningDate;
     }
 
+    public List<TowerEquipmentDTO> getTowerEquipmentDTOList() {
+        return towerEquipmentDTOList;
+    }
+
+    public void setTowerEquipmentDTOList(List<TowerEquipmentDTO> towerEquipmentDTOList) {
+        this.towerEquipmentDTOList = towerEquipmentDTOList;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -246,6 +263,7 @@ public class TowerRegisterInfo implements Parcelable {
         setTowerEquipment("");
         setTowerTerrain("");
         setCommissioningDate("");
+        setTowerEquipmentDTOList(new ArrayList<>());
     }
 
     public void nextTower(String towerNum){
@@ -260,6 +278,43 @@ public class TowerRegisterInfo implements Parcelable {
         setTowerEquipment("");
         setTowerTerrain("");
         setCommissioningDate("");
+        setTowerEquipmentDTOList(new ArrayList<>());
+    }
+
+    public String objectToJson(){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.putOpt("commissioningDate", getCommissioningDate());
+            jsonObject.putOpt("towerTerrain", getTowerTerrain());
+            jsonObject.putOpt("wireType", getWireType());
+            jsonObject.putOpt("towerSetup", getTowerSetup());
+            jsonObject.putOpt("towerHeight", getTowerHeight());
+            jsonObject.putOpt("towerLocation", getTowerLocation());
+            jsonObject.putOpt("towerUse", getTowerUse());
+            jsonObject.putOpt("towerTexture", getTowerTexture());
+            jsonObject.putOpt("subLineName", getSubLineName());
+            jsonObject.putOpt("towerNum", getTowerNum());
+            jsonObject.putOpt("lineType", getLineType());
+            jsonObject.putOpt("contactInfo", getContactInfo());
+            jsonObject.putOpt("lineDuty", getLineDuty());
+            jsonObject.putOpt("lineName", getLineName());
+            jsonObject.putOpt("transformerName", getTransformerName());
+            jsonObject.putOpt("supplyName", getSupplyName());
+
+            if (towerEquipmentDTOList != null && towerEquipmentDTOList.size() > 0) {
+                JSONArray jsonArray = new JSONArray();
+                for (TowerEquipmentDTO equipment:towerEquipmentDTOList) {
+                    JSONObject jo=new JSONObject();
+                    jo.put("name",equipment.getName());
+                    jo.put("type",equipment.getType());
+                    jsonArray.put(jo);
+                }
+                jsonObject.putOpt("EquipmentList", jsonArray);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject.toString();
     }
 
     @Override

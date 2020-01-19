@@ -35,11 +35,16 @@ import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.wjf.beacontower.model.TowerEquipmentDTO;
 import com.wjf.beacontower.model.TowerRegisterInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InfoCollectionActivity extends BaseActivity implements View.OnClickListener {
 
     private TowerRegisterInfo towerRegisterInfo;
+    private final List<TowerEquipmentDTO> towerEquipmentDTOList = new ArrayList<>();
     private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
 
     private TextView tv_supply_name_v, tv_line_name_v, tv_line_duty_v, tv_contact_info_v;
@@ -195,6 +200,8 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         tv_tower_terrain_v.setText(null);
         tv_commissioning_date_v.setText(null);
 
+        towerEquipmentDTOList.clear();
+
         if (towerRegisterInfo != null) {
             towerRegisterInfo.clearData();
         }
@@ -229,6 +236,8 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         tv_wire_type_v.setText(null);
         tv_tower_terrain_v.setText(null);
         tv_commissioning_date_v.setText(null);
+
+        towerEquipmentDTOList.clear();
 
         if (towerRegisterInfo != null) {
             towerRegisterInfo.nextTower(nextTowerNum);
@@ -283,10 +292,10 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
                     towerRegisterInfo.setTowerTerrain(towerTerrain);
                     String commissioningDate = tv_commissioning_date_v.getText().toString();
                     towerRegisterInfo.setCommissioningDate(commissioningDate);
+                    towerRegisterInfo.setTowerEquipmentDTOList(towerEquipmentDTOList);
 
-                    writeStringToFile(towerRegisterInfo.toString());
+                    writeStringToFile(towerRegisterInfo.objectToJson());
                 }
-
 
                 Snackbar.make(view, "数据已经存储", Snackbar.LENGTH_SHORT).show();
             }
@@ -355,15 +364,18 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
                         if (TextUtils.isEmpty(xingHao)) {
                             Toast.makeText(getActivity(), "请输入设备型号！", Toast.LENGTH_SHORT).show();
                         }
-                        addGSSBLayout(string + " (型号：" + xingHao + " )");
+                        TowerEquipmentDTO equipment = new TowerEquipmentDTO(string, xingHao);
+                        towerEquipmentDTOList.add(equipment);
+                        addGSSBLayout(equipment);
                     }
                 })
                 .create(mCurrentDialogStyle).show();
     }
-    private void addGSSBLayout(String text) {
-        if (TextUtils.isEmpty(text)) {
+    private void addGSSBLayout(TowerEquipmentDTO equipment) {
+        if (equipment == null) {
             return;
         }
+        String text = equipment.getName() + " (型号：" + equipment.getType() + " )";
         int dpToPx = QMUIDisplayHelper.dpToPx(24);
         LinearLayoutCompat.LayoutParams layoutParams =
                 new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.MATCH_PARENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
