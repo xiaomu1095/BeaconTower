@@ -1,18 +1,12 @@
 package com.wjf.beacontower;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.pm.PackageManager;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,6 +23,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
@@ -41,7 +37,9 @@ import com.wjf.beacontower.model.TowerRegisterInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfoCollectionActivity extends BaseActivity implements View.OnClickListener {
+import io.reactivex.disposables.Disposable;
+
+public class InfoCollectionActivity extends BaseActivity implements View.OnClickListener, AMapLocationListener {
 
     private TowerRegisterInfo towerRegisterInfo;
     private final List<TowerEquipmentDTO> towerEquipmentDTOList = new ArrayList<>();
@@ -54,8 +52,6 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     private TextView tv_tower_equipment_v;
     private LinearLayoutCompat llc_equipment;
 
-    private LocationManager locationManager;
-    private LocationListener locationListener;
 
 
     @Override
@@ -68,45 +64,13 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         initView();
         initData(savedInstanceState);
 
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                tv_tower_location_v.setText("onLocationChanged");
-                String loc = location.getLatitude() + "," + location.getLongitude();
-                tv_tower_location_v.setText(loc);
-            }
-
-            @Override
-            public void onStatusChanged(String s, int i, Bundle bundle) {
-                tv_tower_location_v.setText("onStatusChanged" + s);
-            }
-
-            @Override
-            public void onProviderEnabled(String s) {
-                tv_tower_location_v.setText("onProviderEnabled");
-            }
-
-            @Override
-            public void onProviderDisabled(String s) {
-                tv_tower_location_v.setText("onProviderDisabled");
-            }
-        };
+        initLocationClient();
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        if (locationManager != null && locationListener != null) {
-            tv_tower_location_v.setText("暂停定位");
-            locationManager.removeUpdates(locationListener);
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getTowerLocation();
+    protected void onDestroy() {
+        super.onDestroy();
+        destroyLocationClient();
     }
 
     private void initData(Bundle savedInstanceState) {
@@ -508,23 +472,40 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     // 获取位置信息
     private void getTowerLocation() {
         tv_tower_location_v.setText("开始定位");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION}, 23);
-                return;
-            }
-        }
-        Criteria criteria = new Criteria();
-        String bestProvider = locationManager.getBestProvider(criteria, true);
-        if (bestProvider != null) {
-            locationManager.requestLocationUpdates(bestProvider, ConstantValues.LOCATION_UPDATE_MIN_TIME,
-                    ConstantValues.LOCATION_UPDATE_MIN_DISTANCE, locationListener);
-        } else {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, ConstantValues.LOCATION_UPDATE_MIN_TIME,
-                    ConstantValues.LOCATION_UPDATE_MIN_DISTANCE, locationListener);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+//                    && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+//                        Manifest.permission.ACCESS_COARSE_LOCATION}, 23);
+//                return;
+//            }
+//        }
+        Disposable disposable = rxPermissions
+//                .requestEach(locationPermissions)
+//                .subscribe(new Consumer<Permission>() {
+//                    @Override
+//                    public void accept(Permission permission) throws Exception {
+//                        if (!permission.granted) {
+//                            Log.e("AMap", permission.name);
+//                        }
+//                    }
+//                }, Throwable::printStackTrace);
+                .request(locationPermissions)
+                .subscribe(aBoolean -> {
+                    if (aBoolean) {
+                        // All requested permissions are granted
+                        locationClient.setLocationListener(this);
+                    } else {
+                        // At least one permission is denied
+                        tv_tower_location_v.setText("权限不足");
+                        new QMUIDialog.MessageDialogBuilder(getApplicationContext())
+                                .setMessage("权限不足！请授权！")
+                                .setTitle("授权提醒")
+                                .addAction("确定", (dialog, index) -> dialog.dismiss())
+                                .create().show();
+                    }
+                }, Throwable::printStackTrace);
+
     }
 
     // 杆塔高度
@@ -619,5 +600,19 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
 
     private Context getActivity() {
         return this;
+    }
+
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        if (aMapLocation.getErrorCode() == AMapLocation.LOCATION_SUCCESS) {
+            String location = aMapLocation.getLatitude() + "," + aMapLocation.getLongitude();
+            towerRegisterInfo.setTowerLocation(location);
+            tv_tower_location_v.setText("定位成功，经纬度：(" + location + ")");
+        } else {
+            //可以记录错误信息，或者根据错误错提示用户进行操作，Demo中只是打印日志
+            Log.e("AMap", "定位失败，错误码：" + aMapLocation.getErrorCode() + ", " + aMapLocation.getLocationDetail());
+            //提示错误信息
+            tv_tower_location_v.setText("定位失败");
+        }
     }
 }

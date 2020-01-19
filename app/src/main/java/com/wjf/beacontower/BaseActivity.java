@@ -1,10 +1,14 @@
 package com.wjf.beacontower;
 
 import android.Manifest;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -20,12 +24,41 @@ import io.reactivex.functions.Function;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
+    final RxPermissions rxPermissions = new RxPermissions(this); // where this is an Activity or Fragment instance
+
+
     final int TIPS_LENGTH_SHORT = 1000;
     final int TIPS_LENGTH_LONG = 1800;
+
+    //如果设置了target > 28，需要增加这个权限，否则不会弹出"始终允许"这个选择框
+    private static String BACKGROUND_LOCATION_PERMISSION = "android.permission.ACCESS_BACKGROUND_LOCATION";
+    protected AMapLocationClient locationClient = null;
+    /**
+     * 需要进行检测的权限数组
+     */
+    protected String[] locationPermissions = {
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.READ_PHONE_STATE
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(Build.VERSION.SDK_INT > 28
+                && getApplicationContext().getApplicationInfo().targetSdkVersion > 28) {
+            locationPermissions = new String[] {
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_PHONE_STATE,
+                    BACKGROUND_LOCATION_PERMISSION
+            };
+        }
     }
 
     protected void writeStringToFile(String content) {
@@ -53,14 +86,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     // 请求所有的权限
     protected Observable<List<Permission>> getNotGrantedPermissions() {
         List<Permission> permissionList = new ArrayList<>();
-        RxPermissions rxPermissions = new RxPermissions(this);
         return rxPermissions
-                .requestEachCombined(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
+                .requestEachCombined(locationPermissions)
                 .flatMap((Function<Permission, ObservableSource<List<Permission>>>) permission ->
                         Observable.create(emitter -> {
                             if (!permission.granted) {
@@ -72,35 +99,32 @@ public abstract class BaseActivity extends AppCompatActivity {
                 ;
     }
 
-    // 重新授权或者退出应用对话Dialog
-//    private Observable<AppStartInfo> grantPermissionDialogObservable() {
-//        return Observable
-//                .create(new ObservableOnSubscribe<AppStartInfo>() {
-//                    @Override
-//                    public void subscribe(ObservableEmitter<AppStartInfo> emitter) throws Exception {
-//                        if (emitter.isDisposed()) {return;}
-//                        HeheDialog.MessageDialogBuilder builder = new HeheDialog.MessageDialogBuilder(MainActivity.this);
-//                        builder.setTitle("提示！！！");
-//                        builder.setMessage("如果拒绝授权，程序将无法正常使用，是否重新授权或者退出应用？");
-//                        builder.addAction("重新授权", (dialog, index) -> {
-//                            dialog.dismiss();
-//                            AppStartInfo appStartInfo = new AppStartInfo();
-//                            appStartInfo.setReGrantedPermission(Boolean.TRUE);
-//                            emitter.onNext(appStartInfo);
-//                        });
-//                        builder.addAction("退出应用", (dialog, index) -> {
-//                            emitter.onComplete();
-//                            dialog.dismiss();
-//                            MainActivity.this.finish();
-//                        });
-//                        if (dialog != null) { dialog.cancel(); }
-//                        dialog = builder.create();
-//                        dialog.setCancelable(false);
-//                        dialog.setCanceledOnTouchOutside(false);
-//                        dialog.show();
-//                    }
-//                });
-//    }
 
+    protected void initLocationClient() {
+        locationClient = new AMapLocationClient(this);
+        AMapLocationClientOption option = new AMapLocationClientOption();
+        /*
+         * 设置签到场景，相当于设置为：
+         * option.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+         * option.setOnceLocation(true);
+         * option.setOnceLocationLatest(true);
+         * option.setMockEnable(false);
+         * option.setWifiScan(true);
+         * option.setGpsFirst(false);
+         * 其他属性均为模式属性。
+         * 如果要改变其中的属性，请在在设置定位场景之后进行
+         */
+        option.setLocationPurpose(AMapLocationClientOption.AMapLocationPurpose.SignIn);
+        locationClient.setLocationOption(option);
+        //设置定位监听
+//        locationClient.setLocationListener(this);
+    }
+
+    protected void destroyLocationClient() {
+        //销毁时，需要销毁定位client
+        if (null != locationClient) {
+            locationClient.onDestroy();
+        }
+    }
 
 }
