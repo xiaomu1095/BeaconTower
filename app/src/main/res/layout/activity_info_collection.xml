@@ -378,23 +378,49 @@
                 app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_13" />
 
             <TextView
-                android:id="@+id/tv_tower_equipment"
+                android:id="@+id/tv_line_span"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/collect_tv_gssb"
+                android:text="@string/collect_tv_xlky"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_13"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/gd_horizontal_14" />
 
             <TextView
-                android:id="@+id/tv_tower_equipment_v"
-                android:hint="@string/collect_tv_hint_gssb"
+                android:id="@+id/tv_line_span_v"
+                android:hint="@string/collect_tv_hint_xlky"
                 style="@style/Collect_TextView_Value"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_14"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintTop_toTopOf="@+id/gd_horizontal_13" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_14" />
+
+            <TextView
+                android:id="@+id/tv_tower_equipment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/collect_tv_gssb"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_14"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_15" />
+
+            <TextView
+                android:id="@+id/tv_tower_equipment_v"
+                android:hint="@string/collect_tv_hint_gssb"
+                style="@style/Collect_TextView_Value"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_15"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_14" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/llc_equipment"
@@ -407,18 +433,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_tower_equipment_v" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gd_horizontal_14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_14" />
-
-            <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/gd_horizontal_15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_15" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_16" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

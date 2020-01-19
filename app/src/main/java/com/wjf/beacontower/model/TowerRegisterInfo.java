@@ -40,6 +40,7 @@ public class TowerRegisterInfo implements Parcelable {
     private String towerEquipment;
     private String towerTerrain;
     private String commissioningDate;
+    private String lineSpan;
 
     private List<TowerEquipmentDTO> towerEquipmentDTOList;
 
@@ -65,6 +66,7 @@ public class TowerRegisterInfo implements Parcelable {
         towerEquipment = in.readString();
         towerTerrain = in.readString();
         commissioningDate = in.readString();
+        lineSpan = in.readString();
     }
 
     public static final Creator<TowerRegisterInfo> CREATOR = new Creator<TowerRegisterInfo>() {
@@ -223,6 +225,14 @@ public class TowerRegisterInfo implements Parcelable {
         this.towerEquipmentDTOList = towerEquipmentDTOList;
     }
 
+    public String getLineSpan() {
+        return lineSpan;
+    }
+
+    public void setLineSpan(String lineSpan) {
+        this.lineSpan = lineSpan;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -247,6 +257,7 @@ public class TowerRegisterInfo implements Parcelable {
         parcel.writeString(towerEquipment);
         parcel.writeString(towerTerrain);
         parcel.writeString(commissioningDate);
+        parcel.writeString(lineSpan);
     }
 
 
@@ -263,6 +274,7 @@ public class TowerRegisterInfo implements Parcelable {
         setTowerEquipment("");
         setTowerTerrain("");
         setCommissioningDate("");
+        setLineSpan("");
         setTowerEquipmentDTOList(new ArrayList<>());
     }
 
@@ -278,6 +290,7 @@ public class TowerRegisterInfo implements Parcelable {
         setTowerEquipment("");
         setTowerTerrain("");
         setCommissioningDate("");
+        setLineSpan("");
         setTowerEquipmentDTOList(new ArrayList<>());
     }
 
@@ -300,6 +313,7 @@ public class TowerRegisterInfo implements Parcelable {
             jsonObject.putOpt("lineName", getLineName());
             jsonObject.putOpt("transformerName", getTransformerName());
             jsonObject.putOpt("supplyName", getSupplyName());
+            jsonObject.putOpt("lineSpan", getLineSpan());
 
             if (towerEquipmentDTOList != null && towerEquipmentDTOList.size() > 0) {
                 JSONArray jsonArray = new JSONArray();
@@ -337,6 +351,8 @@ public class TowerRegisterInfo implements Parcelable {
                 ", towerEquipment='" + towerEquipment + '\'' +
                 ", towerTerrain='" + towerTerrain + '\'' +
                 ", commissioningDate='" + commissioningDate + '\'' +
+                ", lineSpan='" + lineSpan + '\'' +
+                ", towerEquipmentDTOList=" + towerEquipmentDTOList +
                 '}';
     }
 }

@@ -50,7 +50,7 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     private TextView tv_supply_name_v, tv_line_name_v, tv_line_duty_v, tv_contact_info_v;
     private TextView tv_line_type_v, tv_tower_num_v, tv_subline_name_v, tv_tower_texture_v, tv_tower_use_v,
             tv_tower_location_v, tv_tower_height_v, tv_tower_setup_v, tv_wire_type_v, tv_tower_terrain_v,
-            tv_commissioning_date_v;
+            tv_commissioning_date_v, tv_line_span_v;
     private TextView tv_tower_equipment_v;
     private LinearLayoutCompat llc_equipment;
 
@@ -153,6 +153,8 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         tv_tower_terrain_v.setOnClickListener(this);
         tv_commissioning_date_v = findViewById(R.id.tv_commissioning_date_v);
         tv_commissioning_date_v.setOnClickListener(this);
+        tv_line_span_v = findViewById(R.id.tv_line_span_v);
+        tv_line_span_v.setOnClickListener(this);
 
         llc_equipment = findViewById(R.id.llc_equipment);
         tv_tower_equipment_v = findViewById(R.id.tv_tower_equipment_v);
@@ -199,6 +201,7 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         tv_wire_type_v.setText(null);
         tv_tower_terrain_v.setText(null);
         tv_commissioning_date_v.setText(null);
+        tv_line_span_v.setText(null);
 
         towerEquipmentDTOList.clear();
 
@@ -236,6 +239,7 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         tv_wire_type_v.setText(null);
         tv_tower_terrain_v.setText(null);
         tv_commissioning_date_v.setText(null);
+        tv_line_span_v.setText(null);
 
         towerEquipmentDTOList.clear();
 
@@ -292,6 +296,8 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
                     towerRegisterInfo.setTowerTerrain(towerTerrain);
                     String commissioningDate = tv_commissioning_date_v.getText().toString();
                     towerRegisterInfo.setCommissioningDate(commissioningDate);
+                    String lineSpan = tv_line_span_v.getText().toString();
+                    towerRegisterInfo.setLineSpan(lineSpan);
                     towerRegisterInfo.setTowerEquipmentDTOList(towerEquipmentDTOList);
 
                     writeStringToFile(towerRegisterInfo.objectToJson());
@@ -338,10 +344,28 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
             case R.id.tv_commissioning_date_v:
                 selectCommissioningDateDialog();
                 break;
+            case R.id.tv_line_span_v:
+                selectLineSpanDialog();
+                break;
             case R.id.tv_tower_equipment_v:
                 addGSSBDialog();
                 break;
         }
+    }
+
+    // 线路跨越
+    private void selectLineSpanDialog() {
+        final String[] items = ConstantValues.ITEMS_LINE_SPAN;
+        new QMUIDialog.MenuDialogBuilder(this)
+                .addItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String item = items[which];
+                        tv_line_span_v.setText(item);
+                        dialog.dismiss();
+                    }
+                })
+                .create(mCurrentDialogStyle).show();
     }
 
     // 添加杆上设备
