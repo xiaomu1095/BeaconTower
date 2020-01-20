@@ -40,8 +40,6 @@ import com.wjf.beacontower.model.TowerRegisterInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.disposables.Disposable;
-
 public class InfoCollectionActivity extends BaseActivity implements View.OnClickListener, AMapLocationListener {
 
     private TowerRegisterInfo towerRegisterInfo;
@@ -52,7 +50,6 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     private TextView tv_line_type_v, tv_tower_num_v, tv_subline_name_v, tv_tower_texture_v, tv_tower_use_v,
             tv_tower_location_v, tv_tower_height_v, tv_tower_setup_v, tv_wire_type_v, tv_tower_terrain_v,
             tv_commissioning_date_v, tv_line_span_v;
-    private TextView tv_tower_equipment_v;
     private LinearLayoutCompat llc_equipment;
 
 
@@ -124,8 +121,7 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         tv_line_span_v.setOnClickListener(this);
 
         llc_equipment = findViewById(R.id.llc_equipment);
-        tv_tower_equipment_v = findViewById(R.id.tv_tower_equipment_v);
-        tv_tower_equipment_v.setOnClickListener(this);
+        findViewById(R.id.tv_tower_equipment_v).setOnClickListener(this);
     }
 
     @Override
@@ -144,9 +140,9 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
             case R.id.menu_next:
                 nextTower();
                 break;
-            case R.id.menu_history:
-                Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
-                break;
+//            case R.id.menu_history:
+//                Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
+//                break;
             default:
                 break;
         }

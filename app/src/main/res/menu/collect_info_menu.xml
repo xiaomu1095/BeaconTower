@@ -10,7 +10,7 @@
         android:id="@+id/menu_next"
         android:title="下一个杆塔" />
 
-    <item
+    <!--<item
         android:id="@+id/menu_history"
-        android:title="历史记录" />
+        android:title="历史记录" />-->
 </menu>
