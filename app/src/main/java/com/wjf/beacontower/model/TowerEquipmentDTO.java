@@ -1,6 +1,7 @@
 package com.wjf.beacontower.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author xiaom
@@ -42,5 +43,23 @@ public class TowerEquipmentDTO implements Serializable {
     public TowerEquipmentDTO(String name, String type) {
         this.name = name;
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TowerEquipmentDTO that = (TowerEquipmentDTO) o;
+
+        if (!Objects.equals(name, that.name)) return false;
+        return Objects.equals(type, that.type);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        return result;
     }
 }

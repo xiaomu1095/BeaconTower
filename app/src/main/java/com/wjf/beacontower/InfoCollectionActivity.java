@@ -2,6 +2,8 @@ package com.wjf.beacontower;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -14,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -167,6 +171,7 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         tv_line_span_v.setText(null);
 
         towerEquipmentDTOList.clear();
+        llc_equipment.removeAllViews();
 
         if (towerRegisterInfo != null) {
             towerRegisterInfo.clearData();
@@ -205,6 +210,7 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         tv_line_span_v.setText(null);
 
         towerEquipmentDTOList.clear();
+        llc_equipment.removeAllViews();
 
         if (towerRegisterInfo != null) {
             towerRegisterInfo.nextTower(nextTowerNum);
@@ -363,17 +369,44 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
             return;
         }
         String text = equipment.getName() + " (型号：" + equipment.getType() + " )";
-        int dpToPx = QMUIDisplayHelper.dpToPx(24);
+        int dpToPx = QMUIDisplayHelper.dpToPx(12);
+
+        LinearLayout linearLayout = new LinearLayout(getActivity());
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayoutCompat.LayoutParams layoutParams1 =
+                new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.MATCH_PARENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
+        layoutParams1.setMargins(dpToPx, 30, 0, 24);
+        linearLayout.setLayoutParams(layoutParams1);
+        linearLayout.setGravity(Gravity.CENTER_VERTICAL);
+
+        ImageButton button = new ImageButton(getActivity());
+        BitmapFactory.Options bfoOptions = new BitmapFactory.Options();
+        bfoOptions.inScaled = false;
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.qmui_icon_notify_error, bfoOptions);
+        button.setImageBitmap(bitmap);
+        button.setBackgroundColor(getResources().getColor(R.color.colorBlack));
+        LinearLayout.LayoutParams buttonLayoutPa = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//        buttonLayoutPa.setMarginStart(dpToPx);
+        button.setLayoutParams(buttonLayoutPa);
+        linearLayout.addView(button);
+        button.setOnClickListener(v -> {
+            TowerEquipmentDTO tag = (TowerEquipmentDTO) linearLayout.getTag();
+            towerEquipmentDTOList.remove(tag);
+            llc_equipment.removeView(linearLayout);
+        });
+
         LinearLayoutCompat.LayoutParams layoutParams =
                 new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.MATCH_PARENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(dpToPx,24, 0, 24);
+        layoutParams.setMargins(dpToPx,0, 0, 0);
         TextView textView = new TextView(getActivity());
         textView.setLayoutParams(layoutParams);
-        textView.setGravity(Gravity.CENTER_VERTICAL);
         textView.setMaxLines(1);
         textView.setTextSize(14);
         textView.setText(text);
-        llc_equipment.addView(textView);
+        linearLayout.addView(textView);
+
+        linearLayout.setTag(equipment);
+        llc_equipment.addView(linearLayout);
     }
 
     // 线路类型
