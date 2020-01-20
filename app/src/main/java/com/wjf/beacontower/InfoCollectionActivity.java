@@ -31,6 +31,8 @@ import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.uber.autodispose.AutoDispose;
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 import com.wjf.beacontower.model.TowerEquipmentDTO;
 import com.wjf.beacontower.model.TowerLocationDTO;
 import com.wjf.beacontower.model.TowerRegisterInfo;
@@ -473,8 +475,9 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     // 获取位置信息
     private void getTowerLocation() {
         tv_tower_location_v.setText("开始定位");
-        Disposable disposable = rxPermissions
+        rxPermissions
                 .request(locationPermissions)
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
                 .subscribe(aBoolean -> {
                     if (aBoolean) {
                         // All requested permissions are granted
