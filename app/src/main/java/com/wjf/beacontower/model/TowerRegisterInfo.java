@@ -2,14 +2,13 @@ package com.wjf.beacontower.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,6 +33,7 @@ public class TowerRegisterInfo implements Parcelable {
     private String towerTexture;
     private String towerUse;
     private String towerLocation;
+    private TowerLocationDTO locationDTO;
     private String towerHeight;
     private String towerSetup;
     private String wireType;
@@ -233,6 +233,14 @@ public class TowerRegisterInfo implements Parcelable {
         this.lineSpan = lineSpan;
     }
 
+    public TowerLocationDTO getLocationDTO() {
+        return locationDTO;
+    }
+
+    public void setLocationDTO(TowerLocationDTO locationDTO) {
+        this.locationDTO = locationDTO;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -276,6 +284,7 @@ public class TowerRegisterInfo implements Parcelable {
         setCommissioningDate("");
         setLineSpan("");
         setTowerEquipmentDTOList(new ArrayList<>());
+        setLocationDTO(null);
     }
 
     public void nextTower(String towerNum){
@@ -292,6 +301,7 @@ public class TowerRegisterInfo implements Parcelable {
         setCommissioningDate("");
         setLineSpan("");
         setTowerEquipmentDTOList(new ArrayList<>());
+        setLocationDTO(null);
     }
 
     public String objectToJson(){
@@ -302,10 +312,12 @@ public class TowerRegisterInfo implements Parcelable {
             jsonObject.putOpt("wireType", getWireType());
             jsonObject.putOpt("towerSetup", getTowerSetup());
             jsonObject.putOpt("towerHeight", getTowerHeight());
-            jsonObject.putOpt("towerLocation", getTowerLocation());
+//            jsonObject.putOpt("towerLocation", getTowerLocation());
             jsonObject.putOpt("towerUse", getTowerUse());
             jsonObject.putOpt("towerTexture", getTowerTexture());
-            jsonObject.putOpt("subLineName", getSubLineName());
+            if (!TextUtils.isEmpty(getSubLineName())) {
+                jsonObject.putOpt("subLineName", getSubLineName());
+            }
             jsonObject.putOpt("towerNum", getTowerNum());
             jsonObject.putOpt("lineType", getLineType());
             jsonObject.putOpt("contactInfo", getContactInfo());
@@ -324,6 +336,17 @@ public class TowerRegisterInfo implements Parcelable {
                     jsonArray.put(jo);
                 }
                 jsonObject.putOpt("EquipmentList", jsonArray);
+            }
+            if (getLocationDTO() != null) {
+                JSONObject jo = new JSONObject();
+                jo.putOpt("latitude",getLocationDTO().getLatitude());
+                jo.putOpt("longitude",getLocationDTO().getLongitude());
+                jo.putOpt("accuracy",getLocationDTO().getAccuracy());
+                jo.putOpt("province",getLocationDTO().getProvince());
+                jo.putOpt("city",getLocationDTO().getCity());
+                jo.putOpt("district",getLocationDTO().getDistrict());
+                jo.putOpt("type",getLocationDTO().getType());
+                jsonObject.putOpt("locationDTO", jo);
             }
         } catch (JSONException e) {
             e.printStackTrace();

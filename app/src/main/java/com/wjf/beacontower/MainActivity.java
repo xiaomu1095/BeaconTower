@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,11 +12,9 @@ import android.widget.Toast;
 
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.wjf.beacontower.model.TowerRegisterInfo;
-import com.wjf.beacontower.util.FileIOUtils;
 import com.wjf.beacontower.util.SpUtil;
 import com.wjf.beacontower.util.XMLPowerSupplyData;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;

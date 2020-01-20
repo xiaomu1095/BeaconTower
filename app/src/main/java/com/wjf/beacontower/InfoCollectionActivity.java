@@ -32,6 +32,7 @@ import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.wjf.beacontower.model.TowerEquipmentDTO;
+import com.wjf.beacontower.model.TowerLocationDTO;
 import com.wjf.beacontower.model.TowerRegisterInfo;
 
 import java.util.ArrayList;
@@ -472,29 +473,13 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     // 获取位置信息
     private void getTowerLocation() {
         tv_tower_location_v.setText("开始定位");
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-//                    && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-//                        Manifest.permission.ACCESS_COARSE_LOCATION}, 23);
-//                return;
-//            }
-//        }
         Disposable disposable = rxPermissions
-//                .requestEach(locationPermissions)
-//                .subscribe(new Consumer<Permission>() {
-//                    @Override
-//                    public void accept(Permission permission) throws Exception {
-//                        if (!permission.granted) {
-//                            Log.e("AMap", permission.name);
-//                        }
-//                    }
-//                }, Throwable::printStackTrace);
                 .request(locationPermissions)
                 .subscribe(aBoolean -> {
                     if (aBoolean) {
                         // All requested permissions are granted
                         locationClient.setLocationListener(this);
+                        locationClient.startLocation();
                     } else {
                         // At least one permission is denied
                         tv_tower_location_v.setText("权限不足");
@@ -605,9 +590,13 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
         if (aMapLocation.getErrorCode() == AMapLocation.LOCATION_SUCCESS) {
-            String location = aMapLocation.getLatitude() + "," + aMapLocation.getLongitude();
-            towerRegisterInfo.setTowerLocation(location);
-            tv_tower_location_v.setText("定位成功，经纬度：(" + location + ")");
+            TowerLocationDTO location = new TowerLocationDTO("AMap", aMapLocation.getLatitude(),
+                    aMapLocation.getLongitude(),aMapLocation.getCity(),aMapLocation.getProvince(),
+                    aMapLocation.getAccuracy(),aMapLocation.getDistrict());
+            towerRegisterInfo.setLocationDTO(location);
+            String locationString = aMapLocation.getLatitude() + "," + aMapLocation.getLongitude();
+            towerRegisterInfo.setTowerLocation(locationString);
+            tv_tower_location_v.setText(locationString);
         } else {
             //可以记录错误信息，或者根据错误错提示用户进行操作，Demo中只是打印日志
             Log.e("AMap", "定位失败，错误码：" + aMapLocation.getErrorCode() + ", " + aMapLocation.getLocationDetail());
