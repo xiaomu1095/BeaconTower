@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -26,12 +27,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.content.ContextCompat;
+import androidx.transition.TransitionManager;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.qmuiteam.qmui.widget.QMUIRadiusImageView2;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
@@ -50,10 +56,11 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     private final List<TowerEquipmentDTO> towerEquipmentDTOList = new ArrayList<>();
     private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
 
+    private ConstraintLayout constraintLayout;
     private TextView tv_supply_name_v, tv_line_name_v, tv_line_duty_v, tv_contact_info_v;
     private TextView tv_line_type_v, tv_tower_num_v, tv_subline_name_v, tv_tower_texture_v, tv_tower_use_v,
             tv_tower_location_v, tv_tower_height_v, tv_tower_setup_v, tv_wire_type_v, tv_tower_terrain_v,
-            tv_commissioning_date_v, tv_line_span_v;
+            tv_commissioning_date_v, tv_line_span_v, et_remark;
     private LinearLayoutCompat llc_equipment;
 
 
@@ -92,6 +99,7 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     }
 
     private void initView() {
+        constraintLayout = findViewById(R.id.constraintLayout);
         tv_supply_name_v = findViewById(R.id.tv_supply_name_v);
         tv_line_name_v = findViewById(R.id.tv_line_name_v);
         tv_line_duty_v = findViewById(R.id.tv_line_duty_v);
@@ -123,6 +131,8 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         tv_commissioning_date_v.setOnClickListener(this);
         tv_line_span_v = findViewById(R.id.tv_line_span_v);
         tv_line_span_v.setOnClickListener(this);
+        et_remark = findViewById(R.id.et_remark);
+        et_remark.setOnClickListener(this);
 
         llc_equipment = findViewById(R.id.llc_equipment);
         findViewById(R.id.tv_tower_equipment_v).setOnClickListener(this);
@@ -169,6 +179,7 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         tv_tower_terrain_v.setText(null);
         tv_commissioning_date_v.setText(null);
         tv_line_span_v.setText(null);
+        et_remark.setText(null);
 
         towerEquipmentDTOList.clear();
         llc_equipment.removeAllViews();
@@ -268,6 +279,8 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
                     String lineSpan = tv_line_span_v.getText().toString();
                     towerRegisterInfo.setLineSpan(lineSpan);
                     towerRegisterInfo.setTowerEquipmentDTOList(towerEquipmentDTOList);
+                    String remark = et_remark.getText().toString();
+                    towerRegisterInfo.setRemark(remark);
 
                     writeStringToFile(towerRegisterInfo.objectToJson());
                 }
@@ -319,7 +332,25 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
             case R.id.tv_tower_equipment_v:
                 addGSSBDialog();
                 break;
+            case R.id.et_remark:
+                addDJBZialog();
+                break;
         }
+    }
+
+    // 登记备注
+    private void addDJBZialog() {
+        final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
+        builder.setTitle("请输入备注")
+                .setInputType(InputType.TYPE_CLASS_TEXT)
+                .addAction("确定", (dialog, index) -> {
+                    CharSequence text = builder.getEditText().getText();
+                    if (text != null && text.length() > 0) {
+                        et_remark.setText(text);
+                    }
+                    dialog.dismiss();
+                })
+                .create(mCurrentDialogStyle).show();
     }
 
     // 线路跨越
@@ -369,31 +400,33 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
             return;
         }
         String text = equipment.getName() + " (型号：" + equipment.getType() + " )";
-        int dpToPx = QMUIDisplayHelper.dpToPx(12);
+        int dpToPx = QMUIDisplayHelper.dpToPx(4);
 
         LinearLayout linearLayout = new LinearLayout(getActivity());
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         LinearLayoutCompat.LayoutParams layoutParams1 =
                 new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.MATCH_PARENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
-        layoutParams1.setMargins(dpToPx, 30, 0, 24);
+        layoutParams1.setMargins(dpToPx, 10, 0, 10);
         linearLayout.setLayoutParams(layoutParams1);
         linearLayout.setGravity(Gravity.CENTER_VERTICAL);
 
-        ImageButton button = new ImageButton(getActivity());
         BitmapFactory.Options bfoOptions = new BitmapFactory.Options();
         bfoOptions.inScaled = false;
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.qmui_icon_notify_error, bfoOptions);
-        button.setImageBitmap(bitmap);
-        button.setBackgroundColor(getResources().getColor(R.color.colorBlack));
         LinearLayout.LayoutParams buttonLayoutPa = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        buttonLayoutPa.setMarginStart(dpToPx);
-        button.setLayoutParams(buttonLayoutPa);
-        linearLayout.addView(button);
-        button.setOnClickListener(v -> {
+        QMUIRadiusImageView2 imageView = new QMUIRadiusImageView2(getActivity());
+        imageView.setImageBitmap(bitmap);
+        buttonLayoutPa.setMarginEnd(QMUIDisplayHelper.dpToPx(6));
+        imageView.setLayoutParams(buttonLayoutPa);
+        imageView.setRadius(100);
+        imageView.setCircle(true);
+        imageView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.bar_divider));
+        imageView.setOnClickListener(v -> {
             TowerEquipmentDTO tag = (TowerEquipmentDTO) linearLayout.getTag();
             towerEquipmentDTOList.remove(tag);
             llc_equipment.removeView(linearLayout);
         });
+        linearLayout.addView(imageView);
 
         LinearLayoutCompat.LayoutParams layoutParams =
                 new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.MATCH_PARENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
@@ -404,9 +437,23 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         textView.setTextSize(14);
         textView.setText(text);
         linearLayout.addView(textView);
-
         linearLayout.setTag(equipment);
+
         llc_equipment.addView(linearLayout);
+
+        llc_equipment.measure(0, 0);
+        int h = llc_equipment.getMeasuredHeight();
+        int dimensionPixelSize = getResources().getDimensionPixelSize(R.dimen.collect_gd_horizontal_15);
+        int dimensionPixelSize16 = getResources().getDimensionPixelSize(R.dimen.collect_gd_horizontal_16);
+        int dimensionPixelSize17 = getResources().getDimensionPixelSize(R.dimen.collect_gd_horizontal_17);
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(constraintLayout);
+        constraintSet.setGuidelineBegin(R.id.gd_horizontal_155, dimensionPixelSize + h);
+        constraintSet.setGuidelineBegin(R.id.gd_horizontal_16, dimensionPixelSize16 + h);
+        constraintSet.setGuidelineBegin(R.id.gd_horizontal_17, dimensionPixelSize17 + h);
+        TransitionManager.beginDelayedTransition(constraintLayout);
+        constraintSet.applyTo(constraintLayout);
+
     }
 
     // 线路类型

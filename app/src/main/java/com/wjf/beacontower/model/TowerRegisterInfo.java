@@ -42,6 +42,9 @@ public class TowerRegisterInfo implements Parcelable {
     private String commissioningDate;
     private String lineSpan;
 
+    //备注
+    private String remark;
+
     private List<TowerEquipmentDTO> towerEquipmentDTOList;
 
     public TowerRegisterInfo(){
@@ -67,6 +70,7 @@ public class TowerRegisterInfo implements Parcelable {
         towerTerrain = in.readString();
         commissioningDate = in.readString();
         lineSpan = in.readString();
+        remark = in.readString();
     }
 
     public static final Creator<TowerRegisterInfo> CREATOR = new Creator<TowerRegisterInfo>() {
@@ -241,6 +245,14 @@ public class TowerRegisterInfo implements Parcelable {
         this.locationDTO = locationDTO;
     }
 
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -266,6 +278,7 @@ public class TowerRegisterInfo implements Parcelable {
         parcel.writeString(towerTerrain);
         parcel.writeString(commissioningDate);
         parcel.writeString(lineSpan);
+        parcel.writeString(remark);
     }
 
 
@@ -285,6 +298,7 @@ public class TowerRegisterInfo implements Parcelable {
         setLineSpan("");
         setTowerEquipmentDTOList(new ArrayList<>());
         setLocationDTO(null);
+        setRemark("");
     }
 
     public void nextTower(String towerNum){
@@ -302,6 +316,7 @@ public class TowerRegisterInfo implements Parcelable {
         setLineSpan("");
         setTowerEquipmentDTOList(new ArrayList<>());
         setLocationDTO(null);
+        setRemark("");
     }
 
     public String objectToJson(){
@@ -326,6 +341,7 @@ public class TowerRegisterInfo implements Parcelable {
             jsonObject.putOpt("transformerName", getTransformerName());
             jsonObject.putOpt("supplyName", getSupplyName());
             jsonObject.putOpt("lineSpan", getLineSpan());
+            jsonObject.putOpt("remark", getRemark());
 
             if (towerEquipmentDTOList != null && towerEquipmentDTOList.size() > 0) {
                 JSONArray jsonArray = new JSONArray();

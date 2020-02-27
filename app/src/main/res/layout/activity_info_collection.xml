@@ -13,6 +13,7 @@
         android:layout_marginTop="?attr/actionBarSize">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -422,15 +423,7 @@
                 app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintTop_toTopOf="@+id/gd_horizontal_14" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/llc_equipment"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@android:color/background_light"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
-                app:layout_constraintTop_toBottomOf="@+id/tv_tower_equipment_v" />
+
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/gd_horizontal_15"
@@ -439,12 +432,60 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_15" />
 
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/llc_equipment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/background_light"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintBottom_toTopOf="@id/gd_horizontal_155"
+                app:layout_constraintTop_toBottomOf="@+id/gd_horizontal_15" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_155"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_15" />
+
+            <TextView
+                android:id="@+id/tv_register_remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/collect_tv_zcbz"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_16"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gd_horizontal_155" />
+
+            <TextView
+                android:id="@+id/et_remark"
+                style="@style/Collect_TextView_Value"
+                android:layout_height="0dp"
+                android:gravity="top|start"
+                android:paddingStart="4dp"
+                android:paddingEnd="2dp"
+                android:hint="请输入备注(不超过200字)"
+                app:layout_constraintBottom_toTopOf="@id/gd_horizontal_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toBottomOf="@+id/gd_horizontal_155" />
+
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/gd_horizontal_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_16" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_17" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

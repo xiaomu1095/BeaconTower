@@ -66,6 +66,7 @@
         <activity
             android:name=".InfoCollectionActivity"
             android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:label="@string/title_activity_info_collection"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
