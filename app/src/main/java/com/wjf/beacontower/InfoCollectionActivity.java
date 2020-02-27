@@ -558,6 +558,8 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
                     if (aBoolean) {
                         // All requested permissions are granted
                         locationClient.setLocationListener(this);
+                        //设置场景模式后最好调用一次stop，再调用start以保证场景模式生效
+                        locationClient.stopLocation();
                         locationClient.startLocation();
                     } else {
                         // At least one permission is denied
@@ -681,6 +683,8 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
             Log.e("AMap", "定位失败，错误码：" + aMapLocation.getErrorCode() + ", " + aMapLocation.getLocationDetail());
             //提示错误信息
             tv_tower_location_v.setText("定位失败");
+            Toast.makeText(this, "定位失败，错误码：" + aMapLocation.getErrorCode() + ", " + aMapLocation.getLocationDetail(),
+                    Toast.LENGTH_LONG).show();
         }
     }
 }

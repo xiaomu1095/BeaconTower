@@ -101,7 +101,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     protected void initLocationClient() {
-        locationClient = new AMapLocationClient(this);
+        if (locationClient == null) {
+            locationClient = new AMapLocationClient(getApplicationContext());
+        }
         AMapLocationClientOption option = new AMapLocationClientOption();
         /*
          * 设置签到场景，相当于设置为：
@@ -123,6 +125,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void destroyLocationClient() {
         //销毁时，需要销毁定位client
         if (null != locationClient) {
+            locationClient.stopLocation();//停止定位后，本地定位服务并不会被销毁
             locationClient.onDestroy();
         }
     }
