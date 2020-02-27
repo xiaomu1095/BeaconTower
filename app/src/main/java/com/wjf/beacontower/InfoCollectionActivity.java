@@ -670,6 +670,10 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
+        if (aMapLocation == null) {
+            Toast.makeText(this, "定位对象返回空！", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (aMapLocation.getErrorCode() == AMapLocation.LOCATION_SUCCESS) {
             TowerLocationDTO location = new TowerLocationDTO("AMap", aMapLocation.getLatitude(),
                     aMapLocation.getLongitude(),aMapLocation.getCity(),aMapLocation.getProvince(),

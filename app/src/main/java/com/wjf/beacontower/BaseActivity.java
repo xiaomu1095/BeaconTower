@@ -105,6 +105,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             locationClient = new AMapLocationClient(getApplicationContext());
         }
         AMapLocationClientOption option = new AMapLocationClientOption();
+        option.setHttpTimeOut(20000);//用于设定通过网络定位获取结果的超时时间，毫秒级
         /*
          * 设置签到场景，相当于设置为：
          * option.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
