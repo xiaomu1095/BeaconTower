@@ -186,6 +186,16 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
 
         towerEquipmentDTOList.clear();
         llc_equipment.removeAllViews();
+        int dimensionPixelSize = getResources().getDimensionPixelSize(R.dimen.collect_gd_horizontal_15);
+        int dimensionPixelSize16 = getResources().getDimensionPixelSize(R.dimen.collect_gd_horizontal_16);
+        int dimensionPixelSize17 = getResources().getDimensionPixelSize(R.dimen.collect_gd_horizontal_17);
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(constraintLayout);
+        constraintSet.setGuidelineBegin(R.id.gd_horizontal_155, dimensionPixelSize);
+        constraintSet.setGuidelineBegin(R.id.gd_horizontal_16, dimensionPixelSize16);
+        constraintSet.setGuidelineBegin(R.id.gd_horizontal_17, dimensionPixelSize17);
+        TransitionManager.beginDelayedTransition(constraintLayout);
+        constraintSet.applyTo(constraintLayout);
 
         if (towerRegisterInfo != null) {
             towerRegisterInfo.clearData();
