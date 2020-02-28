@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -40,6 +42,7 @@ import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView2;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogView;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
@@ -340,13 +343,32 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
 
     // 隐患登记
     private void addDJBZialog() {
-        final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
-        builder.setTitle("请输入备注")
-                .setInputType(InputType.TYPE_CLASS_TEXT)
+        final CharSequence et_remark_text = et_remark.getText();
+        final QMUIDialog.CustomDialogBuilder builder = new QMUIDialog.CustomDialogBuilder(this);
+        builder.setLayout(R.layout.dialog_add_yhdj)
+                .setTitle("请输入信息")
+                .setOnDecorationListener(new QMUIDialogView.OnDecorationListener() {
+                    @Override
+                    public void onDraw(Canvas canvas, QMUIDialogView view) {
+
+                    }
+
+                    @Override
+                    public void onDrawOver(Canvas canvas, QMUIDialogView view) {
+                        EditText editText = view.findViewById(R.id.dialog_et_remark);
+                        if (editText != null) {
+                            editText.setText(et_remark_text);
+                            editText.setSelection(et_remark_text.length());
+                        }
+                    }
+                })
                 .addAction("确定", (dialog, index) -> {
-                    CharSequence text = builder.getEditText().getText();
-                    if (text != null && text.length() > 0) {
-                        et_remark.setText(text);
+                    AppCompatEditText editText = dialog.findViewById(R.id.dialog_et_remark);
+                    if (editText != null) {
+                        CharSequence text = editText.getText();
+                        if (text != null && text.length() > 0) {
+                            et_remark.setText(text);
+                        }
                     }
                     dialog.dismiss();
                 })
