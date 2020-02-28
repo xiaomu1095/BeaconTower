@@ -338,7 +338,7 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         }
     }
 
-    // 登记备注
+    // 隐患登记
     private void addDJBZialog() {
         final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
         builder.setTitle("请输入备注")

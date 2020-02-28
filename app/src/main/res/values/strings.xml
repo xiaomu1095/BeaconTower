@@ -29,7 +29,7 @@
     <string name="collect_tv_hint_gssb">点击添加杆上设备</string>
     <string name="collect_tv_xlky">线路跨越</string>
     <string name="collect_tv_hint_xlky">请选择线路跨越</string>
-    <string name="collect_tv_zcbz">注册备注</string>
+    <string name="collect_tv_zcbz">隐患登记</string>
     
     <string-array name="tower_gssb_spinner">
         <item>断路器</item>
