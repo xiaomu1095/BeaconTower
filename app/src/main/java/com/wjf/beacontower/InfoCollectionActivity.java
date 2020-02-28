@@ -186,6 +186,14 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
 
         towerEquipmentDTOList.clear();
         llc_equipment.removeAllViews();
+        removeGSSB();
+
+        if (towerRegisterInfo != null) {
+            towerRegisterInfo.clearData();
+        }
+    }
+
+    private void removeGSSB() {
         int dimensionPixelSize = getResources().getDimensionPixelSize(R.dimen.collect_gd_horizontal_15);
         int dimensionPixelSize16 = getResources().getDimensionPixelSize(R.dimen.collect_gd_horizontal_16);
         int dimensionPixelSize17 = getResources().getDimensionPixelSize(R.dimen.collect_gd_horizontal_17);
@@ -196,10 +204,6 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         constraintSet.setGuidelineBegin(R.id.gd_horizontal_17, dimensionPixelSize17);
         TransitionManager.beginDelayedTransition(constraintLayout);
         constraintSet.applyTo(constraintLayout);
-
-        if (towerRegisterInfo != null) {
-            towerRegisterInfo.clearData();
-        }
     }
 
     // 用户填写下一个杆塔数据
@@ -232,9 +236,11 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         tv_tower_terrain_v.setText(null);
         tv_commissioning_date_v.setText(null);
         tv_line_span_v.setText(null);
+        et_remark.setText(null);
 
         towerEquipmentDTOList.clear();
         llc_equipment.removeAllViews();
+        removeGSSB();
 
         if (towerRegisterInfo != null) {
             towerRegisterInfo.nextTower(nextTowerNum);
