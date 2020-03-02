@@ -75,20 +75,20 @@ public class XMLPowerSupplyData {
             input.close();
             // 获取解析出来的数据
             powerSupplyList = handler.getDataList();
-            if (powerSupplyList == null) {
+            if (powerSupplyList == null || powerSupplyList.isEmpty()) {
                 return;
             }
-            if (!powerSupplyList.isEmpty()) {
-                mCurrentSupplyName = powerSupplyList.get(0).getName();
-                List<TransformerStationData> transformerList = powerSupplyList.get(0).getTransformerList();
-                if (transformerList != null && !transformerList.isEmpty()) {
-                    mCurrentTransformerName = transformerList.get(0).getName();
-                    List<PowerLineData> lineList = transformerList.get(0).getLineList();
-                    if (lineList != null && !lineList.isEmpty()) {
-                        mCurrentLineName = lineList.get(0).getName();
-                    }
-                }
-            }
+//            if (!powerSupplyList.isEmpty()) {
+//                mCurrentSupplyName = powerSupplyList.get(0).getName();
+//                List<TransformerStationData> transformerList = powerSupplyList.get(0).getTransformerList();
+//                if (transformerList != null && !transformerList.isEmpty()) {
+//                    mCurrentTransformerName = transformerList.get(0).getName();
+//                    List<PowerLineData> lineList = transformerList.get(0).getLineList();
+//                    if (lineList != null && !lineList.isEmpty()) {
+//                        mCurrentLineName = lineList.get(0).getName();
+//                    }
+//                }
+//            }
             mPowerSupplyDatas = new String[powerSupplyList.size()];
             for (int i = 0; i < powerSupplyList.size(); i++) {
                 // 遍历所有供电所的数据
@@ -106,7 +106,7 @@ public class XMLPowerSupplyData {
                         lineNameArray[k] = lineModel.getName();
                     }
                     // 变电站-线路的数据，保存到mLineDatasMap
-                    mLineDatasMap.put(transformerNames[j], lineNameArray);
+                    mLineDatasMap.put(mPowerSupplyDatas[i] + transformerNames[j], lineNameArray);
                 }
                 // 供电所-变电站的数据，保存到mTransformerDatasMap
                 mTransformerDatasMap.put(powerSupplyList.get(i).getName(), transformerNames);

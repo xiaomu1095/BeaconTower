@@ -32,7 +32,7 @@
             <line name="10kV829勃村线"/>
         </transformer>
         <transformer name="35kV横水变电站">
-            <line name="10kV854西赵线"/>
+            <line name="10kV853中杨线"/>
             <line name="10kV854西赵线"/>
         </transformer>
     </power>

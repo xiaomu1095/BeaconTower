@@ -121,6 +121,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             return;
         }
         final String[] items = powerSupplyData.getmPowerSupplyDatas();
+        if (items == null) {
+            return;
+        }
         new QMUIDialog.MenuDialogBuilder(this)
                 .addItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -167,7 +170,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             return;
         }
         Map<String, String[]> lineDatasMap = powerSupplyData.getmLineDatasMap();
-        final String[] items = lineDatasMap.get(mCurrentTransformerName);
+        final String[] items = lineDatasMap.get(mCurrentSupplyName + mCurrentTransformerName);
         if (items == null) {
             return;
         }
