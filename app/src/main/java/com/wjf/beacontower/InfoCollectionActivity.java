@@ -1,7 +1,6 @@
 package com.wjf.beacontower;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,10 +14,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -53,18 +50,45 @@ import com.wjf.beacontower.model.TowerRegisterInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfoCollectionActivity extends BaseActivity implements View.OnClickListener, AMapLocationListener {
+import butterknife.BindDimen;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
+public class InfoCollectionActivity extends BaseActivity implements AMapLocationListener {
+
+    private Unbinder unbinder;
     private TowerRegisterInfo towerRegisterInfo;
     private final List<TowerEquipmentDTO> towerEquipmentDTOList = new ArrayList<>();
     private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
 
-    private ConstraintLayout constraintLayout;
-    private TextView tv_supply_name_v, tv_line_name_v, tv_line_duty_v, tv_contact_info_v;
-    private TextView tv_line_type_v, tv_tower_num_v, tv_subline_name_v, tv_tower_texture_v, tv_tower_use_v,
-            tv_tower_location_v, tv_tower_height_v, tv_tower_setup_v, tv_wire_type_v, tv_tower_terrain_v,
-            tv_commissioning_date_v, tv_line_span_v, et_remark, tv_wire_kind_v, tv_wire_diameter_v,tv_investor_v;
-    private LinearLayoutCompat llc_equipment;
+    @BindDimen(R.dimen.collect_gd_horizontal_15) int dimensionPixelSize;
+    @BindDimen(R.dimen.collect_gd_horizontal_16) int dimensionPixelSize16;
+    @BindDimen(R.dimen.collect_gd_horizontal_17) int dimensionPixelSize17;
+
+    @BindView(R.id.constraintLayout) ConstraintLayout constraintLayout;
+    @BindView(R.id.tv_supply_name_v) TextView tv_supply_name_v;
+    @BindView(R.id.tv_line_name_v) TextView tv_line_name_v;
+    @BindView(R.id.tv_line_duty_v) TextView tv_line_duty_v;
+    @BindView(R.id.tv_contact_info_v) TextView tv_contact_info_v;
+    @BindView(R.id.tv_line_type_v) TextView tv_line_type_v;
+    @BindView(R.id.tv_tower_num_v) TextView tv_tower_num_v;
+    @BindView(R.id.tv_subline_name_v) TextView tv_subline_name_v;
+    @BindView(R.id.tv_tower_texture_v) TextView tv_tower_texture_v;
+    @BindView(R.id.tv_tower_use_v) TextView tv_tower_use_v;
+    @BindView(R.id.tv_tower_location_v) TextView tv_tower_location_v;
+    @BindView(R.id.tv_tower_height_v) TextView tv_tower_height_v;
+    @BindView(R.id.tv_tower_setup_v) TextView tv_tower_setup_v;
+    @BindView(R.id.tv_wire_type_v) TextView tv_wire_type_v;
+    @BindView(R.id.tv_tower_terrain_v) TextView tv_tower_terrain_v;
+    @BindView(R.id.tv_commissioning_date_v) TextView tv_commissioning_date_v;
+    @BindView(R.id.tv_line_span_v) TextView tv_line_span_v;
+    @BindView(R.id.et_remark) TextView et_remark;
+    @BindView(R.id.tv_wire_kind_v) TextView tv_wire_kind_v;
+    @BindView(R.id.tv_wire_diameter_v) TextView tv_wire_diameter_v;
+    @BindView(R.id.tv_investor_v) TextView tv_investor_v;
+    @BindView(R.id.llc_equipment) LinearLayoutCompat llc_equipment;
 
 
 
@@ -72,10 +96,10 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_collection);
+        unbinder = ButterKnife.bind(this);
         initToolbar();
         initFAB();
 
-        initView();
         initData(savedInstanceState);
 
         initLocationClient();
@@ -85,6 +109,9 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     protected void onDestroy() {
         super.onDestroy();
         destroyLocationClient();
+        if (unbinder != null) {
+            unbinder.unbind();
+        }
     }
 
     private void initData(Bundle savedInstanceState) {
@@ -99,46 +126,6 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         tv_line_name_v.setText(towerRegisterInfo.getLineName());
         tv_line_duty_v.setText(towerRegisterInfo.getLineDuty());
         tv_contact_info_v.setText(towerRegisterInfo.getContactInfo());
-    }
-
-    private void initView() {
-        constraintLayout = findViewById(R.id.constraintLayout);
-        tv_supply_name_v = findViewById(R.id.tv_supply_name_v);
-        tv_line_name_v = findViewById(R.id.tv_line_name_v);
-        tv_line_duty_v = findViewById(R.id.tv_line_duty_v);
-        tv_contact_info_v = findViewById(R.id.tv_contact_info_v);
-
-
-        tv_line_type_v = findViewById(R.id.tv_line_type_v);
-        tv_line_type_v.setOnClickListener(this);
-        tv_tower_num_v = findViewById(R.id.tv_tower_num_v);
-        tv_tower_num_v.setOnClickListener(this);
-        tv_subline_name_v = findViewById(R.id.tv_subline_name_v);
-        tv_subline_name_v.setOnClickListener(this);
-
-        tv_tower_texture_v = findViewById(R.id.tv_tower_texture_v);
-        tv_tower_texture_v.setOnClickListener(this);
-        tv_tower_use_v = findViewById(R.id.tv_tower_use_v);
-        tv_tower_use_v.setOnClickListener(this);
-        tv_tower_location_v = findViewById(R.id.tv_tower_location_v);
-        tv_tower_location_v.setOnClickListener(this);
-        tv_tower_height_v = findViewById(R.id.tv_tower_height_v);
-        tv_tower_height_v.setOnClickListener(this);
-        tv_tower_setup_v = findViewById(R.id.tv_tower_setup_v);
-        tv_tower_setup_v.setOnClickListener(this);
-        tv_wire_type_v = findViewById(R.id.tv_wire_type_v);
-        tv_wire_type_v.setOnClickListener(this);
-        tv_tower_terrain_v = findViewById(R.id.tv_tower_terrain_v);
-        tv_tower_terrain_v.setOnClickListener(this);
-        tv_commissioning_date_v = findViewById(R.id.tv_commissioning_date_v);
-        tv_commissioning_date_v.setOnClickListener(this);
-        tv_line_span_v = findViewById(R.id.tv_line_span_v);
-        tv_line_span_v.setOnClickListener(this);
-        et_remark = findViewById(R.id.et_remark);
-        et_remark.setOnClickListener(this);
-
-        llc_equipment = findViewById(R.id.llc_equipment);
-        findViewById(R.id.tv_tower_equipment_v).setOnClickListener(this);
     }
 
     @Override
@@ -156,11 +143,6 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.menu_next:
                 nextTower();
-                break;
-//            case R.id.menu_history:
-//                Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
-//                break;
-            default:
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -194,9 +176,6 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     }
 
     private void removeGSSB() {
-        int dimensionPixelSize = getResources().getDimensionPixelSize(R.dimen.collect_gd_horizontal_15);
-        int dimensionPixelSize16 = getResources().getDimensionPixelSize(R.dimen.collect_gd_horizontal_16);
-        int dimensionPixelSize17 = getResources().getDimensionPixelSize(R.dimen.collect_gd_horizontal_17);
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(constraintLayout);
         constraintSet.setGuidelineBegin(R.id.gd_horizontal_155, dimensionPixelSize);
@@ -252,12 +231,7 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
         toolbar.setTitle("信息登记");
 
         ActionBar actionBar = getSupportActionBar();
@@ -309,56 +283,9 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
         });
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_line_type_v:
-                selectLineTypeDialog();
-                break;
-            case R.id.tv_tower_num_v:
-                inputTowerNumDialog();
-                break;
-            case R.id.tv_subline_name_v:
-                inputSubLineNameDialog();
-                break;
-            case R.id.tv_tower_texture_v:
-                selectTowerTextureDialog();
-                break;
-            case R.id.tv_tower_use_v:
-                selectTowerUseDialog();
-                break;
-            case R.id.tv_tower_location_v:
-                getTowerLocation();
-                break;
-            case R.id.tv_tower_height_v:
-                inputTowerHeight();
-                break;
-            case R.id.tv_tower_setup_v:
-                selectTowerSetupDialog();
-                break;
-            case R.id.tv_wire_type_v:
-                inputWireType();
-                break;
-            case R.id.tv_tower_terrain_v:
-                selectTowerTerrainDialog();
-                break;
-            case R.id.tv_commissioning_date_v:
-                selectCommissioningDateDialog();
-                break;
-            case R.id.tv_line_span_v:
-                selectLineSpanDialog();
-                break;
-            case R.id.tv_tower_equipment_v:
-                addGSSBDialog();
-                break;
-            case R.id.et_remark:
-                addDJBZialog();
-                break;
-        }
-    }
-
     // 隐患登记
-    private void addDJBZialog() {
+    @OnClick(R.id.et_remark)
+    void addDJBZDialog() {
         final CharSequence et_remark_text = et_remark.getText();
         final QMUIDialog.CustomDialogBuilder builder = new QMUIDialog.CustomDialogBuilder(this);
         builder.setLayout(R.layout.dialog_add_yhdj)
@@ -392,22 +319,21 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     }
 
     // 线路跨越
-    private void selectLineSpanDialog() {
+    @OnClick(R.id.tv_line_span_v)
+    void selectLineSpanDialog() {
         final String[] items = ConstantValues.ITEMS_LINE_SPAN;
         new QMUIDialog.MenuDialogBuilder(this)
-                .addItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String item = items[which];
-                        tv_line_span_v.setText(item);
-                        dialog.dismiss();
-                    }
+                .addItems(items, (dialog, which) -> {
+                    String item = items[which];
+                    tv_line_span_v.setText(item);
+                    dialog.dismiss();
                 })
                 .create(mCurrentDialogStyle).show();
     }
 
     // 添加杆上设备
-    private void addGSSBDialog() {
+    @OnClick(R.id.tv_tower_equipment_v)
+    void addGSSBDialog() {
         final String[] stringArray = getActivity().getResources().getStringArray(R.array.tower_gssb_spinner);
         new QMUIDialog.CustomDialogBuilder(this)
                 .setLayout(R.layout.dialog_add_gssb)
@@ -481,9 +407,6 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
 
         llc_equipment.measure(0, 0);
         int h = llc_equipment.getMeasuredHeight();
-        int dimensionPixelSize = getResources().getDimensionPixelSize(R.dimen.collect_gd_horizontal_15);
-        int dimensionPixelSize16 = getResources().getDimensionPixelSize(R.dimen.collect_gd_horizontal_16);
-        int dimensionPixelSize17 = getResources().getDimensionPixelSize(R.dimen.collect_gd_horizontal_17);
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(constraintLayout);
         constraintSet.setGuidelineBegin(R.id.gd_horizontal_155, dimensionPixelSize + h);
@@ -495,27 +418,26 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     }
 
     // 线路类型
-    private void selectLineTypeDialog() {
+    @OnClick(R.id.tv_line_type_v)
+    void selectLineTypeDialog() {
         final String[] items = ConstantValues.ITEMS_LINE_TYPE;
         new QMUIDialog.MenuDialogBuilder(this)
-                .addItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String item = items[which];
-                        tv_line_type_v.setText(item);
-                        if ("支线".equals(item)) {
-                            tv_subline_name_v.setVisibility(View.VISIBLE);
-                        } else {
-                            tv_subline_name_v.setVisibility(View.GONE);
-                        }
-                        dialog.dismiss();
+                .addItems(items, (dialog, which) -> {
+                    String item = items[which];
+                    tv_line_type_v.setText(item);
+                    if ("支线".equals(item)) {
+                        tv_subline_name_v.setVisibility(View.VISIBLE);
+                    } else {
+                        tv_subline_name_v.setVisibility(View.GONE);
                     }
+                    dialog.dismiss();
                 })
                 .create(mCurrentDialogStyle).show();
     }
 
     // 输入杆号
-    private void inputTowerNumDialog() {
+    @OnClick(R.id.tv_tower_num_v)
+    void inputTowerNumDialog() {
         if (tv_line_type_v.getText().length() < 1) {
             QMUITipDialog dialog = new QMUITipDialog.Builder(this)
                     .setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL)
@@ -539,55 +461,50 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     }
 
     // 输入支线名称
-    private void inputSubLineNameDialog() {
+    @OnClick(R.id.tv_subline_name_v)
+    void inputSubLineNameDialog() {
         final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
         builder.setTitle("请输入支线名称")
                 .setInputType(InputType.TYPE_CLASS_TEXT)
-                .addAction("确定", new QMUIDialogAction.ActionListener() {
-                    @Override
-                    public void onClick(QMUIDialog dialog, int index) {
-                        CharSequence text = builder.getEditText().getText();
-                        if (text != null && text.length() > 0) {
-                            tv_subline_name_v.setText(text);
-                        }
-                        dialog.dismiss();
+                .addAction("确定", (dialog, index) -> {
+                    CharSequence text = builder.getEditText().getText();
+                    if (text != null && text.length() > 0) {
+                        tv_subline_name_v.setText(text);
                     }
+                    dialog.dismiss();
                 })
                 .create(mCurrentDialogStyle).show();
     }
 
     // 杆塔材质
-    private void selectTowerTextureDialog() {
+    @OnClick(R.id.tv_tower_texture_v)
+    void selectTowerTextureDialog() {
         final String[] items = ConstantValues.ITEMS_TOWER_TEXTURE;
         new QMUIDialog.MenuDialogBuilder(this)
-                .addItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
-                        tv_tower_texture_v.setText(items[which]);
-                        dialog.dismiss();
-                    }
+                .addItems(items, (dialog, which) -> {
+                    Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
+                    tv_tower_texture_v.setText(items[which]);
+                    dialog.dismiss();
                 })
                 .create(mCurrentDialogStyle).show();
     }
 
     // 杆塔用途
-    private void selectTowerUseDialog() {
+    @OnClick(R.id.tv_tower_use_v)
+    void selectTowerUseDialog() {
         final String[] items = ConstantValues.ITEMS_TOWER_USE;
         new QMUIDialog.MenuDialogBuilder(this)
-                .addItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
-                        tv_tower_use_v.setText(items[which]);
-                        dialog.dismiss();
-                    }
+                .addItems(items, (dialog, which) -> {
+                    Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
+                    tv_tower_use_v.setText(items[which]);
+                    dialog.dismiss();
                 })
                 .create(mCurrentDialogStyle).show();
     }
 
     // 获取位置信息
-    private void getTowerLocation() {
+    @OnClick(R.id.tv_tower_location_v)
+    void getTowerLocation() {
         tv_tower_location_v.setText("开始定位");
         rxPermissions
                 .request(locationPermissions)
@@ -613,91 +530,81 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     }
 
     // 杆塔高度
-    private void inputTowerHeight(){
+    @OnClick(R.id.tv_tower_height_v)
+    void inputTowerHeight(){
         QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
         builder.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED |
                 InputType.TYPE_NUMBER_FLAG_DECIMAL);
         builder.setTitle("请输入杆塔高度");
         builder.setPlaceholder("0");
-        builder.addAction("确定", new QMUIDialogAction.ActionListener() {
-            @Override
-            public void onClick(QMUIDialog dialog, int index) {
-                Editable text = builder.getEditText().getText();
-                if (!TextUtils.isEmpty(text)) {
-                    tv_tower_height_v.setText(text);
-                }
-                dialog.dismiss();
+        builder.addAction("确定", (dialog, index) -> {
+            Editable text = builder.getEditText().getText();
+            if (!TextUtils.isEmpty(text)) {
+                tv_tower_height_v.setText(text);
             }
+            dialog.dismiss();
         });
         builder.create(mCurrentDialogStyle).show();
     }
 
     // 同杆架设
-    private void selectTowerSetupDialog() {
+    @OnClick(R.id.tv_tower_setup_v)
+    void selectTowerSetupDialog() {
         final String[] items = ConstantValues.ITEMS_TOWER_SETUP;
         new QMUIDialog.MenuDialogBuilder(this)
-                .addItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
-                        tv_tower_setup_v.setText(items[which]);
-                        dialog.dismiss();
-                    }
+                .addItems(items, (dialog, which) -> {
+                    Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
+                    tv_tower_setup_v.setText(items[which]);
+                    dialog.dismiss();
                 })
                 .create(mCurrentDialogStyle).show();
     }
 
     // 导线类型
-    private void inputWireType(){
+    @OnClick(R.id.tv_wire_type_v)
+    void inputWireType(){
         QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
         builder.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
         builder.setTitle("请输入导线类型");
-        builder.addAction("确定", new QMUIDialogAction.ActionListener() {
-            @Override
-            public void onClick(QMUIDialog dialog, int index) {
-                Editable text = builder.getEditText().getText();
-                if (!TextUtils.isEmpty(text)) {
-                    tv_wire_type_v.setText(text);
-                }
-                dialog.dismiss();
+        builder.addAction("确定", (dialog, index) -> {
+            Editable text = builder.getEditText().getText();
+            if (!TextUtils.isEmpty(text)) {
+                tv_wire_type_v.setText(text);
             }
+            dialog.dismiss();
         });
         builder.create().show();
     }
 
     // 所处地形
-    private void selectTowerTerrainDialog() {
+    @OnClick(R.id.tv_tower_terrain_v)
+    void selectTowerTerrainDialog() {
         final String[] items = ConstantValues.ITEMS_TOWER_TERRAIN;
         new QMUIDialog.MenuDialogBuilder(this)
-                .addItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
-                        tv_tower_terrain_v.setText(items[which]);
-                        dialog.dismiss();
-                    }
+                .addItems(items, (dialog, which) -> {
+                    Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
+                    tv_tower_terrain_v.setText(items[which]);
+                    dialog.dismiss();
                 })
                 .create(mCurrentDialogStyle).show();
     }
 
     // 投运时间
-    private void selectCommissioningDateDialog() {
+    @OnClick(R.id.tv_commissioning_date_v)
+    void selectCommissioningDateDialog() {
         new QMUIDialog.CustomDialogBuilder(this)
                 .setLayout(R.layout.dialog_commissioning_date)
-                .addAction("确定", new QMUIDialogAction.ActionListener() {
-                    @Override
-                    public void onClick(QMUIDialog dialog, int index) {
-                        DatePicker datePicker = dialog.findViewById(R.id.date_picker_commissioning);
-                        if (datePicker != null) {
-                            int year = datePicker.getYear();
-                            int month = datePicker.getMonth() + 1;
-                            int day = datePicker.getDayOfMonth();
-                            StringBuilder sb = new StringBuilder();
-                            sb.append(year).append("年").append(month).append("月").append(day).append("日");
-                            tv_commissioning_date_v.setText(sb.toString());
-                        }
-                        dialog.dismiss();
+                .addAction("确定", (dialog, index) -> {
+                    DatePicker datePicker = dialog.findViewById(R.id.date_picker_commissioning);
+                    if (datePicker != null) {
+                        int year = datePicker.getYear();
+                        int month = datePicker.getMonth() + 1;
+                        int day = datePicker.getDayOfMonth();
+                        StringBuilder sb = new StringBuilder();
+                        sb.append(year).append("年").append(month).append("月").append(day).append("日");
+                        tv_commissioning_date_v.setText(sb.toString());
                     }
+                    dialog.dismiss();
                 })
                 .create().show();
     }
