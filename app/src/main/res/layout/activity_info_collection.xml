@@ -353,11 +353,37 @@
                 app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_114" />
 
             <TextView
+                android:id="@+id/tv_wire_diameter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/collect_tv_dxzj"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_116"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_114" />
+
+            <TextView
+                android:id="@+id/tv_wire_diameter_v"
+                android:hint="@string/collect_tv_hint_dxzj"
+                style="@style/Collect_TextView_Value"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_116"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toBottomOf="@+id/gd_horizontal_114" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_116"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_116" />
+
+            <TextView
                 android:id="@+id/tv_commissioning_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/collect_tv_tysj"
-                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_114"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_116"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/gd_horizontal_12" />
@@ -369,7 +395,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_12"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
-                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_114" />
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_116" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/gd_horizontal_12"
