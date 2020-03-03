@@ -19,8 +19,12 @@
     <string name="collect_tv_hint_gtgd">请输入杆塔高度</string>
     <string name="collect_tv_tgjs">同杆架设</string>
     <string name="collect_tv_hint_tgjs">请选择同杆架设</string>
-    <string name="collect_tv_dxlx">导线型号</string>
-    <string name="collect_tv_hint_dxlx">请输入导线型号</string>
+    <string name="collect_tv_dxlx">导线类型</string>
+    <string name="collect_tv_hint_dxlx">请选择导线类型</string>
+    <string name="collect_tv_dxxh">导线型号</string>
+    <string name="collect_tv_hint_dxxh">请输入导线型号</string>
+    <string name="collect_tv_dxzj">导线直径</string>
+    <string name="collect_tv_hint_dxzj">请输入导线直径</string>
     <string name="collect_tv_tysj">投运时间</string>
     <string name="collect_tv_hint_tysj">请选择投运时间</string>
     <string name="collect_tv_scdx">所处地形</string>

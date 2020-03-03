@@ -301,7 +301,7 @@
                 app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_10" />
 
             <TextView
-                android:id="@+id/tv_wire_type"
+                android:id="@+id/tv_wire_kind"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/collect_tv_dxlx"
@@ -311,7 +311,7 @@
                 app:layout_constraintTop_toTopOf="@+id/gd_horizontal_11" />
 
             <TextView
-                android:id="@+id/tv_wire_type_v"
+                android:id="@+id/tv_wire_kind_v"
                 android:hint="@string/collect_tv_hint_dxlx"
                 style="@style/Collect_TextView_Value"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_11"
@@ -327,11 +327,37 @@
                 app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_11" />
 
             <TextView
+                android:id="@+id/tv_wire_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/collect_tv_dxxh"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_114"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_11" />
+
+            <TextView
+                android:id="@+id/tv_wire_type_v"
+                android:hint="@string/collect_tv_hint_dxxh"
+                style="@style/Collect_TextView_Value"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_114"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_11" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_114"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_114" />
+
+            <TextView
                 android:id="@+id/tv_commissioning_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/collect_tv_tysj"
-                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_11"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_114"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/gd_horizontal_12" />
@@ -343,7 +369,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_12"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
-                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_11" />
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_114" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/gd_horizontal_12"

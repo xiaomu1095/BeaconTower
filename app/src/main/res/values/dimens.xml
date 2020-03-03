@@ -17,10 +17,11 @@
     <dimen name="collect_gd_horizontal_9">360dp</dimen>
     <dimen name="collect_gd_horizontal_10">400dp</dimen>
     <dimen name="collect_gd_horizontal_11">440dp</dimen>
-    <dimen name="collect_gd_horizontal_12">480dp</dimen>
-    <dimen name="collect_gd_horizontal_13">520dp</dimen>
-    <dimen name="collect_gd_horizontal_14">560dp</dimen>
-    <dimen name="collect_gd_horizontal_15">600dp</dimen>
-    <dimen name="collect_gd_horizontal_16">700dp</dimen>
-    <dimen name="collect_gd_horizontal_17">900dp</dimen>
+    <dimen name="collect_gd_horizontal_114">480dp</dimen>
+    <dimen name="collect_gd_horizontal_12">520dp</dimen>
+    <dimen name="collect_gd_horizontal_13">560dp</dimen>
+    <dimen name="collect_gd_horizontal_14">600dp</dimen>
+    <dimen name="collect_gd_horizontal_15">640dp</dimen>
+    <dimen name="collect_gd_horizontal_16">740dp</dimen>
+    <dimen name="collect_gd_horizontal_17">940dp</dimen>
 </resources>
