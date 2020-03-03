@@ -18,38 +18,58 @@ import java.util.List;
  * Description:
  */
 public class TowerRegisterInfo implements Parcelable {
-
+    // 供电所名称
     private String supplyName;
+    // 变电站名称
     private String transformerName;
+    // 线路名称
     private String lineName;
+    // 线路专责
     private String lineDuty;
+    // 联系方式
     private String contactInfo;
 
-
+    // 线路类型
     private String lineType;
+    // 杆塔编号
     private String towerNum;
+    // 支线名称
     private String subLineName;
 
+    // 杆塔材质
     private String towerTexture;
+    // 杆塔用途
     private String towerUse;
+    // 杆塔位置
     private String towerLocation;
     private TowerLocationDTO locationDTO;
+    // 杆塔高度
     private String towerHeight;
+    // 同杆假设
     private String towerSetup;
+    // 导线型号
     private String wireType;
-    private String towerEquipment;
+    // 导线种类：裸线，绝缘线
+    private String wireKind;
+    // 导线直径
+    private String wireDiameter;
+    // 投资方
+    private String investor;
+    // 所处地形
     private String towerTerrain;
+    // 投运时间
     private String commissioningDate;
+    // 线路跨越
     private String lineSpan;
-
-    //备注
+    // 隐患登记
     private String remark;
-
+    // 杆上设备
     private List<TowerEquipmentDTO> towerEquipmentDTOList;
 
     public TowerRegisterInfo(){
 
     }
+
 
     protected TowerRegisterInfo(Parcel in) {
         supplyName = in.readString();
@@ -63,14 +83,48 @@ public class TowerRegisterInfo implements Parcelable {
         towerTexture = in.readString();
         towerUse = in.readString();
         towerLocation = in.readString();
+        locationDTO = in.readParcelable(TowerLocationDTO.class.getClassLoader());
         towerHeight = in.readString();
         towerSetup = in.readString();
         wireType = in.readString();
-        towerEquipment = in.readString();
+        wireKind = in.readString();
+        wireDiameter = in.readString();
+        investor = in.readString();
         towerTerrain = in.readString();
         commissioningDate = in.readString();
         lineSpan = in.readString();
         remark = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(supplyName);
+        dest.writeString(transformerName);
+        dest.writeString(lineName);
+        dest.writeString(lineDuty);
+        dest.writeString(contactInfo);
+        dest.writeString(lineType);
+        dest.writeString(towerNum);
+        dest.writeString(subLineName);
+        dest.writeString(towerTexture);
+        dest.writeString(towerUse);
+        dest.writeString(towerLocation);
+        dest.writeParcelable(locationDTO, flags);
+        dest.writeString(towerHeight);
+        dest.writeString(towerSetup);
+        dest.writeString(wireType);
+        dest.writeString(wireKind);
+        dest.writeString(wireDiameter);
+        dest.writeString(investor);
+        dest.writeString(towerTerrain);
+        dest.writeString(commissioningDate);
+        dest.writeString(lineSpan);
+        dest.writeString(remark);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<TowerRegisterInfo> CREATOR = new Creator<TowerRegisterInfo>() {
@@ -173,6 +227,14 @@ public class TowerRegisterInfo implements Parcelable {
         this.towerLocation = towerLocation;
     }
 
+    public TowerLocationDTO getLocationDTO() {
+        return locationDTO;
+    }
+
+    public void setLocationDTO(TowerLocationDTO locationDTO) {
+        this.locationDTO = locationDTO;
+    }
+
     public String getTowerHeight() {
         return towerHeight;
     }
@@ -197,12 +259,28 @@ public class TowerRegisterInfo implements Parcelable {
         this.wireType = wireType;
     }
 
-    public String getTowerEquipment() {
-        return towerEquipment;
+    public String getWireKind() {
+        return wireKind;
     }
 
-    public void setTowerEquipment(String towerEquipment) {
-        this.towerEquipment = towerEquipment;
+    public void setWireKind(String wireKind) {
+        this.wireKind = wireKind;
+    }
+
+    public String getWireDiameter() {
+        return wireDiameter;
+    }
+
+    public void setWireDiameter(String wireDiameter) {
+        this.wireDiameter = wireDiameter;
+    }
+
+    public String getInvestor() {
+        return investor;
+    }
+
+    public void setInvestor(String investor) {
+        this.investor = investor;
     }
 
     public String getTowerTerrain() {
@@ -221,28 +299,12 @@ public class TowerRegisterInfo implements Parcelable {
         this.commissioningDate = commissioningDate;
     }
 
-    public List<TowerEquipmentDTO> getTowerEquipmentDTOList() {
-        return towerEquipmentDTOList;
-    }
-
-    public void setTowerEquipmentDTOList(List<TowerEquipmentDTO> towerEquipmentDTOList) {
-        this.towerEquipmentDTOList = towerEquipmentDTOList;
-    }
-
     public String getLineSpan() {
         return lineSpan;
     }
 
     public void setLineSpan(String lineSpan) {
         this.lineSpan = lineSpan;
-    }
-
-    public TowerLocationDTO getLocationDTO() {
-        return locationDTO;
-    }
-
-    public void setLocationDTO(TowerLocationDTO locationDTO) {
-        this.locationDTO = locationDTO;
     }
 
     public String getRemark() {
@@ -253,34 +315,13 @@ public class TowerRegisterInfo implements Parcelable {
         this.remark = remark;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public List<TowerEquipmentDTO> getTowerEquipmentDTOList() {
+        return towerEquipmentDTOList;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(supplyName);
-        parcel.writeString(transformerName);
-        parcel.writeString(lineName);
-        parcel.writeString(lineDuty);
-        parcel.writeString(contactInfo);
-        parcel.writeString(lineType);
-        parcel.writeString(towerNum);
-        parcel.writeString(subLineName);
-        parcel.writeString(towerTexture);
-        parcel.writeString(towerUse);
-        parcel.writeString(towerLocation);
-        parcel.writeString(towerHeight);
-        parcel.writeString(towerSetup);
-        parcel.writeString(wireType);
-        parcel.writeString(towerEquipment);
-        parcel.writeString(towerTerrain);
-        parcel.writeString(commissioningDate);
-        parcel.writeString(lineSpan);
-        parcel.writeString(remark);
+    public void setTowerEquipmentDTOList(List<TowerEquipmentDTO> towerEquipmentDTOList) {
+        this.towerEquipmentDTOList = towerEquipmentDTOList;
     }
-
 
     public void clearData(){
         setLineType("");
@@ -292,7 +333,6 @@ public class TowerRegisterInfo implements Parcelable {
         setTowerHeight("");
         setTowerSetup("");
         setWireType("");
-        setTowerEquipment("");
         setTowerTerrain("");
         setCommissioningDate("");
         setLineSpan("");
@@ -310,7 +350,6 @@ public class TowerRegisterInfo implements Parcelable {
         setTowerHeight("");
         setTowerSetup("");
         setWireType("");
-        setTowerEquipment("");
         setTowerTerrain("");
         setCommissioningDate("");
         setLineSpan("");
@@ -327,7 +366,6 @@ public class TowerRegisterInfo implements Parcelable {
             jsonObject.putOpt("wireType", getWireType());
             jsonObject.putOpt("towerSetup", getTowerSetup());
             jsonObject.putOpt("towerHeight", getTowerHeight());
-//            jsonObject.putOpt("towerLocation", getTowerLocation());
             jsonObject.putOpt("towerUse", getTowerUse());
             jsonObject.putOpt("towerTexture", getTowerTexture());
             if (!TextUtils.isEmpty(getSubLineName())) {
@@ -370,28 +408,4 @@ public class TowerRegisterInfo implements Parcelable {
         return jsonObject.toString();
     }
 
-    @Override
-    public String toString() {
-        return "TowerRegisterInfo{" +
-                "supplyName='" + supplyName + '\'' +
-                ", transformerName='" + transformerName + '\'' +
-                ", lineName='" + lineName + '\'' +
-                ", lineDuty='" + lineDuty + '\'' +
-                ", contactInfo='" + contactInfo + '\'' +
-                ", lineType='" + lineType + '\'' +
-                ", towerNum='" + towerNum + '\'' +
-                ", subLineName='" + subLineName + '\'' +
-                ", towerTexture='" + towerTexture + '\'' +
-                ", towerUse='" + towerUse + '\'' +
-                ", towerLocation='" + towerLocation + '\'' +
-                ", towerHeight='" + towerHeight + '\'' +
-                ", towerSetup='" + towerSetup + '\'' +
-                ", wireType='" + wireType + '\'' +
-                ", towerEquipment='" + towerEquipment + '\'' +
-                ", towerTerrain='" + towerTerrain + '\'' +
-                ", commissioningDate='" + commissioningDate + '\'' +
-                ", lineSpan='" + lineSpan + '\'' +
-                ", towerEquipmentDTOList=" + towerEquipmentDTOList +
-                '}';
-    }
 }
