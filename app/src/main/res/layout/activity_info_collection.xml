@@ -405,11 +405,37 @@
                 app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_12" />
 
             <TextView
+                android:id="@+id/tv_investor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/collect_tv_tzf"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_122"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_12" />
+
+            <TextView
+                android:id="@+id/tv_investor_v"
+                android:hint="@string/collect_tv_hint_tzf"
+                style="@style/Collect_TextView_Value"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_122"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_12" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_122"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_122" />
+
+            <TextView
                 android:id="@+id/tv_tower_terrain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/collect_tv_scdx"
-                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_12"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_122"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/gd_horizontal_13" />
@@ -421,7 +447,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_13"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
-                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_12" />
+                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_122" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/gd_horizontal_13"

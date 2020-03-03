@@ -35,5 +35,7 @@ public interface ConstantValues {
     String[] ITEMS_TOWER_SETUP = new String[]{"无", "2回", "3回", "4回"};
     String[] ITEMS_TOWER_TERRAIN = new String[]{"路边", "农田", "林区", "果木", "高大树木旁"};
     String[] ITEMS_LINE_SPAN = new String[]{"无", "10kV", "35kV", "110kV", "220kV", "500kV"};
+    String[] ITEMS_WIRE_KIND = new String[]{"裸线", "绝缘线"};
+    String[] ITEMS_INVESTOR = new String[]{"国投", "自投"};
 
 }

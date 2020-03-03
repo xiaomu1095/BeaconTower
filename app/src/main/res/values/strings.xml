@@ -27,6 +27,8 @@
     <string name="collect_tv_hint_dxzj">请输入导线直径</string>
     <string name="collect_tv_tysj">投运时间</string>
     <string name="collect_tv_hint_tysj">请选择投运时间</string>
+    <string name="collect_tv_tzf">投资方</string>
+    <string name="collect_tv_hint_tzf">请选择投资方</string>
     <string name="collect_tv_scdx">所处地形</string>
     <string name="collect_tv_hint_scdx">请选择所处地形</string>
     <string name="collect_tv_gssb">杆上设备</string>

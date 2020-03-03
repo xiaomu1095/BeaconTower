@@ -63,7 +63,7 @@ public class InfoCollectionActivity extends BaseActivity implements View.OnClick
     private TextView tv_supply_name_v, tv_line_name_v, tv_line_duty_v, tv_contact_info_v;
     private TextView tv_line_type_v, tv_tower_num_v, tv_subline_name_v, tv_tower_texture_v, tv_tower_use_v,
             tv_tower_location_v, tv_tower_height_v, tv_tower_setup_v, tv_wire_type_v, tv_tower_terrain_v,
-            tv_commissioning_date_v, tv_line_span_v, et_remark, tv_wire_kind_v, tv_wire_diameter_v;
+            tv_commissioning_date_v, tv_line_span_v, et_remark, tv_wire_kind_v, tv_wire_diameter_v,tv_investor_v;
     private LinearLayoutCompat llc_equipment;
 
 
