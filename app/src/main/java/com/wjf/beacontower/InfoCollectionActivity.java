@@ -50,6 +50,7 @@ import com.wjf.beacontower.model.TowerRegisterInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindArray;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,6 +68,9 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     @BindDimen(R.dimen.collect_gd_horizontal_16) int dimensionPixelSize16;
     @BindDimen(R.dimen.collect_gd_horizontal_17) int dimensionPixelSize17;
 
+    @BindArray(R.array.tower_gssb_spinner) String[] GSSBSpinnerArray;
+
+    @BindView(R.id.fab) FloatingActionButton floatingActionButton;
     @BindView(R.id.constraintLayout) ConstraintLayout constraintLayout;
     @BindView(R.id.tv_supply_name_v) TextView tv_supply_name_v;
     @BindView(R.id.tv_line_name_v) TextView tv_line_name_v;
@@ -98,7 +102,6 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
         setContentView(R.layout.activity_info_collection);
         unbinder = ButterKnife.bind(this);
         initToolbar();
-        initFAB();
 
         initData(savedInstanceState);
 
@@ -241,51 +244,46 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     }
 
     // 初始化FloatingActionButton
-    private void initFAB() {
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (towerRegisterInfo != null) {
-                    String lineType = tv_line_type_v.getText().toString();
-                    towerRegisterInfo.setLineType(lineType);
-                    String towerNum = tv_tower_num_v.getText().toString();
-                    towerRegisterInfo.setTowerNum(towerNum);
-                    String subLineName = tv_subline_name_v.getText().toString();
-                    towerRegisterInfo.setSubLineName(subLineName);
-                    String towerTexture = tv_tower_texture_v.getText().toString();
-                    towerRegisterInfo.setTowerTexture(towerTexture);
-                    String towerUse = tv_tower_use_v.getText().toString();
-                    towerRegisterInfo.setTowerUse(towerUse);
-                    String towerLocation = tv_tower_location_v.getText().toString();
-                    towerRegisterInfo.setTowerLocation(towerLocation);
-                    String towerHeight = tv_tower_height_v.getText().toString();
-                    towerRegisterInfo.setTowerHeight(towerHeight);
-                    String towerSetup = tv_tower_setup_v.getText().toString();
-                    towerRegisterInfo.setTowerSetup(towerSetup);
-                    String wireType = tv_wire_type_v.getText().toString();
-                    towerRegisterInfo.setWireType(wireType);
-                    String towerTerrain = tv_tower_terrain_v.getText().toString();
-                    towerRegisterInfo.setTowerTerrain(towerTerrain);
-                    String commissioningDate = tv_commissioning_date_v.getText().toString();
-                    towerRegisterInfo.setCommissioningDate(commissioningDate);
-                    String lineSpan = tv_line_span_v.getText().toString();
-                    towerRegisterInfo.setLineSpan(lineSpan);
-                    towerRegisterInfo.setTowerEquipmentDTOList(towerEquipmentDTOList);
-                    String remark = et_remark.getText().toString();
-                    towerRegisterInfo.setRemark(remark);
+    @OnClick(R.id.fab)
+    void onClickFloatingActionButton() {
+        if (towerRegisterInfo == null) {
+            return;
+        }
+        String lineType = tv_line_type_v.getText().toString();
+        towerRegisterInfo.setLineType(lineType);
+        String towerNum = tv_tower_num_v.getText().toString();
+        towerRegisterInfo.setTowerNum(towerNum);
+        String subLineName = tv_subline_name_v.getText().toString();
+        towerRegisterInfo.setSubLineName(subLineName);
+        String towerTexture = tv_tower_texture_v.getText().toString();
+        towerRegisterInfo.setTowerTexture(towerTexture);
+        String towerUse = tv_tower_use_v.getText().toString();
+        towerRegisterInfo.setTowerUse(towerUse);
+        String towerLocation = tv_tower_location_v.getText().toString();
+        towerRegisterInfo.setTowerLocation(towerLocation);
+        String towerHeight = tv_tower_height_v.getText().toString();
+        towerRegisterInfo.setTowerHeight(towerHeight);
+        String towerSetup = tv_tower_setup_v.getText().toString();
+        towerRegisterInfo.setTowerSetup(towerSetup);
+        String wireType = tv_wire_type_v.getText().toString();
+        towerRegisterInfo.setWireType(wireType);
+        String towerTerrain = tv_tower_terrain_v.getText().toString();
+        towerRegisterInfo.setTowerTerrain(towerTerrain);
+        String commissioningDate = tv_commissioning_date_v.getText().toString();
+        towerRegisterInfo.setCommissioningDate(commissioningDate);
+        String lineSpan = tv_line_span_v.getText().toString();
+        towerRegisterInfo.setLineSpan(lineSpan);
+        towerRegisterInfo.setTowerEquipmentDTOList(towerEquipmentDTOList);
+        String remark = et_remark.getText().toString();
+        towerRegisterInfo.setRemark(remark);
 
-                    writeStringToFile(towerRegisterInfo.objectToJson());
-                }
-
-                Snackbar.make(view, "数据已经存储", Snackbar.LENGTH_SHORT).show();
-            }
-        });
+        writeStringToFile(towerRegisterInfo.objectToJson());
+        Snackbar.make(floatingActionButton, "数据已经存储", Snackbar.LENGTH_SHORT).show();
     }
 
     // 隐患登记
     @OnClick(R.id.et_remark)
-    void addDJBZDialog() {
+    void addYHDJDialog() {
         final CharSequence et_remark_text = et_remark.getText();
         final QMUIDialog.CustomDialogBuilder builder = new QMUIDialog.CustomDialogBuilder(this);
         builder.setLayout(R.layout.dialog_add_yhdj)
@@ -334,28 +332,24 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 添加杆上设备
     @OnClick(R.id.tv_tower_equipment_v)
     void addGSSBDialog() {
-        final String[] stringArray = getActivity().getResources().getStringArray(R.array.tower_gssb_spinner);
         new QMUIDialog.CustomDialogBuilder(this)
                 .setLayout(R.layout.dialog_add_gssb)
-                .addAction("确定", new QMUIDialogAction.ActionListener() {
-                    @Override
-                    public void onClick(QMUIDialog dialog, int index) {
-                        dialog.dismiss();
-                        Spinner spinner = dialog.findViewById(R.id.dia_spinner_sb);
-                        EditText editText = dialog.findViewById(R.id.dia_et_xh);
-                        if (spinner == null || editText == null) {
-                            return;
-                        }
-                        int position = spinner.getSelectedItemPosition();
-                        String string = stringArray[position];
-                        String xingHao = editText.getText().toString();
-                        if (TextUtils.isEmpty(xingHao)) {
-                            Toast.makeText(getActivity(), "请输入设备型号！", Toast.LENGTH_SHORT).show();
-                        }
-                        TowerEquipmentDTO equipment = new TowerEquipmentDTO(string, xingHao);
-                        towerEquipmentDTOList.add(equipment);
-                        addGSSBLayout(equipment);
+                .addAction("确定", (dialog, index) -> {
+                    dialog.dismiss();
+                    Spinner spinner = dialog.findViewById(R.id.dia_spinner_sb);
+                    EditText editText = dialog.findViewById(R.id.dia_et_xh);
+                    if (spinner == null || editText == null) {
+                        return;
                     }
+                    int position = spinner.getSelectedItemPosition();
+                    String string = GSSBSpinnerArray[position];
+                    String xingHao = editText.getText().toString();
+                    if (TextUtils.isEmpty(xingHao)) {
+                        Toast.makeText(getActivity(), "请输入设备型号！", Toast.LENGTH_SHORT).show();
+                    }
+                    TowerEquipmentDTO equipment = new TowerEquipmentDTO(string, xingHao);
+                    towerEquipmentDTOList.add(equipment);
+                    addGSSBLayout(equipment);
                 })
                 .create(mCurrentDialogStyle).show();
     }
@@ -414,7 +408,6 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
         constraintSet.setGuidelineBegin(R.id.gd_horizontal_17, dimensionPixelSize17 + h);
         TransitionManager.beginDelayedTransition(constraintLayout);
         constraintSet.applyTo(constraintLayout);
-
     }
 
     // 线路类型
