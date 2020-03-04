@@ -269,6 +269,12 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
         towerRegisterInfo.setTowerEquipmentDTOList(towerEquipmentDTOList);
         String remark = et_remark.getText().toString();
         towerRegisterInfo.setRemark(remark);
+        String wireKind = tv_wire_kind_v.getText().toString();
+        towerRegisterInfo.setWireKind(wireKind);
+        String wireDiameter = tv_wire_diameter_v.getText().toString();
+        towerRegisterInfo.setWireDiameter(wireDiameter);
+        String investor = tv_investor_v.getText().toString();
+        towerRegisterInfo.setInvestor(investor);
 
         writeStringToFile(towerRegisterInfo.objectToJson());
         Snackbar.make(floatingActionButton, "数据已经存储", Snackbar.LENGTH_SHORT).show();

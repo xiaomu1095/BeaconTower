@@ -325,20 +325,7 @@ public class TowerRegisterInfo implements Parcelable {
 
     public void clearData(){
         setLineType("");
-        setTowerNum("");
-        setSubLineName("");
-        setTowerTexture("");
-        setTowerUse("");
-        setTowerLocation("");
-        setTowerHeight("");
-        setTowerSetup("");
-        setWireType("");
-        setTowerTerrain("");
-        setCommissioningDate("");
-        setLineSpan("");
-        setTowerEquipmentDTOList(new ArrayList<>());
-        setLocationDTO(null);
-        setRemark("");
+        nextTower("");
     }
 
     public void nextTower(String towerNum){
@@ -356,6 +343,9 @@ public class TowerRegisterInfo implements Parcelable {
         setTowerEquipmentDTOList(new ArrayList<>());
         setLocationDTO(null);
         setRemark("");
+        setWireKind("");
+        setWireDiameter("");
+        setInvestor("");
     }
 
     public String objectToJson(){
@@ -380,6 +370,9 @@ public class TowerRegisterInfo implements Parcelable {
             jsonObject.putOpt("supplyName", getSupplyName());
             jsonObject.putOpt("lineSpan", getLineSpan());
             jsonObject.putOpt("remark", getRemark());
+            jsonObject.putOpt("wireKind", getWireKind());
+            jsonObject.putOpt("wireDiameter", getWireDiameter());
+            jsonObject.putOpt("investor", getInvestor());
 
             if (towerEquipmentDTOList != null && towerEquipmentDTOList.size() > 0) {
                 JSONArray jsonArray = new JSONArray();
