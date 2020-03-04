@@ -623,6 +623,18 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
                 .create().show();
     }
 
+    // 投资方
+    @OnClick(R.id.tv_investor_v)
+    void selectInvestorDialog() {
+        final String[] items = ConstantValues.ITEMS_INVESTOR;
+        new QMUIDialog.MenuDialogBuilder(this)
+                .addItems(items, (dialog, which) -> {
+                    tv_investor_v.setText(items[which]);
+                    dialog.dismiss();
+                })
+                .create(mCurrentDialogStyle).show();
+    }
+
     private Context getActivity() {
         return this;
     }
