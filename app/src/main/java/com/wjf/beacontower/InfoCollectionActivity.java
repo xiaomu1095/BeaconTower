@@ -158,34 +158,11 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
         tv_subline_name_v.setText(null);
         tv_subline_name_v.setVisibility(View.GONE);
 
-        tv_tower_texture_v.setText(null);
-        tv_tower_use_v.setText(null);
-        tv_tower_location_v.setText(null);
-        tv_tower_height_v.setText(null);
-        tv_tower_setup_v.setText(null);
-        tv_wire_type_v.setText(null);
-        tv_tower_terrain_v.setText(null);
-        tv_commissioning_date_v.setText(null);
-        tv_line_span_v.setText(null);
-        et_remark.setText(null);
-
-        towerEquipmentDTOList.clear();
-        llc_equipment.removeAllViews();
-        removeGSSB();
+        removeCommonInfo();
 
         if (towerRegisterInfo != null) {
             towerRegisterInfo.clearData();
         }
-    }
-
-    private void removeGSSB() {
-        ConstraintSet constraintSet = new ConstraintSet();
-        constraintSet.clone(constraintLayout);
-        constraintSet.setGuidelineBegin(R.id.gd_horizontal_155, dimensionPixelSize);
-        constraintSet.setGuidelineBegin(R.id.gd_horizontal_16, dimensionPixelSize16);
-        constraintSet.setGuidelineBegin(R.id.gd_horizontal_17, dimensionPixelSize17);
-        TransitionManager.beginDelayedTransition(constraintLayout);
-        constraintSet.applyTo(constraintLayout);
     }
 
     // 用户填写下一个杆塔数据
@@ -209,6 +186,14 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
             tv_subline_name_v.setText(null);
         }
 
+        removeCommonInfo();
+
+        if (towerRegisterInfo != null) {
+            towerRegisterInfo.nextTower(nextTowerNum);
+        }
+    }
+
+    private void removeCommonInfo() {
         tv_tower_texture_v.setText(null);
         tv_tower_use_v.setText(null);
         tv_tower_location_v.setText(null);
@@ -219,14 +204,22 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
         tv_commissioning_date_v.setText(null);
         tv_line_span_v.setText(null);
         et_remark.setText(null);
+        tv_wire_kind_v.setText(null);
+        tv_wire_diameter_v.setText(null);
+        tv_investor_v.setText(null);
 
         towerEquipmentDTOList.clear();
         llc_equipment.removeAllViews();
         removeGSSB();
-
-        if (towerRegisterInfo != null) {
-            towerRegisterInfo.nextTower(nextTowerNum);
-        }
+    }
+    private void removeGSSB() {
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(constraintLayout);
+        constraintSet.setGuidelineBegin(R.id.gd_horizontal_155, dimensionPixelSize);
+        constraintSet.setGuidelineBegin(R.id.gd_horizontal_16, dimensionPixelSize16);
+        constraintSet.setGuidelineBegin(R.id.gd_horizontal_17, dimensionPixelSize17);
+        TransitionManager.beginDelayedTransition(constraintLayout);
+        constraintSet.applyTo(constraintLayout);
     }
 
     private void initToolbar() {
@@ -554,11 +547,23 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     }
 
     // 导线类型
+    @OnClick(R.id.tv_wire_kind_v)
+    void selectWireKindDialog() {
+        final String[] items = ConstantValues.ITEMS_WIRE_KIND;
+        new QMUIDialog.MenuDialogBuilder(this)
+                .addItems(items, (dialog, which) -> {
+                    tv_wire_kind_v.setText(items[which]);
+                    dialog.dismiss();
+                })
+                .create(mCurrentDialogStyle).show();
+    }
+
+    // 导线型号
     @OnClick(R.id.tv_wire_type_v)
     void inputWireType(){
         QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
         builder.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        builder.setTitle("请输入导线类型");
+        builder.setTitle("请输入导线型号");
         builder.addAction("确定", (dialog, index) -> {
             Editable text = builder.getEditText().getText();
             if (!TextUtils.isEmpty(text)) {
