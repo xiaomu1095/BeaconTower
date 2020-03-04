@@ -574,6 +574,22 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
         builder.create().show();
     }
 
+    // 导线直径
+    @OnClick(R.id.tv_wire_diameter_v)
+    void inputWireDiameter(){
+        QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
+        builder.setInputType(InputType.TYPE_CLASS_NUMBER);
+        builder.setTitle("请输入导线直径");
+        builder.addAction("确定", (dialog, index) -> {
+            Editable text = builder.getEditText().getText();
+            if (!TextUtils.isEmpty(text)) {
+                tv_wire_diameter_v.setText(text);
+            }
+            dialog.dismiss();
+        });
+        builder.create().show();
+    }
+
     // 所处地形
     @OnClick(R.id.tv_tower_terrain_v)
     void selectTowerTerrainDialog() {
