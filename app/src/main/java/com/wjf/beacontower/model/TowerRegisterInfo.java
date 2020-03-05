@@ -360,6 +360,8 @@ public class TowerRegisterInfo implements Parcelable {
             jsonObject.putOpt("towerTexture", getTowerTexture());
             if (!TextUtils.isEmpty(getSubLineName())) {
                 jsonObject.putOpt("subLineName", getSubLineName());
+            } else {
+                jsonObject.putOpt("subLineName", "");
             }
             jsonObject.putOpt("towerNum", getTowerNum());
             jsonObject.putOpt("lineType", getLineType());
@@ -374,8 +376,8 @@ public class TowerRegisterInfo implements Parcelable {
             jsonObject.putOpt("wireDiameter", getWireDiameter());
             jsonObject.putOpt("investor", getInvestor());
 
+            JSONArray jsonArray = new JSONArray();
             if (towerEquipmentDTOList != null && towerEquipmentDTOList.size() > 0) {
-                JSONArray jsonArray = new JSONArray();
                 for (TowerEquipmentDTO equipment:towerEquipmentDTOList) {
                     JSONObject jo=new JSONObject();
                     jo.put("name",equipment.getName());
@@ -383,9 +385,11 @@ public class TowerRegisterInfo implements Parcelable {
                     jsonArray.put(jo);
                 }
                 jsonObject.putOpt("EquipmentList", jsonArray);
+            } else {
+                jsonObject.putOpt("EquipmentList", jsonArray);
             }
+            JSONObject jo = new JSONObject();
             if (getLocationDTO() != null) {
-                JSONObject jo = new JSONObject();
                 jo.putOpt("latitude",getLocationDTO().getLatitude());
                 jo.putOpt("longitude",getLocationDTO().getLongitude());
                 jo.putOpt("accuracy",getLocationDTO().getAccuracy());
@@ -393,6 +397,8 @@ public class TowerRegisterInfo implements Parcelable {
                 jo.putOpt("city",getLocationDTO().getCity());
                 jo.putOpt("district",getLocationDTO().getDistrict());
                 jo.putOpt("type",getLocationDTO().getType());
+                jsonObject.putOpt("locationDTO", jo);
+            } else {
                 jsonObject.putOpt("locationDTO", jo);
             }
         } catch (JSONException e) {
