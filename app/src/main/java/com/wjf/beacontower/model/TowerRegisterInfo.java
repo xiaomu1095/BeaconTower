@@ -47,9 +47,10 @@ public class TowerRegisterInfo implements Parcelable {
     private String towerHeight;
     // 同杆假设
     private String towerSetup;
+    // 同杆线路名称
     private String towerSetupName;
     // 导线型号
-    private String wireType;
+    private String wireType = "";
     // 导线种类：裸线，绝缘线
     private String wireKind;
     // 导线直径
@@ -62,6 +63,8 @@ public class TowerRegisterInfo implements Parcelable {
     private String commissioningDate;
     // 线路跨越
     private String lineSpan;
+    // 跨越线路名称杆号
+    private String lineSpanName;
     // 隐患登记
     private String remark;
     // 杆上设备
@@ -95,6 +98,7 @@ public class TowerRegisterInfo implements Parcelable {
         towerTerrain = in.readString();
         commissioningDate = in.readString();
         lineSpan = in.readString();
+        lineSpanName = in.readString();
         remark = in.readString();
     }
 
@@ -122,6 +126,7 @@ public class TowerRegisterInfo implements Parcelable {
         dest.writeString(towerTerrain);
         dest.writeString(commissioningDate);
         dest.writeString(lineSpan);
+        dest.writeString(lineSpanName);
         dest.writeString(remark);
     }
 
@@ -318,6 +323,14 @@ public class TowerRegisterInfo implements Parcelable {
         this.lineSpan = lineSpan;
     }
 
+    public String getLineSpanName() {
+        return lineSpanName;
+    }
+
+    public void setLineSpanName(String lineSpanName) {
+        this.lineSpanName = lineSpanName;
+    }
+
     public String getRemark() {
         return remark;
     }
@@ -352,6 +365,7 @@ public class TowerRegisterInfo implements Parcelable {
         setTowerTerrain("");
         setCommissioningDate("");
         setLineSpan("");
+        setLineSpanName("");
         setTowerEquipmentDTOList(new ArrayList<>());
         setLocationDTO(null);
         setRemark("");
@@ -384,6 +398,7 @@ public class TowerRegisterInfo implements Parcelable {
             jsonObject.putOpt("transformerName", getTransformerName());
             jsonObject.putOpt("supplyName", getSupplyName());
             jsonObject.putOpt("lineSpan", getLineSpan());
+            jsonObject.putOpt("lineSpanName", getLineSpanName());
             jsonObject.putOpt("remark", getRemark());
             jsonObject.putOpt("wireKind", getWireKind());
             jsonObject.putOpt("wireDiameter", getWireDiameter());

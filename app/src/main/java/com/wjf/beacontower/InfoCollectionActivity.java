@@ -88,6 +88,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     @BindView(R.id.tv_tower_terrain_v) TextView tv_tower_terrain_v;
     @BindView(R.id.tv_commissioning_date_v) TextView tv_commissioning_date_v;
     @BindView(R.id.tv_line_span_v) TextView tv_line_span_v;
+    @BindView(R.id.tv_line_span_and_name_v) TextView tv_line_span_and_name_v;
     @BindView(R.id.et_remark) TextView et_remark;
     @BindView(R.id.tv_wire_kind_v) TextView tv_wire_kind_v;
     @BindView(R.id.tv_wire_diameter_v) TextView tv_wire_diameter_v;
@@ -203,6 +204,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
         tv_tower_terrain_v.setText(null);
         tv_commissioning_date_v.setText(null);
         tv_line_span_v.setText(null);
+        tv_line_span_and_name_v.setText(null);
         et_remark.setText(null);
         tv_wire_kind_v.setText(null);
         tv_wire_diameter_v.setText(null);
@@ -266,6 +268,8 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
         towerRegisterInfo.setCommissioningDate(commissioningDate);
         String lineSpan = tv_line_span_v.getText().toString();
         towerRegisterInfo.setLineSpan(lineSpan);
+        String lineSpanName = tv_line_span_and_name_v.getText().toString();
+        towerRegisterInfo.setLineSpanName(lineSpanName);
         towerRegisterInfo.setTowerEquipmentDTOList(towerEquipmentDTOList);
         String remark = et_remark.getText().toString();
         towerRegisterInfo.setRemark(remark);
@@ -326,6 +330,22 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
                     dialog.dismiss();
                 })
                 .create(mCurrentDialogStyle).show();
+    }
+
+    // 跨越线路名称杆号
+    @OnClick(R.id.tv_line_span_and_name_v)
+    void inputLineSpanNameAndNo(){
+        QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
+        builder.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setTitle("请输入跨越线路名称杆号");
+        builder.addAction("确定", (dialog, index) -> {
+            Editable text = builder.getEditText().getText();
+            if (!TextUtils.isEmpty(text)) {
+                tv_line_span_and_name_v.setText(text);
+            }
+            dialog.dismiss();
+        });
+        builder.create(mCurrentDialogStyle).show();
     }
 
     // 添加杆上设备
@@ -474,7 +494,6 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
         final String[] items = ConstantValues.ITEMS_TOWER_TEXTURE;
         new QMUIDialog.MenuDialogBuilder(this)
                 .addItems(items, (dialog, which) -> {
-                    Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
                     tv_tower_texture_v.setText(items[which]);
                     dialog.dismiss();
                 })
@@ -487,7 +506,6 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
         final String[] items = ConstantValues.ITEMS_TOWER_USE;
         new QMUIDialog.MenuDialogBuilder(this)
                 .addItems(items, (dialog, which) -> {
-                    Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
                     tv_tower_use_v.setText(items[which]);
                     dialog.dismiss();
                 })
