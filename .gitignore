@@ -3,6 +3,7 @@
 /local.properties
 /.idea/caches
 /.idea/libraries
+/.idea/gradle.xml
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
@@ -12,3 +13,4 @@
 /captures
 .externalNativeBuild
 .cxx
+*.jks
