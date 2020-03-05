@@ -84,7 +84,6 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     @BindView(R.id.tv_tower_location_v) TextView tv_tower_location_v;
     @BindView(R.id.tv_tower_height_v) TextView tv_tower_height_v;
     @BindView(R.id.tv_tower_setup_v) TextView tv_tower_setup_v;
-    @BindView(R.id.tv_wire_type_v) TextView tv_wire_type_v;
     @BindView(R.id.tv_tower_terrain_v) TextView tv_tower_terrain_v;
     @BindView(R.id.tv_commissioning_date_v) TextView tv_commissioning_date_v;
     @BindView(R.id.tv_line_span_v) TextView tv_line_span_v;
@@ -199,7 +198,6 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
         tv_tower_location_v.setText(null);
         tv_tower_height_v.setText(null);
         tv_tower_setup_v.setText(null);
-        tv_wire_type_v.setText(null);
         tv_tower_terrain_v.setText(null);
         tv_commissioning_date_v.setText(null);
         tv_line_span_v.setText(null);
@@ -258,8 +256,6 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
         towerRegisterInfo.setTowerHeight(towerHeight);
         String towerSetup = tv_tower_setup_v.getText().toString();
         towerRegisterInfo.setTowerSetup(towerSetup);
-        String wireType = tv_wire_type_v.getText().toString();
-        towerRegisterInfo.setWireType(wireType);
         String towerTerrain = tv_tower_terrain_v.getText().toString();
         towerRegisterInfo.setTowerTerrain(towerTerrain);
         String commissioningDate = tv_commissioning_date_v.getText().toString();
@@ -562,22 +558,6 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
                     dialog.dismiss();
                 })
                 .create(mCurrentDialogStyle).show();
-    }
-
-    // 导线型号
-    @OnClick(R.id.tv_wire_type_v)
-    void inputWireType(){
-        QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
-        builder.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        builder.setTitle("请输入导线型号");
-        builder.addAction("确定", (dialog, index) -> {
-            Editable text = builder.getEditText().getText();
-            if (!TextUtils.isEmpty(text)) {
-                tv_wire_type_v.setText(text);
-            }
-            dialog.dismiss();
-        });
-        builder.create().show();
     }
 
     // 导线直径
