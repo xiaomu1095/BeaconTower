@@ -5,11 +5,14 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.uber.autodispose.AutoDispose;
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 import com.wjf.beacontower.model.TowerRegisterInfo;
 import com.wjf.beacontower.util.SpUtil;
 import com.wjf.beacontower.util.XMLPowerSupplyData;
@@ -18,9 +21,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import kotlin.Unit;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -37,6 +45,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.tv_line_name_v) TextView tv_line_name_v;
     @BindView(R.id.tv_transformer_name_v) TextView tv_transformer_name_v;
     @BindView(R.id.tv_power_supply_name_v) TextView tv_power_supply_name_v;
+    @BindView(R.id.btn_confirm_base_info) Button btn_confirm_base_info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +53,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        RxView.clicks(btn_confirm_base_info)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe(unit -> confirmBaseInfo());
         // 点击确认基础信息
-        findViewById(R.id.btn_confirm_base_info).setOnClickListener(this);
+//        findViewById(R.id.btn_confirm_base_info).setOnClickListener(this);
 
         tv_power_supply_name_v.setOnClickListener(this);
         tv_transformer_name_v.setOnClickListener(this);
