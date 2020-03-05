@@ -301,18 +301,18 @@
                 app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_10" />
 
             <TextView
-                android:id="@+id/tv_wire_kind"
+                android:id="@+id/tv_tower_setup_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/collect_tv_dxlx"
+                android:text="@string/collect_tv_tgxlmc"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_10"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/gd_horizontal_11" />
 
             <TextView
-                android:id="@+id/tv_wire_kind_v"
-                android:hint="@string/collect_tv_hint_dxlx"
+                android:id="@+id/tv_tower_setup_name_v"
+                android:hint="@string/collect_tv_hint_tgxlmc"
                 style="@style/Collect_TextView_Value"
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_11"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -326,6 +326,24 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_11" />
 
+            <TextView
+                android:id="@+id/tv_wire_kind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/collect_tv_dxlx"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_114"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gd_horizontal_11" />
+
+            <TextView
+                android:id="@+id/tv_wire_kind_v"
+                android:hint="@string/collect_tv_hint_dxlx"
+                style="@style/Collect_TextView_Value"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_114"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toBottomOf="@+id/gd_horizontal_11" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/gd_horizontal_114"

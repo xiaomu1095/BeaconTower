@@ -47,6 +47,7 @@ public class TowerRegisterInfo implements Parcelable {
     private String towerHeight;
     // 同杆假设
     private String towerSetup;
+    private String towerSetupName;
     // 导线型号
     private String wireType;
     // 导线种类：裸线，绝缘线
@@ -86,6 +87,7 @@ public class TowerRegisterInfo implements Parcelable {
         locationDTO = in.readParcelable(TowerLocationDTO.class.getClassLoader());
         towerHeight = in.readString();
         towerSetup = in.readString();
+        towerSetupName = in.readString();
         wireType = in.readString();
         wireKind = in.readString();
         wireDiameter = in.readString();
@@ -112,6 +114,7 @@ public class TowerRegisterInfo implements Parcelable {
         dest.writeParcelable(locationDTO, flags);
         dest.writeString(towerHeight);
         dest.writeString(towerSetup);
+        dest.writeString(towerSetupName);
         dest.writeString(wireType);
         dest.writeString(wireKind);
         dest.writeString(wireDiameter);
@@ -251,6 +254,14 @@ public class TowerRegisterInfo implements Parcelable {
         this.towerSetup = towerSetup;
     }
 
+    public String getTowerSetupName() {
+        return towerSetupName;
+    }
+
+    public void setTowerSetupName(String towerSetupName) {
+        this.towerSetupName = towerSetupName;
+    }
+
     public String getWireType() {
         return wireType;
     }
@@ -336,6 +347,7 @@ public class TowerRegisterInfo implements Parcelable {
         setTowerLocation("");
         setTowerHeight("");
         setTowerSetup("");
+        setTowerSetupName("");
         setWireType("");
         setTowerTerrain("");
         setCommissioningDate("");
@@ -355,6 +367,7 @@ public class TowerRegisterInfo implements Parcelable {
             jsonObject.putOpt("towerTerrain", getTowerTerrain());
             jsonObject.putOpt("wireType", getWireType());
             jsonObject.putOpt("towerSetup", getTowerSetup());
+            jsonObject.putOpt("towerSetupName", getTowerSetupName());
             jsonObject.putOpt("towerHeight", getTowerHeight());
             jsonObject.putOpt("towerUse", getTowerUse());
             jsonObject.putOpt("towerTexture", getTowerTexture());

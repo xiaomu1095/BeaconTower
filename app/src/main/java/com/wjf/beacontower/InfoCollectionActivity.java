@@ -84,6 +84,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     @BindView(R.id.tv_tower_location_v) TextView tv_tower_location_v;
     @BindView(R.id.tv_tower_height_v) TextView tv_tower_height_v;
     @BindView(R.id.tv_tower_setup_v) TextView tv_tower_setup_v;
+    @BindView(R.id.tv_tower_setup_name_v) TextView tv_tower_setup_name_v;
     @BindView(R.id.tv_tower_terrain_v) TextView tv_tower_terrain_v;
     @BindView(R.id.tv_commissioning_date_v) TextView tv_commissioning_date_v;
     @BindView(R.id.tv_line_span_v) TextView tv_line_span_v;
@@ -198,6 +199,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
         tv_tower_location_v.setText(null);
         tv_tower_height_v.setText(null);
         tv_tower_setup_v.setText(null);
+        tv_tower_setup_name_v.setText(null);
         tv_tower_terrain_v.setText(null);
         tv_commissioning_date_v.setText(null);
         tv_line_span_v.setText(null);
@@ -256,6 +258,8 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
         towerRegisterInfo.setTowerHeight(towerHeight);
         String towerSetup = tv_tower_setup_v.getText().toString();
         towerRegisterInfo.setTowerSetup(towerSetup);
+        String towerSetupName = tv_tower_setup_name_v.getText().toString();
+        towerRegisterInfo.setTowerSetupName(towerSetupName);
         String towerTerrain = tv_tower_terrain_v.getText().toString();
         towerRegisterInfo.setTowerTerrain(towerTerrain);
         String commissioningDate = tv_commissioning_date_v.getText().toString();
@@ -541,11 +545,26 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
         final String[] items = ConstantValues.ITEMS_TOWER_SETUP;
         new QMUIDialog.MenuDialogBuilder(this)
                 .addItems(items, (dialog, which) -> {
-                    Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
                     tv_tower_setup_v.setText(items[which]);
                     dialog.dismiss();
                 })
                 .create(mCurrentDialogStyle).show();
+    }
+
+    // 同杆线路名称
+    @OnClick(R.id.tv_tower_setup_name_v)
+    void inputTowerSetupName(){
+        QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
+        builder.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setTitle("请输入同杆线路名称");
+        builder.addAction("确定", (dialog, index) -> {
+            Editable text = builder.getEditText().getText();
+            if (!TextUtils.isEmpty(text)) {
+                tv_tower_setup_name_v.setText(text);
+            }
+            dialog.dismiss();
+        });
+        builder.create(mCurrentDialogStyle).show();
     }
 
     // 导线类型
