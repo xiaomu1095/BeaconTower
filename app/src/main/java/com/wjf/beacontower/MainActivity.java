@@ -1,6 +1,5 @@
 package com.wjf.beacontower;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
@@ -20,6 +19,9 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     /**
@@ -30,25 +32,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private String mCurrentTransformerName;
     private String mCurrentLineName;
 
-    private EditText et_line_duty, et_contact_info;
-    private TextView tv_line_name_v, tv_transformer_name_v, tv_power_supply_name_v;
+    @BindView(R.id.et_line_duty) EditText et_line_duty;
+    @BindView(R.id.et_contact_info) EditText et_contact_info;
+    @BindView(R.id.tv_line_name_v) TextView tv_line_name_v;
+    @BindView(R.id.tv_transformer_name_v) TextView tv_transformer_name_v;
+    @BindView(R.id.tv_power_supply_name_v) TextView tv_power_supply_name_v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         // 点击确认基础信息
         findViewById(R.id.btn_confirm_base_info).setOnClickListener(this);
 
-        et_line_duty = findViewById(R.id.et_line_duty);
-        et_contact_info = findViewById(R.id.et_contact_info);
-
-        tv_power_supply_name_v = findViewById(R.id.tv_power_supply_name_v);
         tv_power_supply_name_v.setOnClickListener(this);
-        tv_transformer_name_v = findViewById(R.id.tv_transformer_name_v);
         tv_transformer_name_v.setOnClickListener(this);
-        tv_line_name_v = findViewById(R.id.tv_line_name_v);
         tv_line_name_v.setOnClickListener(this);
 
         initValues();
@@ -125,17 +125,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             return;
         }
         new QMUIDialog.MenuDialogBuilder(this)
-                .addItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mCurrentSupplyName = items[which];
-                        mCurrentTransformerName = null;
-                        mCurrentLineName = null;
-                        tv_power_supply_name_v.setText(mCurrentSupplyName);
-                        tv_transformer_name_v.setText(null);
-                        tv_line_name_v.setText(null);
-                        dialog.dismiss();
-                    }
+                .addItems(items, (dialog, which) -> {
+                    mCurrentSupplyName = items[which];
+                    mCurrentTransformerName = null;
+                    mCurrentLineName = null;
+                    tv_power_supply_name_v.setText(mCurrentSupplyName);
+                    tv_transformer_name_v.setText(null);
+                    tv_line_name_v.setText(null);
+                    dialog.dismiss();
                 })
                 .create().show();
     }
@@ -151,15 +148,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             return;
         }
         new QMUIDialog.MenuDialogBuilder(this)
-                .addItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mCurrentTransformerName = items[which];
-                        mCurrentLineName = null;
-                        tv_transformer_name_v.setText(mCurrentTransformerName);
-                        tv_line_name_v.setText(null);
-                        dialog.dismiss();
-                    }
+                .addItems(items, (dialog, which) -> {
+                    mCurrentTransformerName = items[which];
+                    mCurrentLineName = null;
+                    tv_transformer_name_v.setText(mCurrentTransformerName);
+                    tv_line_name_v.setText(null);
+                    dialog.dismiss();
                 })
                 .create().show();
     }
@@ -175,13 +169,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             return;
         }
         new QMUIDialog.MenuDialogBuilder(this)
-                .addItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mCurrentLineName = items[which];
-                        tv_line_name_v.setText(mCurrentLineName);
-                        dialog.dismiss();
-                    }
+                .addItems(items, (dialog, which) -> {
+                    mCurrentLineName = items[which];
+                    tv_line_name_v.setText(mCurrentLineName);
+                    dialog.dismiss();
                 })
                 .create().show();
     }
