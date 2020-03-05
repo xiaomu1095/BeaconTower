@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.26" />
+                app:layout_constraintGuide_percent="0.30" />
 
             <TextView
                 android:id="@+id/tv_supply_name"
@@ -483,14 +483,40 @@
                 app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_14" />
 
             <TextView
+                android:id="@+id/tv_line_span_and_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/collect_tv_kyxlmcgh"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_142"
+                app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gd_horizontal_14" />
+
+            <TextView
+                android:id="@+id/tv_line_span_and_name_v"
+                android:hint="@string/collect_tv_hint_kyxlmcgh"
+                style="@style/Collect_TextView_Value"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_142"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
+                app:layout_constraintTop_toBottomOf="@+id/gd_horizontal_14" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gd_horizontal_142"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/collect_gd_horizontal_142" />
+
+            <TextView
                 android:id="@+id/tv_tower_equipment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/collect_tv_gssb"
-                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_14"
+                app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_15"
                 app:layout_constraintEnd_toStartOf="@+id/gd_vertical_first"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_15" />
+                app:layout_constraintTop_toBottomOf="@+id/gd_horizontal_142" />
 
             <TextView
                 android:id="@+id/tv_tower_equipment_v"
@@ -499,9 +525,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/gd_horizontal_15"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/gd_vertical_first"
-                app:layout_constraintTop_toTopOf="@+id/gd_horizontal_14" />
-
-
+                app:layout_constraintTop_toBottomOf="@+id/gd_horizontal_142" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/gd_horizontal_15"
