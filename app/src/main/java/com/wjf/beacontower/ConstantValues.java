@@ -31,11 +31,11 @@ public interface ConstantValues {
 
     String[] ITEMS_LINE_TYPE = new String[]{"干线", "支线"};
     String[] ITEMS_TOWER_TEXTURE = new String[]{"水泥杆", "钢杆"};
-    String[] ITEMS_TOWER_USE = new String[]{"直线杆", "跨越杆", "耐张杆", "转角杆", "T接杆", "终端杆", "换位杆"};
-    String[] ITEMS_TOWER_SETUP = new String[]{"无", "2回", "3回", "4回"};
-    String[] ITEMS_TOWER_TERRAIN = new String[]{"路边", "农田", "林区", "果木", "高大树木旁"};
-    String[] ITEMS_LINE_SPAN = new String[]{"无", "10kV", "35kV", "110kV", "220kV", "500kV"};
+    String[] ITEMS_TOWER_SETUP = new String[]{"无", "高低压同杆", "高压2回", "高压3回", "高压4回"};
     String[] ITEMS_WIRE_KIND = new String[]{"裸线", "绝缘线"};
     String[] ITEMS_INVESTOR = new String[]{"国投", "自投"};
+    String[] ITEMS_TOWER_USE = new String[]{"直线杆", "直线杆（双固定）", "跨越杆", "耐张杆", "转角杆", "T接杆", "终端杆", "换位杆"};
+    String[] ITEMS_TOWER_TERRAIN = new String[]{"厂房", "居民区", "路边", "农田", "林区", "果木", "高大树木旁"};
+    String[] ITEMS_LINE_SPAN = new String[]{"无", "通信线", "低压", "10kV", "35kV", "110kV", "220kV", "500kV"};
 
 }

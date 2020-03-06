@@ -21,8 +21,8 @@
     <string name="collect_tv_hint_tgjs">请选择同杆架设</string>
     <string name="collect_tv_dxlx">导线类型</string>
     <string name="collect_tv_hint_dxlx">请选择导线类型</string>
-    <string name="collect_tv_dxxh">导线型号</string>
-    <string name="collect_tv_hint_dxxh">请输入导线型号</string>
+    <string name="collect_tv_tgxlmc">同杆线路名称</string>
+    <string name="collect_tv_hint_tgxlmc">请输入同杆线路名称</string>
     <string name="collect_tv_dxzj">导线直径(mm)</string>
     <string name="collect_tv_hint_dxzj">请输入导线直径</string>
     <string name="collect_tv_tysj">投运时间</string>
@@ -35,6 +35,8 @@
     <string name="collect_tv_hint_gssb">点击添加杆上设备</string>
     <string name="collect_tv_xlky">线路跨越</string>
     <string name="collect_tv_hint_xlky">请选择线路跨越</string>
+    <string name="collect_tv_kyxlmcgh">跨越线路名称杆号</string>
+    <string name="collect_tv_hint_kyxlmcgh">请输入跨越线路名称杆号</string>
     <string name="collect_tv_zcbz">隐患登记</string>
     
     <string-array name="tower_gssb_spinner">

@@ -47,8 +47,10 @@ public class TowerRegisterInfo implements Parcelable {
     private String towerHeight;
     // 同杆假设
     private String towerSetup;
+    // 同杆线路名称
+    private String towerSetupName;
     // 导线型号
-    private String wireType;
+    private String wireType = "";
     // 导线种类：裸线，绝缘线
     private String wireKind;
     // 导线直径
@@ -61,6 +63,8 @@ public class TowerRegisterInfo implements Parcelable {
     private String commissioningDate;
     // 线路跨越
     private String lineSpan;
+    // 跨越线路名称杆号
+    private String lineSpanName;
     // 隐患登记
     private String remark;
     // 杆上设备
@@ -86,6 +90,7 @@ public class TowerRegisterInfo implements Parcelable {
         locationDTO = in.readParcelable(TowerLocationDTO.class.getClassLoader());
         towerHeight = in.readString();
         towerSetup = in.readString();
+        towerSetupName = in.readString();
         wireType = in.readString();
         wireKind = in.readString();
         wireDiameter = in.readString();
@@ -93,6 +98,7 @@ public class TowerRegisterInfo implements Parcelable {
         towerTerrain = in.readString();
         commissioningDate = in.readString();
         lineSpan = in.readString();
+        lineSpanName = in.readString();
         remark = in.readString();
     }
 
@@ -112,6 +118,7 @@ public class TowerRegisterInfo implements Parcelable {
         dest.writeParcelable(locationDTO, flags);
         dest.writeString(towerHeight);
         dest.writeString(towerSetup);
+        dest.writeString(towerSetupName);
         dest.writeString(wireType);
         dest.writeString(wireKind);
         dest.writeString(wireDiameter);
@@ -119,6 +126,7 @@ public class TowerRegisterInfo implements Parcelable {
         dest.writeString(towerTerrain);
         dest.writeString(commissioningDate);
         dest.writeString(lineSpan);
+        dest.writeString(lineSpanName);
         dest.writeString(remark);
     }
 
@@ -251,6 +259,14 @@ public class TowerRegisterInfo implements Parcelable {
         this.towerSetup = towerSetup;
     }
 
+    public String getTowerSetupName() {
+        return towerSetupName;
+    }
+
+    public void setTowerSetupName(String towerSetupName) {
+        this.towerSetupName = towerSetupName;
+    }
+
     public String getWireType() {
         return wireType;
     }
@@ -307,6 +323,14 @@ public class TowerRegisterInfo implements Parcelable {
         this.lineSpan = lineSpan;
     }
 
+    public String getLineSpanName() {
+        return lineSpanName;
+    }
+
+    public void setLineSpanName(String lineSpanName) {
+        this.lineSpanName = lineSpanName;
+    }
+
     public String getRemark() {
         return remark;
     }
@@ -336,10 +360,12 @@ public class TowerRegisterInfo implements Parcelable {
         setTowerLocation("");
         setTowerHeight("");
         setTowerSetup("");
+        setTowerSetupName("");
         setWireType("");
         setTowerTerrain("");
         setCommissioningDate("");
         setLineSpan("");
+        setLineSpanName("");
         setTowerEquipmentDTOList(new ArrayList<>());
         setLocationDTO(null);
         setRemark("");
@@ -355,11 +381,14 @@ public class TowerRegisterInfo implements Parcelable {
             jsonObject.putOpt("towerTerrain", getTowerTerrain());
             jsonObject.putOpt("wireType", getWireType());
             jsonObject.putOpt("towerSetup", getTowerSetup());
+            jsonObject.putOpt("towerSetupName", getTowerSetupName());
             jsonObject.putOpt("towerHeight", getTowerHeight());
             jsonObject.putOpt("towerUse", getTowerUse());
             jsonObject.putOpt("towerTexture", getTowerTexture());
             if (!TextUtils.isEmpty(getSubLineName())) {
                 jsonObject.putOpt("subLineName", getSubLineName());
+            } else {
+                jsonObject.putOpt("subLineName", "");
             }
             jsonObject.putOpt("towerNum", getTowerNum());
             jsonObject.putOpt("lineType", getLineType());
@@ -369,13 +398,14 @@ public class TowerRegisterInfo implements Parcelable {
             jsonObject.putOpt("transformerName", getTransformerName());
             jsonObject.putOpt("supplyName", getSupplyName());
             jsonObject.putOpt("lineSpan", getLineSpan());
+            jsonObject.putOpt("lineSpanName", getLineSpanName());
             jsonObject.putOpt("remark", getRemark());
             jsonObject.putOpt("wireKind", getWireKind());
             jsonObject.putOpt("wireDiameter", getWireDiameter());
             jsonObject.putOpt("investor", getInvestor());
 
+            JSONArray jsonArray = new JSONArray();
             if (towerEquipmentDTOList != null && towerEquipmentDTOList.size() > 0) {
-                JSONArray jsonArray = new JSONArray();
                 for (TowerEquipmentDTO equipment:towerEquipmentDTOList) {
                     JSONObject jo=new JSONObject();
                     jo.put("name",equipment.getName());
@@ -383,9 +413,11 @@ public class TowerRegisterInfo implements Parcelable {
                     jsonArray.put(jo);
                 }
                 jsonObject.putOpt("EquipmentList", jsonArray);
+            } else {
+                jsonObject.putOpt("EquipmentList", jsonArray);
             }
+            JSONObject jo = new JSONObject();
             if (getLocationDTO() != null) {
-                JSONObject jo = new JSONObject();
                 jo.putOpt("latitude",getLocationDTO().getLatitude());
                 jo.putOpt("longitude",getLocationDTO().getLongitude());
                 jo.putOpt("accuracy",getLocationDTO().getAccuracy());
@@ -393,6 +425,8 @@ public class TowerRegisterInfo implements Parcelable {
                 jo.putOpt("city",getLocationDTO().getCity());
                 jo.putOpt("district",getLocationDTO().getDistrict());
                 jo.putOpt("type",getLocationDTO().getType());
+                jsonObject.putOpt("locationDTO", jo);
+            } else {
                 jsonObject.putOpt("locationDTO", jo);
             }
         } catch (JSONException e) {
