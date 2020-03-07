@@ -38,7 +38,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView2;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogView;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.uber.autodispose.AutoDispose;
@@ -55,11 +54,9 @@ import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 public class InfoCollectionActivity extends BaseActivity implements AMapLocationListener {
 
-    private Unbinder unbinder;
     private TowerRegisterInfo towerRegisterInfo;
     private final List<TowerEquipmentDTO> towerEquipmentDTOList = new ArrayList<>();
     private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
@@ -113,9 +110,10 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     protected void onDestroy() {
         super.onDestroy();
         destroyLocationClient();
-        if (unbinder != null) {
-            unbinder.unbind();
-        }
+    }
+
+    private Context getActivity() {
+        return this;
     }
 
     private void initData(Bundle savedInstanceState) {
@@ -656,10 +654,6 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
                     dialog.dismiss();
                 })
                 .create(mCurrentDialogStyle).show();
-    }
-
-    private Context getActivity() {
-        return this;
     }
 
     @Override
