@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,12 +24,9 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import kotlin.Unit;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity {
 
     /**
      * XML里面的供电所-变电站-线路信息解析类
@@ -53,19 +49,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        RxView.clicks(btn_confirm_base_info)
-                .throttleFirst(1, TimeUnit.SECONDS)
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
-                .subscribe(unit -> confirmBaseInfo());
-        // 点击确认基础信息
-//        findViewById(R.id.btn_confirm_base_info).setOnClickListener(this);
-
-        tv_power_supply_name_v.setOnClickListener(this);
-        tv_transformer_name_v.setOnClickListener(this);
-        tv_line_name_v.setOnClickListener(this);
-
         initValues();
+        initEvent();
     }
 
     private void initValues() {
@@ -95,22 +80,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_power_supply_name_v:
-                selectSupplyDialog();
-                break;
-            case R.id.tv_transformer_name_v:
-                selectTransformerDialog();
-                break;
-            case R.id.tv_line_name_v:
-                selectLineDialog();
-                break;
-            case R.id.btn_confirm_base_info:
-                confirmBaseInfo();
-                break;
-        }
+    private void initEvent() {
+        RxView.clicks(btn_confirm_base_info)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe(unit -> confirmBaseInfo());
+
+        RxView.clicks(tv_power_supply_name_v)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe(unit -> selectSupplyDialog());
+        RxView.clicks(tv_transformer_name_v)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe(unit -> selectTransformerDialog());
+        RxView.clicks(tv_line_name_v)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe(unit -> selectLineDialog());
     }
 
     // 初始化供电所信息
