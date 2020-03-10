@@ -1,6 +1,5 @@
 package com.wjf.beacontower.db;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -50,7 +49,9 @@ public class TowerLocationDO {
      */
     @ColumnInfo(name = "district")// Room 列注解
     private String district;
-    @NonNull
+    /**
+     * 创建时间
+     */
     @ColumnInfo(name = "create_time", defaultValue = "CURRENT_TIMESTAMP")
     private String createTime;
 
@@ -127,12 +128,11 @@ public class TowerLocationDO {
         this.tid = tid;
     }
 
-    @NonNull
     public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(@NonNull String createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 

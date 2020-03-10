@@ -25,7 +25,6 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -246,7 +245,7 @@ public class MainActivity extends BaseActivity {
         String dateFormat = sdf.format(new Date());
         towerRegister.setCreateTime(dateFormat);
 
-        towerRegisterDAO.insertNewOne(towerRegister)
+        towerRegisterDAO.insertNewOneRegister(towerRegister)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
@@ -257,22 +256,6 @@ public class MainActivity extends BaseActivity {
                     }
                 });
 
-        towerRegisterDAO.findAll()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
-                .subscribe(new BiConsumer<List<TowerRegisterDO>, Throwable>() {
-                    @Override
-                    public void accept(List<TowerRegisterDO> towerRegisterDOS, Throwable throwable) throws Exception {
-                        try {
-                            for (TowerRegisterDO t: towerRegisterDOS) {
-                                Log.i("MainActivity", "-------------" + t.getSupplyName());
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
     }
 
 }

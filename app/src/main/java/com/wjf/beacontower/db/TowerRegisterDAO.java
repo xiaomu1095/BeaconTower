@@ -4,7 +4,6 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import java.util.List;
 
@@ -19,13 +18,22 @@ import io.reactivex.Single;
 @Dao
 public interface TowerRegisterDAO {
 
-    @Query("SELECT * FROM tbl_tower")
-    Single<List<TowerRegisterDO>> findAll();
+    @Query("SELECT tt.* FROM tbl_tower tt where tt.line_name=:lineName and tt.sub_line_name=:subLineName and tt.tower_num=:towerNum")
+    Single<TowerRegisterDO> findOneByLineNameAndSubLineNameAndTowerNum(String lineName, String subLineName, String towerNum);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Single<Long> insertNewOne(TowerRegisterDO towerRegisterDO);
+    Single<Long> insertNewOneRegister(TowerRegisterDO register);
 
-    @Update
-    int updateById(TowerRegisterDO towerRegisterDO);
+    @Query("select * from tbl_location tl where tl.tid=:tid")
+    Single<List<TowerLocationDO>> findLocationByTid(int tid);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Single<Long> insertNewOneLocation(TowerLocationDO location);
+
+    @Query("select * from tbl_equipment te where te.tid=:tid")
+    Single<List<TowerEquipmentDO>> findEquipmentByTid(int tid);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Single<List<Long>> insertNewEquipment(List<TowerEquipmentDO> equipmentS);
 
 }

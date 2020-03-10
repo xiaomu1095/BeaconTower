@@ -1,8 +1,8 @@
 package com.wjf.beacontower.db;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey;
  * Author: Lin.Li
  * Description:
  */
-@Entity(tableName = "tbl_tower")
+@Entity(tableName = "tbl_tower", indices = {@Index(value = {"line_name", "sub_line_name", "tower_num"})})
 public class TowerRegisterDO {
 
     @PrimaryKey(autoGenerate = true)
@@ -19,77 +19,76 @@ public class TowerRegisterDO {
     private int id;
 
     // 供电所名称
-    @ColumnInfo(name = "supplyName")
+    @ColumnInfo(name = "supply_name")
     private String supplyName;
     // 变电站名称
-    @ColumnInfo(name = "transformerName")
+    @ColumnInfo(name = "transformer_name")
     private String transformerName;
     // 线路名称
-    @ColumnInfo(name = "lineName")
+    @ColumnInfo(name = "line_name")
     private String lineName;
     // 线路专责
-    @ColumnInfo(name = "lineDuty")
+    @ColumnInfo(name = "line_duty")
     private String lineDuty;
     // 联系方式
-    @ColumnInfo(name = "contactInfo")
+    @ColumnInfo(name = "contact_info")
     private String contactInfo;
 
     // 线路类型
-    @ColumnInfo(name = "lineType")
+    @ColumnInfo(name = "line_type")
     private String lineType;
     // 杆塔编号
-    @ColumnInfo(name = "towerNum")
+    @ColumnInfo(name = "tower_num")
     private String towerNum;
     // 支线名称
-    @ColumnInfo(name = "subLineName")
+    @ColumnInfo(name = "sub_line_name")
     private String subLineName;
 
     // 杆塔材质
-    @ColumnInfo(name = "towerTexture")
+    @ColumnInfo(name = "tower_texture")
     private String towerTexture;
     // 杆塔用途
-    @ColumnInfo(name = "towerUse")
+    @ColumnInfo(name = "tower_use")
     private String towerUse;
     // 杆塔位置
-    @ColumnInfo(name = "towerLocation")
+    @ColumnInfo(name = "tower_location")
     private String towerLocation;
     // 杆塔高度
-    @ColumnInfo(name = "towerHeight")
+    @ColumnInfo(name = "tower_height")
     private String towerHeight;
     // 同杆假设
-    @ColumnInfo(name = "towerSetup")
+    @ColumnInfo(name = "tower_setup")
     private String towerSetup;
     // 同杆线路名称
-    @ColumnInfo(name = "towerSetupName")
+    @ColumnInfo(name = "tower_setup_name")
     private String towerSetupName;
     // 导线型号
-    @ColumnInfo(name = "wireType")
+    @ColumnInfo(name = "wire_type")
     private String wireType;
     // 导线种类：裸线，绝缘线
-    @ColumnInfo(name = "wireKind")
+    @ColumnInfo(name = "wire_kind")
     private String wireKind;
     // 导线直径
-    @ColumnInfo(name = "wireDiameter")
+    @ColumnInfo(name = "wire_diameter")
     private String wireDiameter;
     // 投资方
     @ColumnInfo(name = "investor")
     private String investor;
     // 所处地形
-    @ColumnInfo(name = "towerTerrain")
+    @ColumnInfo(name = "tower_terrain")
     private String towerTerrain;
     // 投运时间
-    @ColumnInfo(name = "commissioningDate")
+    @ColumnInfo(name = "commissioning_date")
     private String commissioningDate;
     // 线路跨越
-    @ColumnInfo(name = "lineSpan")
+    @ColumnInfo(name = "line_span")
     private String lineSpan;
     // 跨越线路名称杆号
-    @ColumnInfo(name = "lineSpanName")
+    @ColumnInfo(name = "line_span_name")
     private String lineSpanName;
     // 隐患登记
     @ColumnInfo(name = "remark")
     private String remark;
-    @NonNull
     @ColumnInfo(name = "create_time", defaultValue = "CURRENT_TIMESTAMP")
     private String createTime;
 
@@ -286,12 +285,11 @@ public class TowerRegisterDO {
         this.remark = remark;
     }
 
-    @NonNull
     public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(@NonNull String createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 }
