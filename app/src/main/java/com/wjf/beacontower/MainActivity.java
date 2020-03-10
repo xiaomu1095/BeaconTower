@@ -30,7 +30,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +40,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiConsumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity {
 
     /**
      * XML里面的供电所-变电站-线路信息解析类
@@ -56,21 +55,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.tv_line_name_v) TextView tv_line_name_v;
     @BindView(R.id.tv_transformer_name_v) TextView tv_transformer_name_v;
     @BindView(R.id.tv_power_supply_name_v) TextView tv_power_supply_name_v;
+    @BindView(R.id.btn_confirm_base_info) Button btn_confirm_base_info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-
-        // 点击确认基础信息
-        findViewById(R.id.btn_confirm_base_info).setOnClickListener(this);
-
-        tv_power_supply_name_v.setOnClickListener(this);
-        tv_transformer_name_v.setOnClickListener(this);
-        tv_line_name_v.setOnClickListener(this);
+        unbinder = ButterKnife.bind(this);
 
         initValues();
+        initEvent();
     }
 
     private void initValues() {
@@ -100,22 +94,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_power_supply_name_v:
-                selectSupplyDialog();
-                break;
-            case R.id.tv_transformer_name_v:
-                selectTransformerDialog();
-                break;
-            case R.id.tv_line_name_v:
-                selectLineDialog();
-                break;
-            case R.id.btn_confirm_base_info:
-                confirmBaseInfo();
-                break;
-        }
+    private void initEvent() {
+        RxView.clicks(btn_confirm_base_info)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe(unit -> confirmBaseInfo());
+
+        RxView.clicks(tv_power_supply_name_v)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe(unit -> selectSupplyDialog());
+        RxView.clicks(tv_transformer_name_v)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe(unit -> selectTransformerDialog());
+        RxView.clicks(tv_line_name_v)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe(unit -> selectLineDialog());
     }
 
     // 初始化供电所信息
