@@ -26,6 +26,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     final RxPermissions rxPermissions = new RxPermissions(this); // where this is an Activity or Fragment instance
 
+    private static final int MIN_DELAY_TIME = 1000;  // 两次点击间隔不能少于1000ms
+    private static long lastClickTime;
 
     final int TIPS_LENGTH_SHORT = 1000;
     final int TIPS_LENGTH_LONG = 1800;
@@ -79,6 +81,16 @@ public abstract class BaseActivity extends AppCompatActivity {
             String path = info.getAbsolutePath() + File.separatorChar + ConstantValues.COLLECTION_INFO_TXT_NAME;
             FileIOUtils.writeFileFromStringWithTime(path,content,true);
         }
+    }
+
+    protected boolean isFastClick() {
+        boolean flag = true;
+        long currentClickTime = System.currentTimeMillis();
+        if ((currentClickTime - lastClickTime) >= MIN_DELAY_TIME) {
+            flag = false;
+        }
+        lastClickTime = currentClickTime;
+        return flag;
     }
 
     protected Observable<List<Permission>> grantPermissions() {

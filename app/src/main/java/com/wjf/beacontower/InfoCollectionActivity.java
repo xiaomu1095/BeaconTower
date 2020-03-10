@@ -239,9 +239,8 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 初始化FloatingActionButton
     @OnClick(R.id.fab)
     void onClickFloatingActionButton() {
-        if (towerRegisterInfo == null) {
-            return;
-        }
+        if (isFastClick()) { return; }
+        if (towerRegisterInfo == null) { return; }
         String lineType = tv_line_type_v.getText().toString();
         towerRegisterInfo.setLineType(lineType);
         String towerNum = tv_tower_num_v.getText().toString();
@@ -285,6 +284,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 隐患登记
     @OnClick(R.id.et_remark)
     void addYHDJDialog() {
+        if (isFastClick()) { return; }
         final CharSequence et_remark_text = et_remark.getText();
         final QMUIDialog.CustomDialogBuilder builder = new QMUIDialog.CustomDialogBuilder(this);
         builder.setLayout(R.layout.dialog_add_yhdj)
@@ -320,6 +320,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 线路跨越
     @OnClick(R.id.tv_line_span_v)
     void selectLineSpanDialog() {
+        if (isFastClick()) { return; }
         final String[] items = ConstantValues.ITEMS_LINE_SPAN;
         new QMUIDialog.MenuDialogBuilder(this)
                 .addItems(items, (dialog, which) -> {
@@ -333,6 +334,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 跨越线路名称杆号
     @OnClick(R.id.tv_line_span_and_name_v)
     void inputLineSpanNameAndNo(){
+        if (isFastClick()) { return; }
         QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
         builder.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setTitle("请输入跨越线路名称杆号");
@@ -349,6 +351,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 添加杆上设备
     @OnClick(R.id.tv_tower_equipment_v)
     void addGSSBDialog() {
+        if (isFastClick()) { return; }
         new QMUIDialog.CustomDialogBuilder(this)
                 .setLayout(R.layout.dialog_add_gssb)
                 .addAction("确定", (dialog, index) -> {
@@ -430,6 +433,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 线路类型
     @OnClick(R.id.tv_line_type_v)
     void selectLineTypeDialog() {
+        if (isFastClick()) { return; }
         final String[] items = ConstantValues.ITEMS_LINE_TYPE;
         new QMUIDialog.MenuDialogBuilder(this)
                 .addItems(items, (dialog, which) -> {
@@ -448,6 +452,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 输入杆号
     @OnClick(R.id.tv_tower_num_v)
     void inputTowerNumDialog() {
+        if (isFastClick()) { return; }
         if (tv_line_type_v.getText().length() < 1) {
             QMUITipDialog dialog = new QMUITipDialog.Builder(this)
                     .setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL)
@@ -473,6 +478,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 输入支线名称
     @OnClick(R.id.tv_subline_name_v)
     void inputSubLineNameDialog() {
+        if (isFastClick()) { return; }
         final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
         builder.setTitle("请输入支线名称")
                 .setInputType(InputType.TYPE_CLASS_TEXT)
@@ -489,6 +495,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 杆塔材质
     @OnClick(R.id.tv_tower_texture_v)
     void selectTowerTextureDialog() {
+        if (isFastClick()) { return; }
         final String[] items = ConstantValues.ITEMS_TOWER_TEXTURE;
         new QMUIDialog.MenuDialogBuilder(this)
                 .addItems(items, (dialog, which) -> {
@@ -501,6 +508,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 杆塔用途
     @OnClick(R.id.tv_tower_use_v)
     void selectTowerUseDialog() {
+        if (isFastClick()) { return; }
         final String[] items = ConstantValues.ITEMS_TOWER_USE;
         new QMUIDialog.MenuDialogBuilder(this)
                 .addItems(items, (dialog, which) -> {
@@ -513,6 +521,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 获取位置信息
     @OnClick(R.id.tv_tower_location_v)
     void getTowerLocation() {
+        if (isFastClick()) { return; }
         tv_tower_location_v.setText("开始定位");
         rxPermissions
                 .request(locationPermissions)
@@ -540,6 +549,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 杆塔高度
     @OnClick(R.id.tv_tower_height_v)
     void inputTowerHeight(){
+        if (isFastClick()) { return; }
         QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
         builder.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED |
                 InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -558,6 +568,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 同杆架设
     @OnClick(R.id.tv_tower_setup_v)
     void selectTowerSetupDialog() {
+        if (isFastClick()) { return; }
         final String[] items = ConstantValues.ITEMS_TOWER_SETUP;
         new QMUIDialog.MenuDialogBuilder(this)
                 .addItems(items, (dialog, which) -> {
@@ -570,6 +581,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 同杆线路名称
     @OnClick(R.id.tv_tower_setup_name_v)
     void inputTowerSetupName(){
+        if (isFastClick()) { return; }
         QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
         builder.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setTitle("请输入同杆线路名称");
@@ -586,6 +598,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 导线类型
     @OnClick(R.id.tv_wire_kind_v)
     void selectWireKindDialog() {
+        if (isFastClick()) { return; }
         final String[] items = ConstantValues.ITEMS_WIRE_KIND;
         new QMUIDialog.MenuDialogBuilder(this)
                 .addItems(items, (dialog, which) -> {
@@ -597,7 +610,8 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
 
     // 导线直径
     @OnClick(R.id.tv_wire_diameter_v)
-    void inputWireDiameter(){
+    void inputWireDiameter() {
+        if (isFastClick()) { return; }
         QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
         builder.setInputType(InputType.TYPE_CLASS_NUMBER);
         builder.setTitle("请输入导线直径");
@@ -614,6 +628,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 所处地形
     @OnClick(R.id.tv_tower_terrain_v)
     void selectTowerTerrainDialog() {
+        if (isFastClick()) { return; }
         final String[] items = ConstantValues.ITEMS_TOWER_TERRAIN;
         new QMUIDialog.MenuDialogBuilder(this)
                 .addItems(items, (dialog, which) -> {
@@ -627,6 +642,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 投运时间
     @OnClick(R.id.tv_commissioning_date_v)
     void selectCommissioningDateDialog() {
+        if (isFastClick()) { return; }
         new QMUIDialog.CustomDialogBuilder(this)
                 .setLayout(R.layout.dialog_commissioning_date)
                 .addAction("确定", (dialog, index) -> {
@@ -647,6 +663,7 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
     // 投资方
     @OnClick(R.id.tv_investor_v)
     void selectInvestorDialog() {
+        if (isFastClick()) { return; }
         final String[] items = ConstantValues.ITEMS_INVESTOR;
         new QMUIDialog.MenuDialogBuilder(this)
                 .addItems(items, (dialog, which) -> {
