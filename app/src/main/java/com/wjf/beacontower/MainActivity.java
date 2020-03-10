@@ -4,23 +4,42 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.uber.autodispose.AutoDispose;
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
+import com.wjf.beacontower.db.TowerDatabase;
+import com.wjf.beacontower.db.TowerRegisterDAO;
+import com.wjf.beacontower.db.TowerRegisterDO;
 import com.wjf.beacontower.model.TowerRegisterInfo;
 import com.wjf.beacontower.util.SpUtil;
 import com.wjf.beacontower.util.XMLPowerSupplyData;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Single;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiConsumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -215,7 +234,44 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         Intent intent = new Intent();
         intent.setClass(this, InfoCollectionActivity.class);
         intent.putExtras(bundle);
-        startActivity(intent);
+//        startActivity(intent);
+        TowerDatabase database = TowerDatabase.getInstance(this);
+        TowerRegisterDAO towerRegisterDAO = database.towerRegisterDAO();
+        TowerRegisterDO towerRegister = new TowerRegisterDO();
+        towerRegister.setSupplyName(powerSupplyName);
+        towerRegister.setTransformerName(transformerName);
+        towerRegister.setLineName(lineName);
+        towerRegister.setLineDuty(lineDuty);
+        towerRegister.setContactInfo(contactInfo);
+        String format = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.CHINESE);
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        String dateFormat = sdf.format(new Date());
+        towerRegister.setCreateTime(dateFormat);
+
+        towerRegisterDAO.insertNewOne(towerRegister)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe(new BiConsumer<Long, Throwable>() {
+                    @Override
+                    public void accept(Long aLong, Throwable throwable) throws Exception {
+                        Log.i("MainActivity", aLong + "=============");
+                    }
+                });
+
+        towerRegisterDAO.findAll()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe(new BiConsumer<List<TowerRegisterDO>, Throwable>() {
+                    @Override
+                    public void accept(List<TowerRegisterDO> towerRegisterDOS, Throwable throwable) throws Exception {
+                        for (TowerRegisterDO t: towerRegisterDOS) {
+                            Log.i("MainActivity", "-------------" + t.getSupplyName());
+                        }
+                    }
+                });
     }
 
 }
