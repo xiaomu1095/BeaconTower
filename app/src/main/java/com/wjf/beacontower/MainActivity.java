@@ -264,8 +264,12 @@ public class MainActivity extends BaseActivity {
                 .subscribe(new BiConsumer<List<TowerRegisterDO>, Throwable>() {
                     @Override
                     public void accept(List<TowerRegisterDO> towerRegisterDOS, Throwable throwable) throws Exception {
-                        for (TowerRegisterDO t: towerRegisterDOS) {
-                            Log.i("MainActivity", "-------------" + t.getSupplyName());
+                        try {
+                            for (TowerRegisterDO t: towerRegisterDOS) {
+                                Log.i("MainActivity", "-------------" + t.getSupplyName());
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
                 });

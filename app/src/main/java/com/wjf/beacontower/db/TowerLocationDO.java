@@ -1,5 +1,6 @@
 package com.wjf.beacontower.db;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -13,9 +14,12 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "tbl_location")
 public class TowerLocationDO {
 
-    @ColumnInfo(name = "id")// Room 列注解
+    @ColumnInfo(name = "lid")// Room 列注解
     @PrimaryKey(autoGenerate = true)
     private int id;
+
+    @ColumnInfo(name = "tid")// Room 列注解
+    private int tid;
 
     /**
      * 定位类型：高德(AMap)
@@ -46,6 +50,10 @@ public class TowerLocationDO {
      */
     @ColumnInfo(name = "district")// Room 列注解
     private String district;
+    @NonNull
+    @ColumnInfo(name = "create_time", defaultValue = "CURRENT_TIMESTAMP")
+    private String createTime;
+
 
     public int getId() {
         return id;
@@ -110,4 +118,22 @@ public class TowerLocationDO {
     public void setDistrict(String district) {
         this.district = district;
     }
+
+    public int getTid() {
+        return tid;
+    }
+
+    public void setTid(int tid) {
+        this.tid = tid;
+    }
+
+    @NonNull
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(@NonNull String createTime) {
+        this.createTime = createTime;
+    }
+
 }

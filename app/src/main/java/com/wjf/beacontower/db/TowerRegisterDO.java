@@ -2,15 +2,8 @@ package com.wjf.beacontower.db;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
-import androidx.room.Embedded;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
-import com.wjf.beacontower.model.TowerEquipmentDTO;
-import com.wjf.beacontower.model.TowerLocationDTO;
-
-import java.util.List;
 
 /**
  * @author xiaom
@@ -23,7 +16,7 @@ public class TowerRegisterDO {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "tid")// Room 列注解
-    private Long id;
+    private int id;
 
     // 供电所名称
     @ColumnInfo(name = "supplyName")
@@ -60,8 +53,6 @@ public class TowerRegisterDO {
     // 杆塔位置
     @ColumnInfo(name = "towerLocation")
     private String towerLocation;
-//    @Embedded(prefix = "location_")
-//    private TowerLocationDO location;
     // 杆塔高度
     @ColumnInfo(name = "towerHeight")
     private String towerHeight;
@@ -99,18 +90,15 @@ public class TowerRegisterDO {
     @ColumnInfo(name = "remark")
     private String remark;
     @NonNull
-    @ColumnInfo(name = "create_time")
+    @ColumnInfo(name = "create_time", defaultValue = "CURRENT_TIMESTAMP")
     private String createTime;
-    // 杆上设备
-//    @Ignore
-//    private List<TowerEquipmentDTO> towerEquipmentDTOList;
 
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
