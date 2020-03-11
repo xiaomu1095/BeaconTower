@@ -33,8 +33,9 @@ public abstract class TowerDatabase extends RoomDatabase {
                     if (info != null && info.exists()) {
                         dbName = info.getAbsolutePath() + File.separatorChar + dbName;
                     }
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            TowerDatabase.class, dbName)
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), TowerDatabase.class, dbName)
+                            //设置此种模式才能使用Android-Debug-Database查看数据库,这种模式会造成并发降低
+                            .setJournalMode(JournalMode.TRUNCATE)
                             .build();
                 }
             }
