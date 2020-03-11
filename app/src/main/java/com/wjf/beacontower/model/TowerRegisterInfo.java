@@ -4,12 +4,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import com.wjf.beacontower.db.TowerRegisterDO;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * @author xiaom
@@ -433,6 +439,39 @@ public class TowerRegisterInfo implements Parcelable {
             e.printStackTrace();
         }
         return jsonObject.toString();
+    }
+
+    public TowerRegisterDO convertToDO(){
+        TowerRegisterDO registerDO = new TowerRegisterDO();
+        registerDO.setSupplyName(getSupplyName());
+        registerDO.setCommissioningDate(getCommissioningDate());
+        registerDO.setContactInfo(getContactInfo());
+        registerDO.setInvestor(getInvestor());
+        registerDO.setWireType(getWireType());
+        registerDO.setWireKind(getWireKind());
+        registerDO.setWireDiameter(getWireDiameter());
+        registerDO.setTransformerName(getTransformerName());
+        registerDO.setLineDuty(getLineDuty());
+        registerDO.setLineName(getLineName());
+        registerDO.setLineSpan(getLineSpan());
+        registerDO.setLineSpanName(getLineSpanName());
+        registerDO.setLineType(getLineType());
+        registerDO.setRemark(getRemark());
+        registerDO.setSubLineName(getSubLineName());
+        registerDO.setTowerHeight(getTowerHeight());
+        registerDO.setTowerLocation(getTowerLocation());
+        registerDO.setTowerNum(getTowerNum());
+        registerDO.setTowerSetup(getTowerSetup());
+        registerDO.setTowerSetupName(getTowerSetupName());
+        registerDO.setTowerTerrain(getTowerTerrain());
+        registerDO.setTowerTexture(getTowerTexture());
+        registerDO.setTowerUse(getTowerUse());
+        String format = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.CHINESE);
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        String dateFormat = sdf.format(new Date());
+        registerDO.setCreateTime(dateFormat);
+        return registerDO;
     }
 
 }

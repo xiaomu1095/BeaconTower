@@ -2,9 +2,13 @@ package com.wjf.beacontower.db;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "tbl_equipment")
+import org.jetbrains.annotations.NotNull;
+
+@Entity(tableName = "tbl_equipment", indices = {@Index(value = "tid")})
 public class TowerEquipmentDO {
 
     @ColumnInfo(name = "eid")// Room 列注解
@@ -68,5 +72,18 @@ public class TowerEquipmentDO {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    @NotNull
+    @Ignore
+    @Override
+    public String toString() {
+        return "TowerEquipmentDO{" +
+                "id=" + id +
+                ", tid=" + tid +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", createTime='" + createTime + '\'' +
+                '}';
     }
 }

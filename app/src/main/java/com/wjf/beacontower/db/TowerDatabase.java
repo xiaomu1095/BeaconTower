@@ -16,7 +16,8 @@ import java.io.File;
  * Author: Lin.Li
  * Description:
  */
-@Database(entities = {TowerRegisterDO.class}, version = 1, exportSchema = false)
+@Database(entities = {TowerRegisterDO.class, TowerLocationDO.class, TowerEquipmentDO.class},
+        version = 1, exportSchema = false)
 public abstract class TowerDatabase extends RoomDatabase {
 
     private static volatile TowerDatabase INSTANCE;

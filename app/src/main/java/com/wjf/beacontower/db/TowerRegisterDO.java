@@ -89,6 +89,7 @@ public class TowerRegisterDO {
     // 隐患登记
     @ColumnInfo(name = "remark")
     private String remark;
+    // 创建时间
     @ColumnInfo(name = "create_time", defaultValue = "CURRENT_TIMESTAMP")
     private String createTime;
 

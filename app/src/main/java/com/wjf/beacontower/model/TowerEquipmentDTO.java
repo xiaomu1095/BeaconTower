@@ -1,7 +1,13 @@
 package com.wjf.beacontower.model;
 
+import com.wjf.beacontower.db.TowerEquipmentDO;
+
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.TimeZone;
 
 /**
  * @author xiaom
@@ -62,4 +68,25 @@ public class TowerEquipmentDTO implements Serializable {
         result = 31 * result + (type != null ? type.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "TowerEquipmentDTO{" +
+                "name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
+
+    public TowerEquipmentDO convertToDO() {
+        TowerEquipmentDO equipmentDO = new TowerEquipmentDO();
+        equipmentDO.setName(getName());
+        equipmentDO.setType(getType());
+        String format = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.CHINESE);
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        String dateFormat = sdf.format(new Date());
+        equipmentDO.setCreateTime(dateFormat);
+        return equipmentDO;
+    }
+
 }

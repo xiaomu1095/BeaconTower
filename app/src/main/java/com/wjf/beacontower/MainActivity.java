@@ -233,17 +233,7 @@ public class MainActivity extends BaseActivity {
 //        startActivity(intent);
         TowerDatabase database = TowerDatabase.getInstance(this);
         TowerRegisterDAO towerRegisterDAO = database.towerRegisterDAO();
-        TowerRegisterDO towerRegister = new TowerRegisterDO();
-        towerRegister.setSupplyName(powerSupplyName);
-        towerRegister.setTransformerName(transformerName);
-        towerRegister.setLineName(lineName);
-        towerRegister.setLineDuty(lineDuty);
-        towerRegister.setContactInfo(contactInfo);
-        String format = "yyyy-MM-dd HH:mm:ss";
-        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.CHINESE);
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
-        String dateFormat = sdf.format(new Date());
-        towerRegister.setCreateTime(dateFormat);
+        TowerRegisterDO towerRegister = towerRegisterInfo.convertToDO();
 
         towerRegisterDAO.insertNewOneRegister(towerRegister)
                 .subscribeOn(Schedulers.io())

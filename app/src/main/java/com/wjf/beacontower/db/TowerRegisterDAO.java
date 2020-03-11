@@ -24,13 +24,13 @@ public interface TowerRegisterDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Single<Long> insertNewOneRegister(TowerRegisterDO register);
 
-    @Query("select * from tbl_location tl where tl.tid=:tid")
+    @Query("select tl.* from tbl_location tl where tl.tid=:tid")
     Single<List<TowerLocationDO>> findLocationByTid(int tid);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Single<Long> insertNewOneLocation(TowerLocationDO location);
 
-    @Query("select * from tbl_equipment te where te.tid=:tid")
+    @Query("select te.* from tbl_equipment te where te.tid=:tid")
     Single<List<TowerEquipmentDO>> findEquipmentByTid(int tid);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

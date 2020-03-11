@@ -3,6 +3,13 @@ package com.wjf.beacontower.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.wjf.beacontower.db.TowerLocationDO;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 /**
  * @author xiaom
  * Time: 2020/1/20 8:54
@@ -183,5 +190,22 @@ public class TowerLocationDTO implements Parcelable {
                 ", accuracy=" + accuracy +
                 ", district='" + district + '\'' +
                 '}';
+    }
+
+    public TowerLocationDO convertToDO(){
+        TowerLocationDO locationDO = new TowerLocationDO();
+        locationDO.setAccuracy(getAccuracy());
+        locationDO.setCity(getCity());
+        locationDO.setDistrict(getDistrict());
+        locationDO.setLatitude(getLatitude());
+        locationDO.setLongitude(getLongitude());
+        locationDO.setProvince(getProvince());
+        locationDO.setType(getType());
+        String format = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.CHINESE);
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        String dateFormat = sdf.format(new Date());
+        locationDO.setCreateTime(dateFormat);
+        return locationDO;
     }
 }

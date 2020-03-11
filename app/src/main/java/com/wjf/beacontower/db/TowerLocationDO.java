@@ -2,7 +2,11 @@ package com.wjf.beacontower.db;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author xiaom
@@ -10,11 +14,11 @@ import androidx.room.PrimaryKey;
  * Author: Lin.Li
  * Description:
  */
-@Entity(tableName = "tbl_location")
+@Entity(tableName = "tbl_location", indices = {@Index(value = "tid")})
 public class TowerLocationDO {
 
-    @ColumnInfo(name = "lid")// Room 列注解
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "lid")// Room 列注解
     private int id;
 
     @ColumnInfo(name = "tid")// Room 列注解
@@ -136,4 +140,21 @@ public class TowerLocationDO {
         this.createTime = createTime;
     }
 
+    @Ignore
+    @NotNull
+    @Override
+    public String toString() {
+        return "TowerLocationDO{" +
+                "id=" + id +
+                ", tid=" + tid +
+                ", type='" + type + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", city='" + city + '\'' +
+                ", province='" + province + '\'' +
+                ", accuracy=" + accuracy +
+                ", district='" + district + '\'' +
+                ", createTime='" + createTime + '\'' +
+                '}';
+    }
 }
