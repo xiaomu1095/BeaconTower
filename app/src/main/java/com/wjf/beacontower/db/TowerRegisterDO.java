@@ -92,6 +92,9 @@ public class TowerRegisterDO {
     // 创建时间
     @ColumnInfo(name = "create_time", defaultValue = "CURRENT_TIMESTAMP")
     private String createTime;
+    // 更新时间
+    @ColumnInfo(name = "update_time", defaultValue = "CURRENT_TIMESTAMP")
+    private String updateTime;
 
 
     public int getId() {
@@ -293,4 +296,14 @@ public class TowerRegisterDO {
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+
 }

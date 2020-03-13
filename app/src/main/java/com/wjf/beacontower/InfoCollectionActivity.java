@@ -51,6 +51,7 @@ import com.wjf.beacontower.model.TowerEquipmentDTO;
 import com.wjf.beacontower.model.TowerLocationDTO;
 import com.wjf.beacontower.model.TowerRegisterInfo;
 import com.wjf.beacontower.util.OptionalUtil;
+import com.wjf.beacontower.util.TimeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,10 +63,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 public class InfoCollectionActivity extends BaseActivity implements AMapLocationListener {
@@ -318,20 +317,27 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
                         return OptionalUtil.ofNullable(registerDO);
                     }
                 })
-                .filter(new Predicate<OptionalUtil<TowerRegisterDO>>() {
-                    @Override
-                    public boolean test(OptionalUtil<TowerRegisterDO> towerRegisterDOOptionalUtil) throws Exception {
-                        Log.i("filter", Thread.currentThread().getName());
-                        return !towerRegisterDOOptionalUtil.isPresent();
-                    }
-                })
                 .map(new Function<OptionalUtil<TowerRegisterDO>, OptionalUtil<Long>>() {
                     @Override
                     public OptionalUtil<Long> apply(OptionalUtil<TowerRegisterDO> towerRegisterDO) throws Exception {
                         Log.i("map3", Thread.currentThread().getName());
                         TowerRegisterDO registerDO = towerRegisterInfo.convertToDO();
-                        Long aLong = towerRegisterDAO.insertNewOneRegister(registerDO);
-                        return OptionalUtil.ofNullable(aLong);
+                        if (towerRegisterDO.isPresent()) {
+                            int id = towerRegisterDO.get().getId();
+                            registerDO.setUpdateTime(TimeUtil.nowTimeString());
+                            registerDO.setId(id);
+                            Integer integer = towerRegisterDAO.updateRegister(registerDO);
+                            if (integer == null || integer != 1) {
+                                String lineName = towerRegisterInfo.getLineName();
+                                String subLineName1 = towerRegisterInfo.getSubLineName();
+                                String towerNum1 = towerRegisterInfo.getTowerNum();
+                                throw new Exception(lineName + "-" + subLineName1 + "-" + towerNum1 + ", update fail!");
+                            }
+                            return OptionalUtil.ofNullable((long) id);
+                        } else {
+                            Long aLong = towerRegisterDAO.insertNewOneRegister(registerDO);
+                            return OptionalUtil.ofNullable(aLong);
+                        }
                     }
                 })
                 .map(new Function<OptionalUtil<Long>, OptionalUtil<Long>>() {
@@ -380,16 +386,8 @@ public class InfoCollectionActivity extends BaseActivity implements AMapLocation
                         Log.i("onError", Thread.currentThread().getName());
                         throwable.printStackTrace();
                     }
-                }, new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        Log.i("onComplete", Thread.currentThread().getName());
-                    }
                 })
         ;
-
-//        writeStringToFile(towerRegisterInfo.objectToJson());
-//        Snackbar.make(floatingActionButton, "数据已经存储", Snackbar.LENGTH_SHORT).show();
     }
 
     // 隐患登记

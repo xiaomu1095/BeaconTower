@@ -5,17 +5,14 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.wjf.beacontower.db.TowerRegisterDO;
+import com.wjf.beacontower.util.TimeUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
 /**
  * @author xiaom
@@ -466,11 +463,9 @@ public class TowerRegisterInfo implements Parcelable {
         registerDO.setTowerTerrain(getTowerTerrain());
         registerDO.setTowerTexture(getTowerTexture());
         registerDO.setTowerUse(getTowerUse());
-        String format = "yyyy-MM-dd HH:mm:ss";
-        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.CHINESE);
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
-        String dateFormat = sdf.format(new Date());
-        registerDO.setCreateTime(dateFormat);
+        String now = TimeUtil.nowTimeString();
+        registerDO.setCreateTime(now);
+        registerDO.setUpdateTime(now);
         return registerDO;
     }
 
