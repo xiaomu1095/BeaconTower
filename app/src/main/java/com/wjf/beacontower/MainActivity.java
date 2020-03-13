@@ -230,21 +230,21 @@ public class MainActivity extends BaseActivity {
         Intent intent = new Intent();
         intent.setClass(this, InfoCollectionActivity.class);
         intent.putExtras(bundle);
-//        startActivity(intent);
-        TowerDatabase database = TowerDatabase.getInstance(this);
-        TowerRegisterDAO towerRegisterDAO = database.towerRegisterDAO();
-        TowerRegisterDO towerRegister = towerRegisterInfo.convertToDO();
-
-        towerRegisterDAO.insertNewOneRegister(towerRegister)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
-                .subscribe(new BiConsumer<Long, Throwable>() {
-                    @Override
-                    public void accept(Long aLong, Throwable throwable) throws Exception {
-                        Log.i("MainActivity", aLong + "=============");
-                    }
-                });
+        startActivity(intent);
+//        TowerDatabase database = TowerDatabase.getInstance(this);
+//        TowerRegisterDAO towerRegisterDAO = database.towerRegisterDAO();
+//        TowerRegisterDO towerRegister = towerRegisterInfo.convertToDO();
+//
+//        towerRegisterDAO.insertNewOneRegister(towerRegister)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+//                .subscribe(new BiConsumer<Long, Throwable>() {
+//                    @Override
+//                    public void accept(Long aLong, Throwable throwable) throws Exception {
+//                        Log.i("MainActivity", aLong + "=============");
+//                    }
+//                });
 
     }
 
